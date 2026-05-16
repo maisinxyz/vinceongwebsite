@@ -54,7 +54,7 @@ export default function Navbar() {
             : "bg-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="max-w-7xl mx-auto page-padding">
           <div className="flex items-center justify-between h-16 sm:h-20">
             {/* Wordmark */}
             <Link

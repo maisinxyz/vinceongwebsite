@@ -49,7 +49,7 @@ export default function Home() {
             </span>
           </div>
 
-          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full pt-40 pb-32">
+          <div className="max-w-7xl mx-auto page-padding w-full pt-40 pb-32">
             <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
               {/* Left */}
               <div className="relative z-10 space-y-10">
@@ -57,7 +57,7 @@ export default function Home() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3, duration: 0.6, ease: [0.25, 0, 0, 1] }}
-                  className="inline-block bg-iron/60 backdrop-blur-sm border border-steel/30 rounded-full px-5 py-2"
+                  className="inline-block bg-iron/60 backdrop-blur-sm border border-steel/30 rounded-full px-5 py-2 ml-4 sm:ml-8 lg:ml-12"
                 >
                   <p className="font-[family-name:var(--font-space-mono-family)] text-silver text-[11px] tracking-[0.15em]">
                     MECHATRONIC SYSTEMS ENGINEER
@@ -80,7 +80,7 @@ export default function Home() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5, duration: 0.6, ease: [0.25, 0, 0, 1] }}
-                  className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/70 text-lg"
+                  className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/70 text-lg ml-4 sm:ml-8 lg:ml-12"
                 >
                   Firmware · Systems · Products
                 </motion.p>
@@ -89,7 +89,7 @@ export default function Home() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6, duration: 0.6, ease: [0.25, 0, 0, 1] }}
-                  className="flex flex-wrap gap-3"
+                  className="flex flex-wrap gap-3 ml-4 sm:ml-8 lg:ml-12"
                 >
                   {PILLS.map((pill) => (
                     <span
@@ -105,7 +105,7 @@ export default function Home() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7, duration: 0.6, ease: [0.25, 0, 0, 1] }}
-                  className="flex flex-wrap gap-4 pt-4"
+                  className="flex flex-wrap gap-4 pt-4 ml-4 sm:ml-8 lg:ml-12"
                 >
                   <Link
                     href="#projects"
@@ -194,7 +194,7 @@ export default function Home() {
         {/* ═══════════════════════════════════════════
             PLACEHOLDER — PORTRAIT / HEADSHOT AREA
         ═══════════════════════════════════════════ */}
-        <Spacer variant="placeholder" placeholderLabel="PORTRAIT / HEADSHOT PHOTO" height={300} className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12" />
+        <Spacer variant="placeholder" placeholderLabel="PORTRAIT / HEADSHOT PHOTO" height={300} className="max-w-7xl mx-auto page-padding" />
 
         <Spacer variant="line" height={120} />
 
@@ -202,7 +202,7 @@ export default function Home() {
             ABOUT STRIP
         ═══════════════════════════════════════════ */}
         <section className="py-20 sm:py-24">
-          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+          <div className="max-w-7xl mx-auto page-padding">
             <div className="grid lg:grid-cols-5 gap-16 lg:gap-24">
               {/* Bio */}
               <RevealOnScroll className="lg:col-span-3">
@@ -245,7 +245,7 @@ export default function Home() {
         {/* ═══════════════════════════════════════════
             PLACEHOLDER — FEATURED GRAPHIC / BANNER
         ═══════════════════════════════════════════ */}
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="max-w-7xl mx-auto page-padding">
           <RevealOnScroll>
             <div className="border border-dashed border-steel/15 rounded-2xl h-48 sm:h-64 flex items-center justify-center">
               <div className="text-center">
@@ -266,7 +266,7 @@ export default function Home() {
             FEATURED PROJECTS
         ═══════════════════════════════════════════ */}
         <section id="projects" className="py-20 sm:py-24">
-          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+          <div className="max-w-7xl mx-auto page-padding">
             <RevealOnScroll>
               <Divider label="SELECTED WORK" className="mb-20" />
             </RevealOnScroll>
@@ -293,7 +293,7 @@ export default function Home() {
             3D VIEWER TEASER
         ═══════════════════════════════════════════ */}
         <section className="py-24 sm:py-32 bg-void">
-          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+          <div className="max-w-7xl mx-auto page-padding">
             <div className="grid lg:grid-cols-2 gap-20 lg:gap-28 items-center">
               <RevealOnScroll>
                 <div className="space-y-8">
@@ -332,7 +332,7 @@ export default function Home() {
             EXPERIENCE TEASER
         ═══════════════════════════════════════════ */}
         <section className="py-20 sm:py-24">
-          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+          <div className="max-w-7xl mx-auto page-padding">
             <RevealOnScroll>
               <Divider label="EXPERIENCE" className="mb-20" />
             </RevealOnScroll>
@@ -369,7 +369,7 @@ export default function Home() {
         {/* ═══════════════════════════════════════════
             PLACEHOLDER — QUOTE / TESTIMONIAL
         ═══════════════════════════════════════════ */}
-        <div className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="max-w-3xl mx-auto page-padding">
           <RevealOnScroll>
             <div className="border border-dashed border-steel/15 rounded-2xl py-16 px-10 text-center">
               <div className="w-10 h-10 mx-auto mb-5 border border-steel/15 rounded-lg flex items-center justify-center">
@@ -388,7 +388,7 @@ export default function Home() {
             CONTACT CTA BAND
         ═══════════════════════════════════════════ */}
         <section className="py-40 sm:py-48 bg-chalk text-void">
-          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 text-center">
+          <div className="max-w-7xl mx-auto page-padding text-center">
             <RevealOnScroll>
               <h2 className="font-[family-name:var(--font-syne-family)] font-extrabold text-void text-4xl sm:text-5xl lg:text-6xl tracking-tight mb-8">
                 LET&apos;S BUILD SOMETHING.

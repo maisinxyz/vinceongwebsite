@@ -290,3 +290,19 @@ body::before {
     background-size: 16px 16px;
   }
 }
+
+/* ═══════════════════════════════════════════════════
+   PAGE PADDING — consistent horizontal inset
+   ═══════════════════════════════════════════════════ */
+.page-padding {
+  padding-left: 12vw;
+  padding-right: 12vw;
+}
+
+@media (min-width: 1024px) {
+  .page-padding {
+    padding-left: 18vw;
+    padding-right: 18vw;
+  }
+}
+

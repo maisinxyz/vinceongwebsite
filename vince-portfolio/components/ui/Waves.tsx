@@ -73,7 +73,7 @@ export function Waves({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const setSize = () => {
+    function setSize() {
         if (!containerRef.current || !svgRef.current) return
 
         boundingRef.current = containerRef.current.getBoundingClientRect()
@@ -83,7 +83,7 @@ export function Waves({
         svgRef.current.style.height = `${height}px`
     }
 
-    const setLines = () => {
+    function setLines() {
         if (!svgRef.current || !boundingRef.current) return
 
         const { width, height } = boundingRef.current
@@ -137,22 +137,22 @@ export function Waves({
         }
     }
 
-    const onResize = () => {
+    function onResize() {
         setSize()
         setLines()
     }
 
-    const onMouseMove = (e: MouseEvent) => {
+    function onMouseMove(e: MouseEvent) {
         updateMousePosition(e.pageX, e.pageY)
     }
 
-    const onTouchMove = (e: TouchEvent) => {
+    function onTouchMove(e: TouchEvent) {
         e.preventDefault()
         const touch = e.touches[0]
         updateMousePosition(touch.clientX, touch.clientY)
     }
 
-    const updateMousePosition = (x: number, y: number) => {
+    function updateMousePosition(x: number, y: number) {
         if (!boundingRef.current) return
 
         const mouse = mouseRef.current
@@ -174,7 +174,7 @@ export function Waves({
         }
     }
 
-    const movePoints = (time: number) => {
+    function movePoints(time: number) {
         const { current: lines } = linesRef
         const { current: mouse } = mouseRef
         const { current: noise } = noiseRef
@@ -219,7 +219,7 @@ export function Waves({
         })
     }
 
-    const moved = (point: Point, withCursorForce = true) => {
+    function moved(point: Point, withCursorForce = true) {
         const coords = {
             x: point.x + point.wave.x + (withCursorForce ? point.cursor.x : 0),
             y: point.y + point.wave.y + (withCursorForce ? point.cursor.y : 0),
@@ -228,7 +228,7 @@ export function Waves({
         return coords
     }
 
-    const drawLines = () => {
+    function drawLines() {
         const { current: lines } = linesRef
         const { current: paths } = pathsRef
 
@@ -247,7 +247,7 @@ export function Waves({
         })
     }
 
-    const tick = (time: number) => {
+    function tick(time: number) {
         const { current: mouse } = mouseRef
 
         mouse.sx += (mouse.x - mouse.sx) * 0.1

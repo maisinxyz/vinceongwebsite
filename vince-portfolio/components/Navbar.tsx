@@ -9,7 +9,8 @@ const NAV_LINKS = [
   { href: "/about", label: "ABOUT" },
   { href: "/projects", label: "PROJECTS" },
   { href: "/experience", label: "EXPERIENCE" },
-  { href: "/contact", label: "CONTACT" },
+  { href: "/education", label: "EDUCATION" },
+  { href: "/gurt", label: "GURT" },
 ];
 
 const CuboidArm = ({ rotateZ = 0, rotateX = 0, rotateY = 0 }: { rotateZ?: number, rotateX?: number, rotateY?: number }) => {
@@ -72,7 +73,7 @@ export default function Navbar() {
 
   // Close mobile menu on route change
   useEffect(() => {
-    setMobileMenuOpen(false);
+    setTimeout(() => setMobileMenuOpen(false), 0);
   }, [pathname]);
 
   // Lock body scroll when mobile menu is open

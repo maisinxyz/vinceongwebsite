@@ -29,9 +29,9 @@ export default function BootLoader() {
     if (typeof window !== "undefined") {
       const booted = sessionStorage.getItem("system-booted");
       if (booted) {
-        setIsBooted(true);
+        setTimeout(() => setIsBooted(true), 0);
       } else {
-        setIsBooted(false);
+        setTimeout(() => setIsBooted(false), 0);
         // Lock body scroll during boot
         document.body.style.overflow = "hidden";
       }
@@ -78,7 +78,7 @@ export default function BootLoader() {
 
     // Initialize first line
     if (displayedLines.length === 0) {
-      setDisplayedLines([""]);
+      setTimeout(() => setDisplayedLines([""]), 0);
     }
 
     const timer = setTimeout(typeNextChar, CHAR_DELAY);

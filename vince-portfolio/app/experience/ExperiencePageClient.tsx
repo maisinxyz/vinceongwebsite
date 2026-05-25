@@ -5,7 +5,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
 import RevealOnScroll from "@/components/RevealOnScroll";
-import Spacer from "@/components/Spacer";
 
 const TIMELINE = [
   {
@@ -27,16 +26,6 @@ const TIMELINE = [
     bullets: [
       "Operated high-traffic game stations, managing customer interactions and maintaining equipment reliability.",
       "Developed skills in fast-paced problem solving, public communication, and operational efficiency.",
-    ],
-  },
-  {
-    company: "Simon Fraser University",
-    role: "BASc Mechatronic Systems Engineering",
-    dateRange: "Sep 2025 – Present",
-    type: "EDUCATION",
-    bullets: [
-      "Pursuing one of Canada's most rigorous interdisciplinary engineering programs spanning circuits, programming, physics, and linear algebra.",
-      "Maintaining a 3.7/4.3 GPA while actively shipping projects across firmware, mechanical design, and full-stack software.",
     ],
   },
 ];
@@ -79,10 +68,8 @@ export default function ExperiencePageClient() {
           </div>
         </section>
 
-        <Spacer variant="dots" height={100} />
-
         {/* TIMELINE */}
-        <section className="pb-16">
+        <section className="pb-24">
           <div className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12">
             <div className="relative">
               <div className="absolute left-[9px] top-2 bottom-0 w-px bg-steel/15" />
@@ -94,7 +81,7 @@ export default function ExperiencePageClient() {
                       {/* Timeline dot */}
                       <div className="absolute left-0 top-2 w-[18px] h-[18px] rounded-full border-2 border-steel/25 bg-carbon flex items-center justify-center">
                         <div className={`w-2 h-2 rounded-full ${
-                          item.type === "EDUCATION" ? "bg-accent/60" : item.type === "LEADERSHIP" ? "bg-silver/50" : "bg-steel/50"
+                          item.type === "LEADERSHIP" ? "bg-silver/50" : "bg-steel/50"
                         }`} />
                       </div>
 
@@ -127,43 +114,21 @@ export default function ExperiencePageClient() {
           </div>
         </section>
 
-        <Spacer variant="diamond" height={200} />
-
-        {/* ═══════════════════════════════════════════
-            PLACEHOLDER — ADDITIONAL EXPERIENCES
-        ═══════════════════════════════════════════ */}
-        <div className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12">
-          <RevealOnScroll>
-            <div className="border border-dashed border-steel/15 rounded-2xl py-16 px-10 text-center">
-              <div className="w-10 h-10 mx-auto mb-5 border border-steel/15 rounded-lg flex items-center justify-center">
-                <div className="w-4 h-4 border border-steel/20 rounded-sm" />
+        {/* PLACEHOLDER — ADDITIONAL EXPERIENCES */}
+        <section className="py-16 sm:py-20">
+          <div className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12">
+            <RevealOnScroll>
+              <div className="border border-dashed border-steel/15 rounded-2xl py-16 px-10 text-center">
+                <div className="w-10 h-10 mx-auto mb-5 border border-steel/15 rounded-lg flex items-center justify-center">
+                  <div className="w-4 h-4 border border-steel/20 rounded-sm" />
+                </div>
+                <p className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/20 tracking-[0.2em]">
+                  ADDITIONAL EXPERIENCES / VOLUNTEER WORK
+                </p>
               </div>
-              <p className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/20 tracking-[0.2em]">
-                ADDITIONAL EXPERIENCES / VOLUNTEER WORK
-              </p>
-            </div>
-          </RevealOnScroll>
-        </div>
-
-        <Spacer variant="cross" height={200} />
-
-        {/* ═══════════════════════════════════════════
-            PLACEHOLDER — RECOMMENDATIONS
-        ═══════════════════════════════════════════ */}
-        <div className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12">
-          <RevealOnScroll>
-            <div className="border border-dashed border-steel/15 rounded-2xl py-16 px-10 text-center">
-              <div className="w-10 h-10 mx-auto mb-5 border border-steel/15 rounded-lg flex items-center justify-center">
-                <span className="font-[family-name:var(--font-syne-family)] text-silver/20 text-xl">&ldquo;</span>
-              </div>
-              <p className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/20 tracking-[0.2em]">
-                RECOMMENDATIONS / TESTIMONIALS
-              </p>
-            </div>
-          </RevealOnScroll>
-        </div>
-
-        <Spacer variant="dots" height={200} />
+            </RevealOnScroll>
+          </div>
+        </section>
       </main>
 
       <Footer />

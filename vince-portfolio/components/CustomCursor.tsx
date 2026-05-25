@@ -13,7 +13,7 @@ export default function CustomCursor() {
   // Detect touch device
   useEffect(() => {
     const isTouch = window.matchMedia("(pointer: coarse)").matches;
-    setIsTouchDevice(isTouch);
+    setTimeout(() => setIsTouchDevice(isTouch), 0);
   }, []);
 
   // Mouse tracking

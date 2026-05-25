@@ -1,27 +1,50 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Search, Crosshair, Truck } from "lucide-react";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
 import RevealOnScroll from "@/components/RevealOnScroll";
-import Spacer from "@/components/Spacer";
-import ProjectCard from "@/components/ProjectCard";
-import { PROJECTS } from "@/lib/utils";
 
-const FILTERS = ["ALL", "EMBEDDED", "SOFTWARE", "HARDWARE"] as const;
-type FilterType = (typeof FILTERS)[number];
+const PROJECT_ROWS = [
+  {
+    slug: "spice",
+    title: "AUTOMATIC SPICE DISPENSER",
+    tagline: "Embedded Systems · C++ · Arduino · 3D Printing",
+    description: "Precision dispensing system with stepper motor firmware and 3D-printed mechanical assemblies.",
+    tags: ["C++", "Arduino", "3D Printing", "Stepper Motors"],
+    status: "COMPLETED",
+    year: "2025",
+    interactiveLabel: "3D MODEL",
+    interactiveHint: "Interactive 3D mesh — spin, zoom, click buttons",
+  },
+  {
+    slug: "engram",
+    title: "ENGRAM",
+    tagline: "B2B AI SaaS · LLM-Powered Enterprise Memory",
+    description: "AI platform transforming fragmented enterprise knowledge into a unified, queryable intelligence layer.",
+    tags: ["TypeScript", "Python", "Supabase", "RAG", "LLM"],
+    status: "ACTIVE",
+    year: "2026",
+    interactiveLabel: "DEMO VIDEO",
+    interactiveHint: "Live demo walkthrough of the Engram platform",
+  },
+  {
+    slug: "dice",
+    title: "DIGITAL DICE",
+    tagline: "Boolean Logic · PCB Assembly · SMD Soldering",
+    description: "Digital dice using combinational logic and PCB assembly. ENSC 120 project.",
+    tags: ["Boolean Logic", "PCB", "SMD Soldering", "EAGLE"],
+    status: "COMPLETED",
+    year: "2025",
+    interactiveLabel: "PCB SIMULATION",
+    interactiveHint: "Interactive simulation of the digital dice circuit",
+  },
+];
 
 export default function ProjectsPageClient() {
-  const [activeFilter, setActiveFilter] = useState<FilterType>("ALL");
-
-  const filteredProjects =
-    activeFilter === "ALL"
-      ? PROJECTS
-      : PROJECTS.filter((p) => p.categories.includes(activeFilter));
-
   return (
     <>
       <CustomCursor />
@@ -56,117 +79,78 @@ export default function ProjectsPageClient() {
                 className="h-px bg-silver/30 w-24 origin-left"
               />
             </motion.div>
-
-            {/* Filters */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.6, ease: [0.25, 0, 0, 1] }}
-              className="flex flex-wrap gap-3 mt-14"
-            >
-              {FILTERS.map((filter) => (
-                <button
-                  key={filter}
-                  onClick={() => setActiveFilter(filter)}
-                  className={`font-[family-name:var(--font-ibm-plex-mono-family)] text-[11px] tracking-[0.12em] px-5 py-2.5 rounded-full border transition-all duration-200 ${
-                    activeFilter === filter
-                      ? "border-silver/40 text-chalk bg-steel/30"
-                      : "border-steel/20 text-silver/40 hover:text-silver hover:border-silver/25"
-                  }`}
-                >
-                  {filter}
-                </button>
-              ))}
-            </motion.div>
           </div>
         </section>
 
-        <Spacer variant="dots" height={100} />
-
-        {/* GRID */}
-        <section className="pb-16">
+        {/* PROJECT ROWS */}
+        <section className="pb-24">
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeFilter}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3, ease: [0.25, 0, 0, 1] }}
-                className="grid md:grid-cols-2 gap-8"
-              >
-                {filteredProjects.map((project, i) => (
-                  <ProjectCard key={project.slug} project={project} index={i} featured={project.featured} />
-                ))}
-              </motion.div>
-            </AnimatePresence>
-
-            {filteredProjects.length === 0 && (
-              <div className="text-center py-28">
-                <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/30 text-sm">No projects match this filter.</p>
-              </div>
-            )}
-          </div>
-        </section>
-
-        <Spacer variant="line" height={200} />
-
-        {/* ═══════════════════════════════════════════
-            PLACEHOLDER — PROJECT GALLERY / PHOTOS
-        ═══════════════════════════════════════════ */}
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-          <RevealOnScroll>
-            <div className="grid sm:grid-cols-3 gap-4">
-              {["PROJECT PHOTO 01", "PROJECT PHOTO 02", "PROJECT PHOTO 03"].map((label) => (
-                <div key={label} className="border border-dashed border-steel/15 rounded-2xl h-48 sm:h-56 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="w-10 h-10 mx-auto mb-3 border border-steel/15 rounded-lg flex items-center justify-center">
-                      <div className="w-4 h-4 border border-steel/20 rounded-sm" />
-                    </div>
-                    <p className="font-[family-name:var(--font-space-mono-family)] text-[8px] text-silver/20 tracking-[0.2em]">{label}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </RevealOnScroll>
-        </div>
-
-        <Spacer variant="diamond" height={200} />
-
-        {/* PROCESS */}
-        <section className="py-20 sm:py-24 border-t border-steel/10">
-          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-            <RevealOnScroll>
-              <h2 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-3xl sm:text-4xl tracking-tight mb-24 text-center">
-                HOW I BUILD
-              </h2>
-            </RevealOnScroll>
-
-            <div className="flex flex-col md:flex-row items-start justify-center gap-8 md:gap-6">
-              {[
-                { icon: Search, step: "01", label: "RESEARCH", desc: "Understand the problem deeply before writing a single line." },
-                { icon: Crosshair, step: "02", label: "PROTOTYPE", desc: "Build fast, fail early. Validate with working systems." },
-                { icon: Truck, step: "03", label: "SHIP", desc: "Polish, document, deploy. Not done until it's live." },
-              ].map((item, i) => (
-                <RevealOnScroll key={i} delay={i * 0.15}>
-                  <div className="flex items-center gap-0">
-                    <div className="flex flex-col items-center text-center w-52">
-                      <div className="w-16 h-16 border border-steel/20 rounded-xl flex items-center justify-center mb-6">
-                        <item.icon size={22} className="text-silver/40" />
+            <div className="space-y-16">
+              {PROJECT_ROWS.map((project, i) => (
+                <RevealOnScroll key={project.slug} delay={i * 0.1}>
+                  <div id={project.slug === "spice" ? "automatic-spice-dispenser" : project.slug === "dice" ? "digital-dice" : project.slug} className="grid lg:grid-cols-2 gap-8 lg:gap-12 bg-iron/20 border border-steel/10 rounded-2xl p-8 sm:p-10 hover:border-silver/15 transition-all duration-500">
+                    {/* Left: Info */}
+                    <div className="flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center gap-3 mb-4">
+                          <span className={`font-[family-name:var(--font-space-mono-family)] text-[7px] tracking-widest px-2.5 py-0.5 rounded-full border ${
+                            project.status === "ACTIVE"
+                              ? "text-green-400/60 border-green-400/20"
+                              : "text-silver/30 border-silver/10"
+                          }`}>
+                            {project.status}
+                          </span>
+                          <span className="font-[family-name:var(--font-space-mono-family)] text-[8px] text-silver/25 tracking-widest">{project.year}</span>
+                        </div>
+                        <h2 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-2xl sm:text-3xl tracking-tight mb-3">
+                          {project.title}
+                        </h2>
+                        <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/40 text-xs tracking-wider mb-4">
+                          {project.tagline}
+                        </p>
+                        <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/50 text-sm leading-relaxed mb-6">
+                          {project.description}
+                        </p>
+                        <div className="flex flex-wrap gap-2 mb-8">
+                          {project.tags.map((tag) => (
+                            <span key={tag} className="font-[family-name:var(--font-ibm-plex-mono-family)] text-[9px] text-silver/35 tracking-wider bg-steel/10 rounded-full px-3 py-1">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
                       </div>
-                      <span className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/25 tracking-widest mb-2">{item.step}</span>
-                      <h3 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-base mb-3">{item.label}</h3>
-                      <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/40 text-[11px] leading-relaxed">{item.desc}</p>
+                      <Link
+                        href={`/projects/${project.slug}`}
+                        className="group inline-flex items-center gap-2 font-[family-name:var(--font-ibm-plex-mono-family)] text-xs text-silver/50 hover:text-chalk transition-colors w-fit"
+                      >
+                        VIEW DETAILS
+                        <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
+                      </Link>
                     </div>
-                    {i < 2 && <div className="hidden md:block w-20 h-px border-t border-dashed border-silver/10 mx-4" />}
+
+                    {/* Right: Interactive Placeholder */}
+                    <div className="relative aspect-[4/3] bg-void border border-steel/15 rounded-xl flex items-center justify-center overflow-hidden">
+                      {/* Grid background pattern */}
+                      <div className="absolute inset-0 opacity-[0.03]"
+                        style={{
+                          backgroundImage: "linear-gradient(rgba(168,168,168,1) 1px, transparent 1px), linear-gradient(90deg, rgba(168,168,168,1) 1px, transparent 1px)",
+                          backgroundSize: "40px 40px",
+                        }}
+                      />
+                      <div className="text-center relative z-10">
+                        <div className="w-16 h-16 mx-auto mb-4 border border-silver/15 rounded-full flex items-center justify-center">
+                          <div className="w-6 h-6 border border-silver/20 rounded-md animate-spin" style={{ animationDuration: "8s" }} />
+                        </div>
+                        <p className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-silver/25 tracking-[0.3em] mb-2">{project.interactiveLabel}</p>
+                        <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-[9px] text-silver/15 max-w-[200px] mx-auto">{project.interactiveHint}</p>
+                      </div>
+                    </div>
                   </div>
                 </RevealOnScroll>
               ))}
             </div>
           </div>
         </section>
-
-        <Spacer variant="dots" height={120} />
       </main>
 
       <Footer />

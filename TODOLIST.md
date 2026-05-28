@@ -2,7 +2,7 @@
 2. space out the FEATURED PROJECTS, CLICK TO EXPLORE text from the 3 boxes.
 3. Add some more transitiosn between pages
 4. Fix the janky looking conveyor belt, also add the links to my account for all the apps shown.
-5. add a real footer. add links in the footer to work too (copy engrams footer)
+5. add a real footer. add links in the footer to work too (copy engrams footer) 
 6. Add actual substance to the ABOUT, PROJECT, EXPERIENCE, CONTACT pages. 
 7. Work on the PROEJCT page (Make sure that the project page looks better and make sure the individual pages for each project looks good.)
 8. Add the 3D model of the spice dispenser in the DIGITAL TO PHYSICAL page in the landing page 
@@ -12,3 +12,4 @@
 to do (for now):
 10. > 5. > 3. > 6. (start with the proejcts page, add the elements for each project).
 
+DONE 10 (working on 5, make buttons work and try to add more to footer.)

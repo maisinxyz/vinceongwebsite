@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import Footer from "@/components/ui/footer";
 import CustomCursor from "@/components/CustomCursor";
 import RevealOnScroll from "@/components/RevealOnScroll";
 

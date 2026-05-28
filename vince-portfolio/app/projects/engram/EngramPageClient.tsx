@@ -5,7 +5,7 @@ import { useRef } from "react";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, Database, Brain, Search, Layers, ExternalLink } from "lucide-react";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import Footer from "@/components/ui/footer";
 import CustomCursor from "@/components/CustomCursor";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import Divider from "@/components/Divider";

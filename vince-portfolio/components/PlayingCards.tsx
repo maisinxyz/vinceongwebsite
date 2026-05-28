@@ -229,16 +229,18 @@ export default function PlayingCards() {
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.7, delay: 0.15, ease: [0.25, 0, 0, 1] }}
-        className="relative z-10 font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/40 text-xs tracking-[0.2em] mb-12"
+        className="relative z-10 font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/40 text-xs tracking-[0.2em]"
+        style={{ marginBottom: "80px" }}
       >
         FLIP A CARD · CLICK AGAIN TO ENTER
       </motion.p>
 
       {/* Row Layout — Desktop */}
       <div
-        className="hidden sm:flex flex-row justify-center items-center gap-6 lg:gap-10 w-full max-w-7xl px-6 lg:px-12 relative mt-8 z-10"
+        className="hidden sm:flex flex-row justify-center items-center gap-6 lg:gap-10 w-full max-w-7xl px-6 lg:px-12 relative z-10"
         style={{
           opacity: isInView ? 1 : 0,
+          marginTop: "80px",
           transform: isInView ? "translateY(0)" : "translateY(30px)",
           transition: "opacity 0.7s ease 0.3s, transform 0.7s ease 0.3s",
         }}
@@ -252,9 +254,10 @@ export default function PlayingCards() {
 
       {/* Mobile Layout — 2×2 Grid */}
       <div
-        className="sm:hidden grid grid-cols-2 gap-4 px-6 mt-8 relative z-10 w-full max-w-md"
+        className="sm:hidden grid grid-cols-2 gap-4 px-6 relative z-10 w-full max-w-md"
         style={{
           opacity: isInView ? 1 : 0,
+          marginTop: "80px",
           transform: isInView ? "translateY(0)" : "translateY(20px)",
           transition: "opacity 0.7s ease 0.3s, transform 0.7s ease 0.3s",
         }}

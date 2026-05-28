@@ -6,7 +6,7 @@ import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft, Cog, Code, LayoutGrid, Calendar, Check } from "lucide-react";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import Footer from "@/components/ui/footer";
 import CustomCursor from "@/components/CustomCursor";
 import RevealOnScroll from "@/components/RevealOnScroll";
 

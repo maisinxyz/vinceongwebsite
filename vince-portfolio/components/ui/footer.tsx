@@ -5,26 +5,7 @@ import { Mail, ArrowUp, Sun, Moon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
-const navigation = {
-  categories: [
-    {
-      id: "sitemap",
-      name: "Sitemap",
-      sections: [
-        {
-          id: "pages",
-          name: "Pages",
-          items: [
-            { name: "Home", href: "/" },
-            { name: "About", href: "/about" },
-            { name: "Projects", href: "/projects" },
-            { name: "Experience", href: "/experience" },
-          ],
-        },
-      ],
-    },
-  ],
-};
+
 
 function handleScrollTop() {
   window.scroll({
@@ -85,95 +66,51 @@ const LinkedinIcon = (props: any) => (
 
 export default function Footer() {
   return (
-    <footer className="border-steel/15 mx-auto w-full border-t px-2 mt-24">
-      <div className="relative mx-auto grid max-w-7xl items-start justify-between gap-6 p-10 pb-0 md:flex">
-        <div className="max-w-md">
+    <footer className="border-steel/15 mx-auto w-full border-t px-6 py-12 mt-24">
+      <div className="mx-auto flex max-w-7xl flex-col md:flex-row justify-between items-center gap-8 font-[family-name:var(--font-ibm-plex-mono-family)]">
+        
+        {/* Left Side: Name & Terms */}
+        <div className="flex flex-col items-center md:items-start gap-3">
           <Link href="/">
-            <h2 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-2xl tracking-tight mb-4">
+            <h2 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-2xl tracking-tight hover:opacity-80 transition-opacity">
               Vince Ong
             </h2>
           </Link>
-          <p className="bg-transparent text-center text-xs leading-[1.8] text-silver/60 md:text-left font-[family-name:var(--font-ibm-plex-mono-family)]">
-            Mechatronic Systems Engineering student at Simon Fraser University based in Vancouver, B.C. 
-            I specialize in bridging hardware and software—from custom PCB design and embedded firmware to deploying full-stack SaaS platforms.
-          </p>
+          <div className="flex flex-wrap justify-center md:justify-start items-center gap-4 text-sm text-silver/60">
+            <span>© {new Date().getFullYear()}</span>
+            <span className="text-steel/40">•</span>
+            <Link href="/privacy" className="hover:text-chalk transition-colors">Privacy</Link>
+            <span className="text-steel/40">•</span>
+            <Link href="/terms" className="hover:text-chalk transition-colors">Terms</Link>
+          </div>
         </div>
-      </div>
 
-      <div className="mx-auto max-w-7xl px-6 py-10">
-        <div className="border-b border-steel/15 border-dotted"></div>
-        <div className="py-10">
-          {navigation.categories.map((category) => (
-            <div
-              key={category.name}
-              className="grid grid-cols-1 flex-row justify-between gap-6 leading-6 md:flex font-[family-name:var(--font-ibm-plex-mono-family)]"
-            >
-              {category.sections.map((section) => (
-                <div key={section.name}>
-                  <ul
-                    role="list"
-                    className="flex flex-col space-y-4"
-                  >
-                    {section.items.map((item) => (
-                      <li key={item.name} className="flow-root">
-                        <Link
-                          href={item.href}
-                          className="text-sm text-silver/60 hover:text-chalk transition-colors"
-                        >
-                          {item.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-        <div className="border-b border-steel/15 border-dotted"></div>
-      </div>
-
-      <div className="flex flex-wrap justify-between items-center gap-y-6 max-w-7xl mx-auto px-6 mt-6">
-        <div className="flex flex-wrap items-center gap-6 gap-y-4">
+        {/* Right Side: Resume, Socials, Theme */}
+        <div className="flex flex-wrap justify-center items-center gap-5">
           <a
-            aria-label="Email"
-            href="mailto:vinceong2020@gmail.com"
-            rel="noreferrer"
+            href="/resume.pdf"
             target="_blank"
-            className={Underline}
+            rel="noreferrer"
+            className="text-sm font-medium px-5 py-3 rounded-xl border border-steel/20 border-dotted text-silver hover:text-chalk hover:border-steel/40 hover:-translate-y-1 transition-transform flex items-center justify-center bg-transparent"
           >
+            Resume
+          </a>
+          
+          <a aria-label="Email" href="mailto:vinceong2020@gmail.com" rel="noreferrer" target="_blank" className={Underline}>
             <Mail strokeWidth={1.5} className="h-5 w-5" />
           </a>
-          <a
-            aria-label="GitHub"
-            href="https://github.com/maisinxyz"
-            rel="noreferrer"
-            target="_blank"
-            className={Underline}
-          >
+          <a aria-label="GitHub" href="https://github.com/maisinxyz" rel="noreferrer" target="_blank" className={Underline}>
             <GithubIcon className="h-5 w-5" />
           </a>
-          <a
-            aria-label="LinkedIn"
-            href="https://linkedin.com/in/vinceong"
-            rel="noreferrer"
-            target="_blank"
-            className={Underline}
-          >
+          <a aria-label="LinkedIn" href="https://www.linkedin.com/in/vince-ong-9a96a3371/" rel="noreferrer" target="_blank" className={Underline}>
             <LinkedinIcon className="h-5 w-5" />
           </a>
+          
+          <div className="ml-2">
+            <ThemeToggle />
+          </div>
         </div>
-        <ThemeToggle />
-      </div>
 
-      <div className="mx-auto mb-10 mt-10 flex flex-col justify-between text-center text-[10px] md:max-w-7xl font-[family-name:var(--font-space-mono-family)] tracking-[0.1em]">
-        <div className="flex flex-row items-center justify-center gap-1 text-silver/40">
-          <span>VINCE ONG</span>
-          <span> © </span>
-          <span>{new Date().getFullYear()}</span>
-          <span className="mx-2">•</span>
-          <span>BUILT WITH PRECISION</span>
-        </div>
       </div>
     </footer>
   );

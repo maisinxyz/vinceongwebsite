@@ -184,7 +184,7 @@ export default function Home() {
           <div className="max-w-[1440px] mx-auto px-12 sm:px-20 md:px-32 lg:px-40 xl:px-56 w-full flex flex-col lg:flex-row items-center gap-24 lg:gap-32">
             
             {/* Left Column: Highly Minimalist & Spacious */}
-            <div className="flex-1 w-full space-y-20">
+            <div className="flex-1 w-full space-y-20 pl-8 md:pl-16 lg:pl-24 xl:pl-32">
               
               {/* Intro */}
               <RevealOnScroll>

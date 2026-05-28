@@ -21,7 +21,7 @@ export default function RevealOnScroll({
   amount = 0.2,
 }: RevealOnScrollProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once, margin: "-100px", amount });
+  const isInView = useInView(ref, { once, margin: "0px", amount: 0.1 });
 
   const directionMap = {
     up: { y: 30, x: 0 },

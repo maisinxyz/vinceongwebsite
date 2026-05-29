@@ -48,7 +48,6 @@ function Segment({ active, d }: SegmentProps) {
 export default function SevenSegmentDisplay() {
   const [value, setValue] = useState<number | null>(null);
   const [isRolling, setIsRolling] = useState(false);
-  const [rollSequence, setRollSequence] = useState<number[]>([]);
 
   const roll = useCallback(() => {
     if (isRolling) return;
@@ -59,7 +58,6 @@ export default function SevenSegmentDisplay() {
     for (let i = 0; i < 12; i++) {
       sequence.push(Math.floor(Math.random() * 6) + 1);
     }
-    setRollSequence(sequence);
 
     // Animate through values
     let step = 0;

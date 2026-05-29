@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 /* ═══════════════════════════════════════════════════
@@ -198,6 +198,15 @@ export default function PlayingCards() {
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
   const router = useRouter();
 
+  // Listen for tour reset event to unflip all cards
+  useEffect(() => {
+    function handleReset() {
+      setFlippedIndices([]);
+    }
+    window.addEventListener("tour-reset-cards", handleReset);
+    return () => window.removeEventListener("tour-reset-cards", handleReset);
+  }, []);
+
   const handleCardClick = useCallback((index: number) => {
     if (flippedIndices.includes(index)) {
       // Card is already flipped — navigate to its page
@@ -246,7 +255,7 @@ export default function PlayingCards() {
         }}
       >
         {CARDS.map((card, i) => (
-          <div key={card.suitName} className="flex-1 flex justify-center w-full" style={{ zIndex: flippedIndices.includes(i) ? 10 : 1 }}>
+          <div key={card.suitName} data-card-index={i} className="flex-1 flex justify-center w-full" style={{ zIndex: flippedIndices.includes(i) ? 10 : 1 }}>
             <Card card={card} isFlipped={flippedIndices.includes(i)} onClick={() => handleCardClick(i)} />
           </div>
         ))}
@@ -263,7 +272,7 @@ export default function PlayingCards() {
         }}
       >
         {CARDS.map((card, i) => (
-          <div key={card.suitName} className="flex justify-center w-full" style={{ zIndex: flippedIndices.includes(i) ? 10 : 1 }}>
+          <div key={card.suitName} data-card-index={i} className="flex justify-center w-full" style={{ zIndex: flippedIndices.includes(i) ? 10 : 1 }}>
             <Card card={card} isFlipped={flippedIndices.includes(i)} onClick={() => handleCardClick(i)} />
           </div>
         ))}

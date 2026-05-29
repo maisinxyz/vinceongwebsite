@@ -1,5 +1,3 @@
-import { InfiniteSlider } from '@/components/ui/infinite-slider';
-import { ProgressiveBlur } from '@/components/ui/progressive-blur';
 import { 
   Code2, 
   Terminal, 
@@ -17,7 +15,7 @@ import {
   Monitor 
 } from 'lucide-react';
 
-const GithubIcon = (props: any) => (
+const GithubIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
@@ -49,12 +47,8 @@ const skills = [
 
 export function LogosSlider() {
   return (
-    <div className='relative h-[80px] w-full overflow-hidden border-y border-steel/15'>
-      <InfiniteSlider 
-        className='flex h-full w-full items-center' 
-        duration={45}
-        gap={48}
-      >
+    <div className='w-full border-y border-steel/15 py-6'>
+      <div className='flex flex-wrap items-center justify-center gap-x-8 gap-y-6'>
         {skills.map((skill) => (
           <div 
             key={skill.id} 
@@ -66,17 +60,7 @@ export function LogosSlider() {
             </span>
           </div>
         ))}
-      </InfiniteSlider>
-      <ProgressiveBlur
-        className='pointer-events-none absolute top-0 left-0 h-full w-[40px]'
-        direction='left'
-        blurIntensity={1}
-      />
-      <ProgressiveBlur
-        className='pointer-events-none absolute top-0 right-0 h-full w-[40px]'
-        direction='right'
-        blurIntensity={1}
-      />
+      </div>
     </div>
   );
 }

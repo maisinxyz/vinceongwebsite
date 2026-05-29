@@ -37,6 +37,61 @@
 }
 
 /* ═══════════════════════════════════════════════════
+   LIGHT THEME OVERRIDES
+   ═══════════════════════════════════════════════════ */
+html.theme-light {
+  --void: #FFFFFF;
+  --carbon: #FAFAFA;
+  --iron: #F0F0F0;
+  --steel: #D0D0D0;
+  --silver: #666666;
+  --chalk: #111111;
+  --accent: #2A5A7A;
+}
+
+html.theme-light body {
+  background: var(--carbon);
+  color: var(--chalk);
+}
+
+html.theme-light body::after {
+  opacity: 0.02;
+}
+
+html.theme-light body::before {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.02) 2px,
+    rgba(0, 0, 0, 0.02) 4px
+  );
+}
+
+html.theme-light ::selection {
+  background: var(--steel);
+  color: var(--void);
+}
+
+html.theme-light ::-webkit-scrollbar-track {
+  background: var(--carbon);
+}
+
+html.theme-light ::-webkit-scrollbar-thumb {
+  background: var(--silver);
+}
+
+/* Theme transition expanding circle overlay */
+@keyframes theme-circle-expand {
+  0% { clip-path: circle(0px at var(--cx) var(--cy)); }
+  100% { clip-path: circle(200vmax at var(--cx) var(--cy)); }
+}
+
+.theme-transition-overlay {
+  animation: theme-circle-expand 0.8s cubic-bezier(0.25, 0, 0, 1) forwards;
+}
+
+/* ═══════════════════════════════════════════════════
    BASE STYLES
    ═══════════════════════════════════════════════════ */
 * {
@@ -185,6 +240,13 @@ body::before {
   .custom-cursor-active * {
     cursor: none !important;
   }
+}
+
+/* ═══════════════════════════════════════════════════
+   AUTO-TOUR — disable navbar interference
+   ═══════════════════════════════════════════════════ */
+html.tour-active nav {
+  pointer-events: none !important;
 }
 
 /* ═══════════════════════════════════════════════════

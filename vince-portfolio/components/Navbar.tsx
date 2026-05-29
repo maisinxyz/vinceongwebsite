@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -13,36 +13,7 @@ const NAV_LINKS = [
   { href: "/gurt", label: "GURT" },
 ];
 
-const CuboidArm = ({ rotateZ = 0, rotateX = 0, rotateY = 0 }: { rotateZ?: number, rotateX?: number, rotateY?: number }) => {
-  const w = 6;
-  const h = 32;
-  const d = 6;
-  
-  const baseClasses = "absolute flex items-center justify-center border border-silver/30";
-  
-  return (
-    <div 
-      className="absolute top-1/2 left-1/2" 
-      style={{ 
-        transformStyle: "preserve-3d", 
-        transform: `translate(-50%, -50%) rotateZ(${rotateZ}deg) rotateX(${rotateX}deg) rotateY(${rotateY}deg)` 
-      }}
-    >
-      {/* Front (Light) */}
-      <div className={`${baseClasses} bg-zinc-600`} style={{ width: w, height: h, transform: `translate(-50%, -50%) translateZ(${d/2}px)` }} />
-      {/* Back (Darker) */}
-      <div className={`${baseClasses} bg-zinc-900`} style={{ width: w, height: h, transform: `translate(-50%, -50%) rotateY(180deg) translateZ(${d/2}px)` }} />
-      {/* Left (Mid-shadow) */}
-      <div className={`${baseClasses} bg-zinc-800`} style={{ width: d, height: h, transform: `translate(-50%, -50%) rotateY(-90deg) translateZ(${w/2}px)` }} />
-      {/* Right (Mid-light) */}
-      <div className={`${baseClasses} bg-zinc-700`} style={{ width: d, height: h, transform: `translate(-50%, -50%) rotateY(90deg) translateZ(${w/2}px)` }} />
-      {/* Top (Brightest) */}
-      <div className={`${baseClasses} bg-zinc-500`} style={{ width: w, height: d, transform: `translate(-50%, -50%) rotateX(90deg) translateZ(${h/2}px)` }} />
-      {/* Bottom (Darkest) */}
-      <div className={`${baseClasses} bg-zinc-950`} style={{ width: w, height: d, transform: `translate(-50%, -50%) rotateX(-90deg) translateZ(${h/2}px)` }} />
-    </div>
-  );
-};
+import SignatureLogo3D from "./SignatureLogo3D";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -50,9 +21,6 @@ export default function Navbar() {
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
-
-  const { scrollYProgress } = useScroll();
-  const rotateY = useTransform(scrollYProgress, [0, 1], [0, 360]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -104,28 +72,20 @@ export default function Navbar() {
           <div className="flex items-center justify-between w-full h-16 sm:h-20 relative">
             
             {/* 3D Asterisk Logo - Perfectly Centered */}
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+            <div className="absolute left-1/2 top-[65%] -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-none">
               <Link
                 href="/"
+                data-logo-link
                 onClick={(e) => {
                   if (pathname === "/") {
                     e.preventDefault();
                     window.scrollTo({ top: 0, behavior: "smooth" });
                   }
                 }}
-                className="relative w-14 h-14 flex items-center justify-center group"
-                style={{ perspective: "800px" }}
+                className="relative w-48 h-28 flex items-center justify-center group pointer-events-auto"
                 aria-label="Home"
               >
-                <motion.div
-                  style={{ rotateY, transformStyle: "preserve-3d" }}
-                  className="w-full h-full relative flex items-center justify-center drop-shadow-[0_0_12px_rgba(255,255,255,0.15)]"
-                >
-                  <CuboidArm rotateZ={0} rotateX={25} />
-                  <CuboidArm rotateZ={45} rotateY={25} />
-                  <CuboidArm rotateZ={90} rotateX={-25} />
-                  <CuboidArm rotateZ={135} rotateY={-25} />
-                </motion.div>
+                <SignatureLogo3D />
               </Link>
             </div>
 

@@ -60,9 +60,6 @@ const APPS = [
 ];
 
 export function AppMarquee() {
-  // Duplicate array 3 times to ensure smooth infinite scrolling even on ultra-wide screens
-  const MARQUEE_ITEMS = [...APPS, ...APPS, ...APPS];
-
   return (
     <section className="relative w-full overflow-hidden bg-void py-24 sm:py-32 border-t border-silver/10">
       
@@ -73,50 +70,24 @@ export function AppMarquee() {
         </p>
       </div>
 
-      {/* Fade overlays for the edges */}
-      <div className="absolute top-0 bottom-0 left-0 w-16 sm:w-32 bg-gradient-to-r from-void to-transparent z-10 pointer-events-none" />
-      <div className="absolute top-0 bottom-0 right-0 w-16 sm:w-32 bg-gradient-to-l from-void to-transparent z-10 pointer-events-none" />
-
-      {/* Marquee Track */}
-      <div className="flex w-fit group">
-        <div className="flex shrink-0 animate-marquee items-center gap-12 sm:gap-16 px-6 sm:px-8 group-hover:[animation-play-state:paused]">
-          {MARQUEE_ITEMS.map((app, i) => (
-            <Link
-              key={`${app.name}-${i}`}
-              href={app.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 text-silver/40 hover:text-chalk hover:scale-105 transition-all duration-300"
-            >
-              <div className="p-3 sm:p-4 rounded-xl bg-silver/5 border border-silver/10 shadow-[0_0_20px_rgba(255,255,255,0.0)] hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:border-silver/30 hover:bg-silver/10 transition-all duration-300">
-                {app.icon}
-              </div>
-              <span className="font-[family-name:var(--font-syne-family)] font-bold text-lg sm:text-xl tracking-tight hidden sm:block">
-                {app.name}
-              </span>
-            </Link>
-          ))}
-        </div>
-        {/* Duplicate track for seamless looping */}
-        <div className="flex shrink-0 animate-marquee items-center gap-12 sm:gap-16 px-6 sm:px-8 group-hover:[animation-play-state:paused]" aria-hidden="true">
-          {MARQUEE_ITEMS.map((app, i) => (
-            <Link
-              key={`dup-${app.name}-${i}`}
-              href={app.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 text-silver/40 hover:text-chalk hover:scale-105 transition-all duration-300"
-              tabIndex={-1}
-            >
-              <div className="p-3 sm:p-4 rounded-xl bg-silver/5 border border-silver/10 shadow-[0_0_20px_rgba(255,255,255,0.0)] hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:border-silver/30 hover:bg-silver/10 transition-all duration-300">
-                {app.icon}
-              </div>
-              <span className="font-[family-name:var(--font-syne-family)] font-bold text-lg sm:text-xl tracking-tight hidden sm:block">
-                {app.name}
-              </span>
-            </Link>
-          ))}
-        </div>
+      {/* Static Track */}
+      <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-10 px-6 sm:px-8 mt-4 max-w-5xl mx-auto">
+        {APPS.map((app, i) => (
+          <Link
+            key={`${app.name}-${i}`}
+            href={app.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 text-silver/40 hover:text-chalk hover:scale-105 transition-all duration-300"
+          >
+            <div className="p-3 sm:p-4 rounded-xl bg-silver/5 border border-silver/10 shadow-[0_0_20px_rgba(255,255,255,0.0)] hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:border-silver/30 hover:bg-silver/10 transition-all duration-300">
+              {app.icon}
+            </div>
+            <span className="font-[family-name:var(--font-syne-family)] font-bold text-lg sm:text-xl tracking-tight hidden sm:block">
+              {app.name}
+            </span>
+          </Link>
+        ))}
       </div>
     </section>
   );

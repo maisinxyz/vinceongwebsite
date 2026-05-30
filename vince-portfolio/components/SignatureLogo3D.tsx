@@ -4,8 +4,9 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { useGLTF, Environment, Bounds } from "@react-three/drei";
 import { useRef, Suspense } from "react";
 import * as THREE from "three";
+import { usePathname } from "next/navigation";
 
-function Model() {
+function Model({ shouldSpin }: { shouldSpin: boolean }) {
   const { scene } = useGLTF("/vinceonglogo.glb");
   const groupRef = useRef<THREE.Group>(null);
 
@@ -22,12 +23,17 @@ function Model() {
 
   useFrame(() => {
     if (groupRef.current) {
-      // Read the scroll position to rotate the logo (similar to the previous effect)
-      const maxScroll = document.body.scrollHeight - window.innerHeight || 1;
-      const scrollProgress = Math.min(Math.max(window.scrollY / maxScroll, 0), 1);
-      
-      // Rotate based on scroll progress (0 to 2*PI radians = 0 to 360 deg)
-      groupRef.current.rotation.y = scrollProgress * Math.PI * 2;
+      if (shouldSpin) {
+        // Read the scroll position to rotate the logo
+        const maxScroll = document.body.scrollHeight - window.innerHeight || 1;
+        const scrollProgress = Math.min(Math.max(window.scrollY / maxScroll, 0), 1);
+        
+        // Rotate based on scroll progress (0 to 2*PI radians = 0 to 360 deg)
+        groupRef.current.rotation.y = scrollProgress * Math.PI * 2;
+      } else {
+        // Keep it locked at 0 rotation on the About page
+        groupRef.current.rotation.y = 0;
+      }
     }
   });
 
@@ -42,6 +48,9 @@ function Model() {
 }
 
 export default function SignatureLogo3D() {
+  const pathname = usePathname();
+  const isAboutPage = pathname === "/about" || pathname.startsWith("/about/");
+
   return (
     <div className="w-48 h-28 flex items-center justify-center pointer-events-none drop-shadow-[0_8px_24px_rgba(255,255,255,0.4)]">
       <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
@@ -52,7 +61,7 @@ export default function SignatureLogo3D() {
         <Environment preset="city" />
         <Suspense fallback={null}>
           <Bounds fit clip observe margin={0.8}>
-            <Model />
+            <Model shouldSpin={!isAboutPage} />
           </Bounds>
         </Suspense>
       </Canvas>

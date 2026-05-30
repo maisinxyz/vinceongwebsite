@@ -9,9 +9,6 @@ import CustomCursor from "@/components/CustomCursor";
 /* ═══════════════════════════════════════════════════
    ALBUM DATA
    ═══════════════════════════════════════════════════ */
-// Using a placeholder audio track so the play button actually plays music!
-const PLACEHOLDER_AUDIO = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
-
 const ALBUMS = [
   {
     title: "The Bends",
@@ -22,11 +19,9 @@ const ALBUMS = [
     coverBg: "linear-gradient(135deg, #D4B896 0%, #8B6914 50%, #C4A265 100%)",
     image: "/album covers/the bends.png",
     tracks: [
-      { name: "Planet Telex", duration: 259, audioSrc: PLACEHOLDER_AUDIO },
-      { name: "The Bends", duration: 240, audioSrc: PLACEHOLDER_AUDIO },
-      { name: "High and Dry", duration: 258, audioSrc: PLACEHOLDER_AUDIO },
-      { name: "Fake Plastic Trees", duration: 290, audioSrc: PLACEHOLDER_AUDIO },
-      { name: "Street Spirit (Fade Out)", duration: 251, audioSrc: PLACEHOLDER_AUDIO },
+      { name: "Fake Plastic Trees", duration: 290 },
+      { name: "Planet Telex", duration: 259 },
+      { name: "High and Dry", duration: 258 },
     ],
   },
   {
@@ -38,11 +33,8 @@ const ALBUMS = [
     coverBg: "linear-gradient(135deg, #FFB84D 0%, #D4760A 50%, #E8A317 100%)",
     image: "/album covers/channel orange.png",
     tracks: [
-      { name: "Thinkin Bout You", duration: 200, audioSrc: PLACEHOLDER_AUDIO },
-      { name: "Super Rich Kids", duration: 305, audioSrc: PLACEHOLDER_AUDIO },
-      { name: "Pyramids", duration: 594, audioSrc: PLACEHOLDER_AUDIO },
-      { name: "Lost", duration: 237, audioSrc: PLACEHOLDER_AUDIO },
-      { name: "Forrest Gump", duration: 192, audioSrc: PLACEHOLDER_AUDIO },
+      { name: "Thinkin Bout You", duration: 200 },
+      { name: "Super Rich Kids", duration: 305 },
     ],
   },
   {
@@ -54,11 +46,8 @@ const ALBUMS = [
     coverBg: "linear-gradient(135deg, #FFD4E0 0%, #E85D8A 50%, #F5B7C5 100%)",
     image: "/album covers/igor.png",
     tracks: [
-      { name: "IGOR'S THEME", duration: 191, audioSrc: PLACEHOLDER_AUDIO },
-      { name: "EARFQUAKE", duration: 190, audioSrc: PLACEHOLDER_AUDIO },
-      { name: "I THINK", duration: 216, audioSrc: PLACEHOLDER_AUDIO },
-      { name: "NEW MAGIC WAND", duration: 196, audioSrc: PLACEHOLDER_AUDIO },
-      { name: "ARE WE STILL FRIENDS?", duration: 254, audioSrc: PLACEHOLDER_AUDIO },
+      { name: "EARFQUAKE", duration: 190 },
+      { name: "IGOR'S THEME", duration: 191 },
     ],
   },
   {
@@ -70,11 +59,9 @@ const ALBUMS = [
     coverBg: "linear-gradient(135deg, #444 0%, #D4AF37 40%, #2C2C2C 100%)",
     image: "/album covers/RAM.png",
     tracks: [
-      { name: "Give Life Back to Music", duration: 275, audioSrc: PLACEHOLDER_AUDIO },
-      { name: "Get Lucky", duration: 369, audioSrc: PLACEHOLDER_AUDIO },
-      { name: "Instant Crush", duration: 337, audioSrc: PLACEHOLDER_AUDIO },
-      { name: "Lose Yourself to Dance", duration: 354, audioSrc: PLACEHOLDER_AUDIO },
-      { name: "Touch", duration: 498, audioSrc: PLACEHOLDER_AUDIO },
+      { name: "Get Lucky", duration: 369 },
+      { name: "Give Life Back to Music", duration: 275 },
+      { name: "Instant Crush", duration: 337 },
     ],
   },
   {
@@ -86,10 +73,8 @@ const ALBUMS = [
     coverBg: "linear-gradient(135deg, #FF4444 0%, #8B0000 40%, #D93232 100%)",
     image: "/album covers/King crimson.png",
     tracks: [
-      { name: "21st Century Schizoid Man", duration: 449, audioSrc: PLACEHOLDER_AUDIO },
-      { name: "I Talk to the Wind", duration: 360, audioSrc: PLACEHOLDER_AUDIO },
-      { name: "Epitaph", duration: 509, audioSrc: PLACEHOLDER_AUDIO },
-      { name: "The Court of the Crimson King", duration: 567, audioSrc: PLACEHOLDER_AUDIO },
+      { name: "21st Century Schizoid Man", duration: 449 },
+      { name: "Epitaph", duration: 509 },
     ],
   },
   {
@@ -101,11 +86,8 @@ const ALBUMS = [
     coverBg: "linear-gradient(135deg, #6B8FC4 0%, #2A4F7A 50%, #B8D4E3 100%)",
     image: "/album covers/the new abnormal.png",
     tracks: [
-      { name: "The Adults Are Talking", duration: 305, audioSrc: PLACEHOLDER_AUDIO },
-      { name: "Bad Decisions", duration: 249, audioSrc: PLACEHOLDER_AUDIO },
-      { name: "At the Door", duration: 309, audioSrc: PLACEHOLDER_AUDIO },
-      { name: "Brooklyn Bridge to Chorus", duration: 224, audioSrc: PLACEHOLDER_AUDIO },
-      { name: "Ode to the Mets", duration: 351, audioSrc: PLACEHOLDER_AUDIO },
+      { name: "The Adults Are Talking", duration: 305 },
+      { name: "Bad Decisions", duration: 249 },
     ],
   },
   {
@@ -117,11 +99,9 @@ const ALBUMS = [
     coverBg: "linear-gradient(135deg, #3A3A3A 0%, #0D0D0D 50%, #2A2A2A 100%)",
     image: "/album covers/gkmc.png",
     tracks: [
-      { name: "Bitch, Don't Kill My Vibe", duration: 319, audioSrc: PLACEHOLDER_AUDIO },
-      { name: "Swimming Pools (Drank)", duration: 313, audioSrc: PLACEHOLDER_AUDIO },
-      { name: "Poetic Justice", duration: 305, audioSrc: PLACEHOLDER_AUDIO },
-      { name: "Money Trees", duration: 387, audioSrc: PLACEHOLDER_AUDIO },
-      { name: "m.A.A.d city", duration: 348, audioSrc: PLACEHOLDER_AUDIO },
+      { name: "Swimming Pools (Drank)", duration: 313 },
+      { name: "Money Trees", duration: 387 },
+      { name: "m.A.A.d city", duration: 348 },
     ],
   },
   {
@@ -133,17 +113,14 @@ const ALBUMS = [
     coverBg: "linear-gradient(135deg, #333 0%, #0a0a0a 50%, #222 100%)",
     image: "/album covers/the black parade.png",
     tracks: [
-      { name: "The End.", duration: 60, audioSrc: PLACEHOLDER_AUDIO },
-      { name: "Dead!", duration: 196, audioSrc: PLACEHOLDER_AUDIO },
-      { name: "Welcome to the Black Parade", duration: 311, audioSrc: PLACEHOLDER_AUDIO },
-      { name: "I Don't Love You", duration: 230, audioSrc: PLACEHOLDER_AUDIO },
-      { name: "Famous Last Words", duration: 290, audioSrc: PLACEHOLDER_AUDIO },
+      { name: "Welcome to the Black Parade", duration: 311 },
+      { name: "Famous Last Words", duration: 290 },
     ],
   },
 ];
 
 function formatTime(seconds: number): string {
-  if (isNaN(seconds)) return "0:00";
+  if (isNaN(seconds) || seconds < 0) return "0:00";
   const m = Math.floor(seconds / 60);
   const s = Math.floor(seconds % 60);
   return `${m}:${s.toString().padStart(2, "0")}`;
@@ -157,6 +134,9 @@ function RecordPlayer() {
   const [trackIndex, setTrackIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [duration, setDuration] = useState(0);
+  
+  const [audioUrl, setAudioUrl] = useState<string>("");
   
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const animationRef = useRef<number | null>(null);
@@ -164,40 +144,69 @@ function RecordPlayer() {
   const album = ALBUMS[albumIndex];
   const track = album.tracks[trackIndex];
 
+  // Dynamically fetch actual 30s preview from iTunes API
+  useEffect(() => {
+    const fetchPreview = async () => {
+      try {
+        const query = encodeURIComponent(`${track.name} ${album.artist}`);
+        const fetchUrl = `https://itunes.apple.com/search?term=${query}&media=music&limit=1`;
+        
+        const res = await fetch(fetchUrl);
+        const data = await res.json();
+        if (data.results && data.results.length > 0 && data.results[0].previewUrl) {
+          setAudioUrl(data.results[0].previewUrl);
+        } else {
+          setAudioUrl("");
+        }
+      } catch (err) {
+        console.error("Failed to fetch preview:", err);
+        setAudioUrl("");
+      }
+    };
+    fetchPreview();
+  }, [track.name, album.artist]);
+
   // Update progress bar based on actual audio playback
   const updateProgress = useCallback(() => {
-    if (audioRef.current && track.duration > 0) {
-      const currentProgress = audioRef.current.currentTime / track.duration;
-      setProgress(Math.min(currentProgress, 1));
+    if (audioRef.current) {
+      const audioDuration = audioRef.current.duration || 30; // iTunes previews are ~30s
+      const currentTime = audioRef.current.currentTime;
+      setDuration(audioDuration);
       
-      if (currentProgress < 1) {
+      setProgress(audioDuration > 0 ? currentTime / audioDuration : 0);
+      
+      if (isPlaying) {
         animationRef.current = requestAnimationFrame(updateProgress);
-      } else {
-        // Track ended
-        setIsPlaying(false);
-        setProgress(0);
-        // Auto-skip logic can go here
       }
     }
-  }, [track.duration]);
+  }, [isPlaying]);
+
+  useEffect(() => {
+    if (isPlaying) {
+      animationRef.current = requestAnimationFrame(updateProgress);
+    } else {
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+    }
+    return () => {
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+    };
+  }, [isPlaying, updateProgress]);
 
   const stopPlayback = useCallback(() => {
     if (audioRef.current) {
       audioRef.current.pause();
     }
-    if (animationRef.current) {
-      cancelAnimationFrame(animationRef.current);
-    }
     setIsPlaying(false);
   }, []);
 
   const startPlayback = useCallback(() => {
-    if (audioRef.current) {
+    if (audioRef.current && audioUrl) {
       audioRef.current.play().catch(e => console.error("Audio play failed:", e));
+      setIsPlaying(true);
+    } else if (!audioUrl) {
+      console.warn("No audio URL available for this track yet.");
     }
-    setIsPlaying(true);
-    animationRef.current = requestAnimationFrame(updateProgress);
-  }, [updateProgress]);
+  }, [audioUrl]);
 
   const togglePlay = useCallback(() => {
     if (isPlaying) stopPlayback();
@@ -208,26 +217,20 @@ function RecordPlayer() {
     stopPlayback();
     setProgress(0);
     setTrackIndex((prev) => (prev + 1) % ALBUMS[albumIndex].tracks.length);
-    // Auto-play next track if it was already playing
-    if (isPlaying) {
-      setTimeout(() => startPlayback(), 100);
-    }
-  }, [albumIndex, isPlaying, startPlayback, stopPlayback]);
+  }, [albumIndex, stopPlayback]);
 
   const changeAlbum = useCallback(() => {
     stopPlayback();
     setProgress(0);
     setTrackIndex(0);
     setAlbumIndex((prev) => (prev + 1) % ALBUMS.length);
-    // Don't auto-play when swapping albums unless desired
   }, [stopPlayback]);
 
-  // Clean up
-  useEffect(() => {
-    return () => {
-      if (animationRef.current) cancelAnimationFrame(animationRef.current);
-    };
-  }, []);
+  // Auto-play next track when current one ends
+  const handleAudioEnded = useCallback(() => {
+    setIsPlaying(false);
+    skipTrack();
+  }, [skipTrack]);
 
   return (
     <div className="w-full flex flex-col items-center">
@@ -235,9 +238,9 @@ function RecordPlayer() {
       {/* Hidden Audio Element */}
       <audio 
         ref={audioRef}
-        src={track.audioSrc}
+        src={audioUrl}
         preload="auto"
-        onEnded={skipTrack}
+        onEnded={handleAudioEnded}
       />
 
       {/* 3D Scene Container */}
@@ -433,14 +436,15 @@ function RecordPlayer() {
         <div className="flex items-center justify-center gap-12 mb-8 w-full max-w-xs">
           
           <button onClick={togglePlay}
-            className="flex flex-col items-center gap-2.5 text-silver/40 hover:text-chalk transition-colors group"
+            disabled={!audioUrl}
+            className={`flex flex-col items-center gap-2.5 transition-colors group ${!audioUrl ? 'text-steel/20 cursor-not-allowed' : 'text-silver/40 hover:text-chalk'}`}
             aria-label={isPlaying ? "Pause" : "Play"}>
             {isPlaying ? (
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" /></svg>
             ) : (
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
             )}
-            <span className="font-[family-name:var(--font-space-mono-family)] text-[9px] tracking-[0.2em] opacity-0 group-hover:opacity-100 transition-opacity">
+            <span className={`font-[family-name:var(--font-space-mono-family)] text-[9px] tracking-[0.2em] opacity-0 group-hover:opacity-100 transition-opacity ${!audioUrl ? 'hidden' : ''}`}>
               {isPlaying ? "PAUSE" : "PLAY"}
             </span>
           </button>
@@ -458,17 +462,12 @@ function RecordPlayer() {
 
         {/* Progress bar */}
         <div className="w-full max-w-sm">
-          {isPlaying && (
-            <p className="font-[family-name:var(--font-space-mono-family)] text-silver/30 text-[9px] tracking-[0.2em] text-center mb-3">
-              NOW PLAYING
-            </p>
-          )}
           <div className="w-full h-[3px] bg-steel/15 rounded-full overflow-hidden shadow-inner">
             <div className="h-full rounded-full" style={{ width: `${progress * 100}%`, backgroundColor: album.accent, transition: "width 0.1s linear" }} />
           </div>
           <div className="flex justify-between mt-3">
-            <span className="font-[family-name:var(--font-space-mono-family)] text-silver/30 text-[10px]">{formatTime(progress * track.duration)}</span>
-            <span className="font-[family-name:var(--font-space-mono-family)] text-silver/30 text-[10px]">{formatTime(track.duration)}</span>
+            <span className="font-[family-name:var(--font-space-mono-family)] text-silver/30 text-[10px]">{formatTime(progress * (duration || 30))}</span>
+            <span className="font-[family-name:var(--font-space-mono-family)] text-silver/30 text-[10px]">{formatTime(duration || 30)}</span>
           </div>
         </div>
         
@@ -487,7 +486,7 @@ export default function AboutPageClient() {
       <Navbar />
 
       <main className="relative pt-48 sm:pt-56 pb-32 min-h-screen">
-        <div className="max-w-[1400px] mx-auto px-8 sm:px-16 lg:px-20 h-full flex flex-col">
+        <div className="max-w-[1400px] mx-auto px-10 sm:px-16 lg:px-24 h-full flex flex-col">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 lg:gap-32 w-full">
             
@@ -510,21 +509,40 @@ export default function AboutPageClient() {
                 <div className="h-px bg-silver/15 w-24 mt-8" />
               </motion.div>
 
-              {/* Bio */}
+              {/* Bio: Revamped Formatting & Shifted Inwards */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.15 }}
-                className="ml-0 sm:ml-12 lg:ml-20 mb-24"
+                className="ml-6 sm:ml-12 lg:ml-20 mb-28 max-w-2xl"
               >
-                <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/70 text-base sm:text-lg leading-[2.2] mb-8 max-w-2xl">
-                  I&apos;m Vince Ong — a Mechatronic Systems Engineering student at Simon Fraser University.
-                  I build at the intersection of hardware and software: embedded firmware, PCB design,
-                  full-stack web applications, and AI-powered SaaS platforms.
+                <div className="border-l-2 border-accent/60 pl-6 sm:pl-8 mb-10">
+                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-chalk text-lg sm:text-xl leading-[2] font-medium">
+                    I&apos;m Vince Ong — a Mechatronic Systems Engineering student at Simon Fraser University.
+                  </p>
+                </div>
+                
+                <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/70 text-base leading-[2.2] mb-6">
+                  I build things at the intersection of hardware and software, specializing in:
                 </p>
-                <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/70 text-base sm:text-lg leading-[2.2] max-w-2xl">
-                  IB Diploma graduate maintaining a 3.7 GPA while actively shipping projects
-                  across multiple disciplines. Based in Vancouver, B.C.
+                
+                <div className="flex flex-col gap-4 mb-10 pl-2">
+                  <div className="flex items-center gap-4">
+                    <div className="w-1.5 h-1.5 rounded-full bg-accent/80 shadow-[0_0_8px_rgba(58,107,138,0.8)]" />
+                    <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/80 text-[15px]">Embedded Firmware (C/C++) &amp; PCB Design</p>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="w-1.5 h-1.5 rounded-full bg-accent/80 shadow-[0_0_8px_rgba(58,107,138,0.8)]" />
+                    <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/80 text-[15px]">Full-Stack Web Applications (React, Next.js)</p>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="w-1.5 h-1.5 rounded-full bg-accent/80 shadow-[0_0_8px_rgba(58,107,138,0.8)]" />
+                    <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/80 text-[15px]">AI-Powered SaaS Platforms &amp; LLM Integrations</p>
+                  </div>
+                </div>
+
+                <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/50 text-sm leading-[2.2] bg-iron/20 p-5 rounded-lg border border-steel/10">
+                  <span className="text-chalk font-semibold">IB Diploma graduate</span> maintaining a 3.7 GPA while actively shipping projects. Based in Vancouver, B.C.
                 </p>
               </motion.div>
 
@@ -534,7 +552,7 @@ export default function AboutPageClient() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="ml-0 sm:ml-12 lg:ml-20 border-t border-b border-steel/10 py-16 mb-28 flex items-center justify-center bg-iron/5 max-w-2xl"
+                className="ml-6 sm:ml-12 lg:ml-20 border-t border-b border-steel/10 py-16 mb-28 flex items-center justify-center bg-iron/5 max-w-2xl"
               >
                 <div className="text-center">
                   <div className="w-16 h-16 mx-auto mb-5 border border-steel/20 rounded-full flex items-center justify-center">
@@ -552,7 +570,7 @@ export default function AboutPageClient() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="ml-0 sm:ml-12 lg:ml-20"
+                className="ml-6 sm:ml-12 lg:ml-20"
               >
                 <div className="mb-14">
                   <p className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-silver/40 tracking-[0.25em] mb-5">

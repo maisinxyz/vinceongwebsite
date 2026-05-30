@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Syne, IBM_Plex_Mono, Space_Mono } from "next/font/google";
 import "./globals.css";
+import AsciiEasterEgg from "@/components/AsciiEasterEgg";
 
 /* ═══════════════════════════════════════════════════
    FONT LOADING
@@ -73,6 +74,7 @@ export default function RootLayout({
       className={`${syne.variable} ${ibmPlexMono.variable} ${spaceMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-carbon text-chalk">
+        <AsciiEasterEgg />
         {children}
       </body>
     </html>

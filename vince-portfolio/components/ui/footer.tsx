@@ -1,9 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Mail, ArrowUp, Sun, Moon } from "lucide-react";
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { Mail, ArrowUp } from "lucide-react";
 
 
 
@@ -14,37 +12,13 @@ function handleScrollTop() {
   });
 }
 
-function ThemeToggle() {
-  const { setTheme, theme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
-
+function ScrollToTopButton() {
   return (
     <div className="flex items-center justify-center">
       <div className="flex items-center rounded-full border border-steel/20 border-dotted p-1">
-        <button
-          onClick={() => setTheme("light")}
-          className={`mr-2 rounded-full p-2 transition-colors ${theme !== 'dark' ? 'bg-black text-white dark:bg-white dark:text-black' : 'text-silver hover:text-chalk'}`}
-        >
-          <Sun className="h-4 w-4" strokeWidth={1.5} />
-          <span className="sr-only">Light Mode</span>
-        </button>
-        <button type="button" onClick={handleScrollTop} className="hover:text-chalk text-silver transition-colors px-2">
-          <ArrowUp className="h-4 w-4" strokeWidth={1.5} />
+        <button type="button" onClick={handleScrollTop} className="hover:text-chalk text-silver transition-colors px-3 py-2">
+          <ArrowUp className="h-5 w-5" strokeWidth={1.5} />
           <span className="sr-only">Scroll to Top</span>
-        </button>
-        <button
-          onClick={() => setTheme("dark")}
-          className={`ml-2 rounded-full p-2 transition-colors ${theme === 'dark' ? 'bg-white text-black dark:bg-white dark:text-black' : 'text-silver hover:text-chalk'}`}
-        >
-          <Moon className="h-4 w-4" strokeWidth={1.5} />
-          <span className="sr-only">Dark Mode</span>
         </button>
       </div>
     </div>
@@ -67,7 +41,7 @@ const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 export default function Footer() {
   return (
-    <footer className="border-steel/15 mx-auto w-full border-t px-6 py-12 mt-24">
+    <footer className="border-steel/15 mx-auto w-full border-t px-6 py-16 mt-24">
       <div className="mx-auto flex max-w-7xl flex-col md:flex-row justify-between items-center gap-8 font-[family-name:var(--font-ibm-plex-mono-family)]">
         
         {/* Left Side: Name & Terms */}
@@ -108,7 +82,7 @@ export default function Footer() {
           </a>
           
           <div className="ml-2">
-            <ThemeToggle />
+            <ScrollToTopButton />
           </div>
         </div>
 

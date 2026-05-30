@@ -79,7 +79,35 @@ export default function Navbar() {
                 onClick={(e) => {
                   if (pathname === "/") {
                     e.preventDefault();
-                    window.scrollTo({ top: 0, behavior: "smooth" });
+                    
+                    const start = window.scrollY;
+                    if (start === 0) return;
+                    const duration = 2500; // 2.5 seconds for a slower, elegant scroll
+                    const startTime = performance.now();
+                    
+                    // Temporarily disable CSS scroll behavior so it doesn't fight our JS animation
+                    const html = document.documentElement;
+                    const originalScrollBehavior = html.style.scrollBehavior;
+                    html.style.scrollBehavior = "auto";
+                    
+                    function step(currentTime: number) {
+                      const elapsed = currentTime - startTime;
+                      const progress = Math.min(elapsed / duration, 1);
+                      
+                      // Cubic ease-in-out: starts slow, accelerates in the middle, slows down at the end
+                      const ease = progress < 0.5 
+                        ? 4 * Math.pow(progress, 3) 
+                        : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+                        
+                      window.scrollTo(0, start * (1 - ease));
+                      
+                      if (progress < 1) {
+                        requestAnimationFrame(step);
+                      } else {
+                        html.style.scrollBehavior = originalScrollBehavior;
+                      }
+                    }
+                    requestAnimationFrame(step);
                   }
                 }}
                 className="relative w-48 h-28 flex items-center justify-center group pointer-events-auto"

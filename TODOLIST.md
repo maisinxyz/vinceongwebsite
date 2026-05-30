@@ -10,7 +10,15 @@ DONE 9. Make sure the top bar does not overlap with the HEaders for the ABOUT, P
 DONE 10. Finish landing page, finish page 2 and add images for all of the pages on the landing page.
 
 to do (for now):
-- Fix the scrolling, the scrolling looks choppy, and also at the end it doesnt click the cards or press the logo to go back to the top.
-- Add light mode (make a light mode version of all the pages and link it to a variable that switches when the light button is pressed.)
-- move onto step 3.
+-  Fix the scrolling, the scrolling looks choppy, and also at the end it doesnt click the cards or press the logo to go back to the top. I want the scrolling to be a slow continous thing, and slow down at key moments, these being:
 
+1. the MEET VINCE page,
+2. experience, projects and education sections in page 2.
+3. The Explore page (and click all of the cards and actually flip them.). 
+
+Make sure that the animations stop at a position such that the related content for each of these key moments and also so that the bar at the top does not cover the actual content.
+
+- Add light mode (make a light mode version of all the pages and link it to a variable that switches when the light button is pressed.) and remove the light mode button in the footer.
+- move onto step 3.
+- Make the scrolling up when the logo is pressed slower. 
+- Fix all of the buttons (make sure EVERY linkedin button goes to this link): https://www.linkedin.com/in/vince-ong-9a96a3371/

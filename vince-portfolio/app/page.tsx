@@ -25,7 +25,7 @@ export default function Home() {
       <CustomCursor />
       <Navbar />
       <ThemeTransitionOverlay style={overlayStyle} />
-      <VirtualCursor cursorRef={cursorRef} />
+      <VirtualCursor cursorRef={cursorRef} isTouring={isTouring} />
 
       <main className="relative">
         {/* ═══════════════════════════════════════════
@@ -137,7 +137,7 @@ export default function Home() {
         {/* ═══════════════════════════════════════════
             SECTION 2: RESUME TEASER (full screen)
         ═══════════════════════════════════════════ */}
-        <section className="relative bg-black flex items-start py-32 sm:py-40" style={{ zIndex: 20 }}>
+        <section data-tour-section="resume" className="relative bg-black flex items-start py-32 sm:py-40" style={{ zIndex: 20 }}>
           {/* Horizontal padding to push content inwards */}
           <div className="max-w-[1440px] mx-auto px-12 sm:px-16 md:px-24 lg:px-32 xl:px-48 w-full flex flex-col lg:flex-row items-start justify-between gap-16 lg:gap-24">
             
@@ -147,7 +147,7 @@ export default function Home() {
               {/* Intro */}
               <RevealOnScroll>
                 <div>
-                  <h2 className="font-[family-name:var(--font-syne-family)] font-extrabold text-chalk text-5xl sm:text-7xl tracking-tight leading-none mb-8">
+                  <h2 data-tour-section="meet-vince" className="font-[family-name:var(--font-syne-family)] font-extrabold text-chalk text-5xl sm:text-7xl tracking-tight leading-none mb-8">
                     Meet Vince
                   </h2>
                   <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/60 text-base sm:text-lg leading-[2] max-w-xl">
@@ -165,7 +165,7 @@ export default function Home() {
               {/* ═══════════════════════════════════════
                   WORK EXPERIENCE — Static header, no animation
               ═══════════════════════════════════════ */}
-              <div className="border-t border-steel/15" style={{ paddingTop: "40px", paddingBottom: "12px" }}>
+              <div data-tour-section="experience" className="border-t border-steel/15" style={{ paddingTop: "40px", paddingBottom: "12px" }}>
                 <div className="flex items-center gap-3 mb-10">
                   <Briefcase className="w-5 h-5 text-silver/50" strokeWidth={1.5} />
                   <h3 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-xl tracking-tight">
@@ -226,7 +226,7 @@ export default function Home() {
               {/* ═══════════════════════════════════════
                   PROJECTS — Static header, no animation
               ═══════════════════════════════════════ */}
-              <div className="border-t border-steel/15" style={{ paddingTop: "40px", paddingBottom: "12px" }}>
+              <div data-tour-section="projects" className="border-t border-steel/15" style={{ paddingTop: "40px", paddingBottom: "12px" }}>
                 <div className="flex items-center gap-3 mb-10">
                   <FolderCode className="w-5 h-5 text-silver/50" strokeWidth={1.5} />
                   <h3 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-xl tracking-tight">
@@ -300,7 +300,7 @@ export default function Home() {
               {/* ═══════════════════════════════════════
                   EDUCATION — Static header, no animation
               ═══════════════════════════════════════ */}
-              <div className="border-t border-steel/15" style={{ paddingTop: "40px", paddingBottom: "12px" }}>
+              <div data-tour-section="education" className="border-t border-steel/15" style={{ paddingTop: "40px", paddingBottom: "12px" }}>
                 <div className="flex items-center gap-3 mb-10">
                   <GraduationCap className="w-5 h-5 text-silver/50" strokeWidth={1.5} />
                   <h3 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-xl tracking-tight">
@@ -376,7 +376,7 @@ export default function Home() {
         {/* ═══════════════════════════════════════════
             SECTION 3: PLAYING CARDS NAVIGATION (0.5 screen)
         ═══════════════════════════════════════════ */}
-        <div className="relative z-10 bg-void">
+        <div data-tour-section="explore" className="relative z-10 bg-void">
           <PlayingCards />
         </div>
 

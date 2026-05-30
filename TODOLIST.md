@@ -4,7 +4,7 @@
 8. Add the 3D model of the spice dispenser in the DIGITAL TO PHYSICAL page in the landing page 
 9. ADD AN ASCII ELEMENT SOMEWHERE!
 10. Make it compatible on phone and ipad.
-
+11. Add a logo and add that logo to the tab.
 
 
 landing page:

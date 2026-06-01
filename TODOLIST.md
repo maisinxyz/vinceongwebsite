@@ -5,7 +5,9 @@
 9. ADD AN ASCII ELEMENT SOMEWHERE!
 10. Make it compatible on phone and ipad.
 11. Add a logo and add that logo to the tab.
-
+12. work on experiences page
+13. make the entire wevsite more clear, so users dont have to think much.
+14. research how to get my own domain and host website on there
 
 landing page:
 - Add light mode (make a light mode version of all the pages and link it to a variable that switches when the light button is pressed.) and remove the light mode button in the footer.
@@ -14,3 +16,4 @@ About me page:
 - Fix the text on the left so it is not against the edge. 
 - Format differently so it is not as monotonous.
 - Remove the logo spinning when on the about page. 
+

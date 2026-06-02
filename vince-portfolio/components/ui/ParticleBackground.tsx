@@ -68,6 +68,7 @@ export function ParticleBackground() {
 
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#fafafa";
       particles.forEach((p) => {
         p.y -= p.speed;
         if (p.y < 0) reset(p);
@@ -76,9 +77,10 @@ export function ParticleBackground() {
           p.opacity -= 0.008;
           if (p.opacity <= 0) reset(p);
         }
-        ctx.fillStyle = `rgba(250, 250, 250, ${p.opacity})`;
+        ctx.globalAlpha = p.opacity;
         ctx.fillRect(p.x, p.y, 0.6, Math.random() * 2 + 1);
       });
+      ctx.globalAlpha = 1.0;
       raf = requestAnimationFrame(draw);
     };
 

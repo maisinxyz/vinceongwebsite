@@ -238,7 +238,7 @@ function RecordPlayer() {
       {/* Hidden Audio Element */}
       <audio 
         ref={audioRef}
-        src={audioUrl}
+        src={audioUrl || undefined}
         preload="auto"
         onEnded={handleAudioEnded}
       />

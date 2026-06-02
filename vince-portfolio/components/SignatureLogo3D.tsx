@@ -2,7 +2,7 @@
 
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useGLTF, Environment, Bounds } from "@react-three/drei";
-import { useRef, Suspense } from "react";
+import { useRef, Suspense, useEffect } from "react";
 import * as THREE from "three";
 import { usePathname } from "next/navigation";
 
@@ -10,26 +10,44 @@ function Model({ shouldSpin }: { shouldSpin: boolean }) {
   const { scene } = useGLTF("/vinceonglogo.glb");
   const groupRef = useRef<THREE.Group>(null);
 
-  // Apply a material to ensure it responds well to lighting
-  scene.traverse((child) => {
-    if (child instanceof THREE.Mesh) {
-      child.material = new THREE.MeshStandardMaterial({ 
-        color: 0xc0c0c0, 
-        metalness: 1.0, 
-        roughness: 0.15 
-      });
-    }
-  });
+  const scrollRef = useRef(0);
+
+  useEffect(() => {
+    // Apply a material to ensure it responds well to lighting
+    scene.traverse((child) => {
+      if (child instanceof THREE.Mesh) {
+        child.material = new THREE.MeshStandardMaterial({ 
+          color: 0xc0c0c0, 
+          metalness: 1.0, 
+          roughness: 0.15 
+        });
+      }
+    });
+  }, [scene]);
+
+  useEffect(() => {
+    if (!shouldSpin) return;
+    
+    const handleScroll = () => {
+      const maxScroll = document.body.scrollHeight - window.innerHeight || 1;
+      scrollRef.current = Math.min(Math.max(window.scrollY / maxScroll, 0), 1);
+    };
+    
+    handleScroll();
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
+  }, [shouldSpin]);
 
   useFrame(() => {
     if (groupRef.current) {
       if (shouldSpin) {
-        // Read the scroll position to rotate the logo
-        const maxScroll = document.body.scrollHeight - window.innerHeight || 1;
-        const scrollProgress = Math.min(Math.max(window.scrollY / maxScroll, 0), 1);
-        
-        // Rotate based on scroll progress (0 to 2*PI radians = 0 to 360 deg)
-        groupRef.current.rotation.y = scrollProgress * Math.PI * 2;
+        // Rotate based on scroll progress
+        groupRef.current.rotation.y = scrollRef.current * Math.PI * 2;
       } else {
         // Keep it locked at 0 rotation on the About page
         groupRef.current.rotation.y = 0;

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Syne, IBM_Plex_Mono, Space_Mono } from "next/font/google";
+import { Syne, IBM_Plex_Mono, Space_Mono, Outfit, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import AsciiEasterEgg from "@/components/AsciiEasterEgg";
 
@@ -25,6 +25,20 @@ const spaceMono = Space_Mono({
   variable: "--font-space-mono-family",
   subsets: ["latin"],
   weight: ["400", "700"],
+  display: "swap",
+});
+
+const outfit = Outfit({
+  variable: "--font-outfit-family",
+  subsets: ["latin"],
+  weight: ["500", "700", "800"],
+  display: "swap",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk-family",
+  subsets: ["latin"],
+  weight: ["500", "700"],
   display: "swap",
 });
 
@@ -71,7 +85,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${syne.variable} ${ibmPlexMono.variable} ${spaceMono.variable} h-full antialiased`}
+      className={`${syne.variable} ${ibmPlexMono.variable} ${spaceMono.variable} ${outfit.variable} ${spaceGrotesk.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-carbon text-chalk">
         <AsciiEasterEgg />

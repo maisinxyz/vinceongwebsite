@@ -488,145 +488,201 @@ export default function AboutPageClient() {
       <main className="relative pt-48 sm:pt-56 pb-32 min-h-screen">
         <div className="max-w-[1400px] mx-auto px-10 sm:px-16 lg:px-24 h-full flex flex-col">
           
+          {/* ABOUT Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.25, 0, 0, 1] }}
+            className="mb-20"
+          >
+            <div className="inline-block bg-iron/60 border border-steel/20 rounded-full px-5 py-2 mb-8">
+              <p className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-silver/60 tracking-[0.25em]">001 — ABOUT</p>
+            </div>
+            <h1 className="font-[family-name:var(--font-syne-family)] font-extrabold text-chalk text-6xl sm:text-7xl lg:text-8xl tracking-tight">
+              ABOUT
+            </h1>
+            <div className="h-px bg-silver/15 w-24 mt-8" />
+          </motion.div>
+
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 lg:gap-32 w-full">
             
             {/* ── LEFT COLUMN: Bio + Projects (Wider side) ── */}
-            <div className="lg:col-span-7 flex flex-col">
-              
-              {/* ABOUT Header */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: [0.25, 0, 0, 1] }}
-                className="mb-20"
-              >
-                <div className="inline-block bg-iron/60 border border-steel/20 rounded-full px-5 py-2 mb-8">
-                  <p className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-silver/60 tracking-[0.25em]">001 — ABOUT</p>
-                </div>
-                <h1 className="font-[family-name:var(--font-syne-family)] font-extrabold text-chalk text-6xl sm:text-7xl lg:text-8xl tracking-tight">
-                  ABOUT
-                </h1>
-                <div className="h-px bg-silver/15 w-24 mt-8" />
-              </motion.div>
+            <div className="lg:col-span-6 lg:col-start-2 flex flex-col pl-16 sm:pl-32 md:pl-48 lg:pl-48 xl:pl-64">
 
-              {/* Bio: Revamped Formatting & Shifted Inwards */}
+              {/* Bio: Floating Textbox */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.15 }}
-                className="ml-6 sm:ml-12 lg:ml-20 mb-28 max-w-2xl"
+                className="mb-48 sm:mb-64"
               >
-                <div className="border-l-2 border-accent/60 pl-6 sm:pl-8 mb-10">
-                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-chalk text-lg sm:text-xl leading-[2] font-medium">
-                    I&apos;m Vince Ong — a Mechatronic Systems Engineering student at Simon Fraser University.
+                <div
+                  className="border border-steel/20 bg-iron/10 p-10 sm:p-14 shadow-[0_4px_40px_rgba(0,0,0,0.3)]"
+                >
+                  <h2 className="font-[family-name:var(--font-space-grotesk-family)] font-bold text-chalk text-2xl sm:text-3xl tracking-tight mb-8">
+                    Vince Ong
+                  </h2>
+                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/70 text-[12px] leading-[2.2] mb-5">
+                    Mechatronic Systems Engineering student at Simon Fraser University.
+                    I am deeply passionate about building end-to-end systems at the intersection of hardware and software. My expertise spans designing custom PCBs, developing robust embedded firmware in C/C++, and engineering scalable full-stack web applications using modern frameworks like React and Next.js.
                   </p>
-                </div>
-                
-                <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/70 text-base leading-[2.2] mb-6">
-                  I build things at the intersection of hardware and software, specializing in:
-                </p>
-                
-                <div className="flex flex-col gap-4 mb-10 pl-2">
-                  <div className="flex items-center gap-4">
-                    <div className="w-1.5 h-1.5 rounded-full bg-accent/80 shadow-[0_0_8px_rgba(58,107,138,0.8)]" />
-                    <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/80 text-[15px]">Embedded Firmware (C/C++) &amp; PCB Design</p>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <div className="w-1.5 h-1.5 rounded-full bg-accent/80 shadow-[0_0_8px_rgba(58,107,138,0.8)]" />
-                    <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/80 text-[15px]">Full-Stack Web Applications (React, Next.js)</p>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <div className="w-1.5 h-1.5 rounded-full bg-accent/80 shadow-[0_0_8px_rgba(58,107,138,0.8)]" />
-                    <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/80 text-[15px]">AI-Powered SaaS Platforms &amp; LLM Integrations</p>
-                  </div>
-                </div>
+                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/70 text-[12px] leading-[2.2] mb-10">
+                    Recently, I've been focused on integrating LLMs to architect and ship AI-driven SaaS platforms. Previously an IB Diploma graduate, I maintain a 3.7 GPA while actively participating in hackathons, developing complex autonomous projects, and co-founding startups. Based in Vancouver, B.C., I'm always looking for new opportunities to learn and innovate.
+                  </p>
 
-                <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/50 text-sm leading-[2.2] bg-iron/20 p-5 rounded-lg border border-steel/10">
-                  <span className="text-chalk font-semibold">IB Diploma graduate</span> maintaining a 3.7 GPA while actively shipping projects. Based in Vancouver, B.C.
-                </p>
+                  <div className="h-px bg-steel/15 mb-10" />
+
+                  <div className="grid grid-cols-3 gap-6">
+                    <div>
+                      <p className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/35 tracking-[0.2em] mb-2">FOCUS</p>
+                      <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/60 text-[12px] leading-relaxed">
+                        Firmware · Robotics · Full-Stack · AI/ML
+                      </p>
+                    </div>
+                    <div>
+                      <p className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/35 tracking-[0.2em] mb-2">EDUCATION</p>
+                      <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/60 text-[12px] leading-relaxed">
+                        SFU · IB Diploma · 3.7 GPA
+                      </p>
+                    </div>
+                    <div>
+                      <p className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/35 tracking-[0.2em] mb-2">BASED IN</p>
+                      <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/60 text-[12px] leading-relaxed">
+                        Vancouver, B.C.
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </motion.div>
 
-              {/* Portrait Placeholder */}
+              {/* Currently Working On — Notion Gallery View */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="ml-6 sm:ml-12 lg:ml-20 border-t border-b border-steel/10 py-16 mb-28 flex items-center justify-center bg-iron/5 max-w-2xl"
               >
-                <div className="text-center">
-                  <div className="w-16 h-16 mx-auto mb-5 border border-steel/20 rounded-full flex items-center justify-center">
-                    <div className="w-5 h-5 border border-steel/30 rounded-sm" />
-                  </div>
-                  <p className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-silver/30 tracking-[0.25em]">
-                    PORTRAIT IMAGE
-                  </p>
-                </div>
-              </motion.div>
-
-              {/* Currently Working On */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-                className="ml-6 sm:ml-12 lg:ml-20"
-              >
-                <div className="mb-14">
+                <div className="mb-10">
                   <p className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-silver/40 tracking-[0.25em] mb-5">
                     002 — ACTIVE
                   </p>
-                  <h2 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-3xl sm:text-4xl tracking-tight">
+                  <h2 className="font-[family-name:var(--font-space-grotesk-family)] font-extrabold text-chalk text-3xl sm:text-4xl lg:text-[2.5rem] tracking-tight">
                     Currently Working On
                   </h2>
                 </div>
 
-                <div className="flex flex-col gap-12">
-                  {/* Engram */}
-                  <div>
-                    <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-4 gap-2">
-                      <a href="https://engram-pi-ruddy.vercel.app" target="_blank" rel="noopener noreferrer"
-                        className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-xl sm:text-2xl hover:text-accent transition-colors group flex items-center gap-3">
-                        Engram
-                        <span className="text-silver/25 group-hover:text-accent transition-colors text-base">↗</span>
-                      </a>
-                      <span className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-silver/30 tracking-[0.15em]">
-                        2024 — PRESENT
-                      </span>
-                    </div>
-                    <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/60 text-[15px] leading-relaxed max-w-xl mb-6">
-                      B2B AI SaaS platform · Co-founded, full-stack development · LLM integration, enterprise dashboard, analytics pipeline.
-                    </p>
-                    <div className="flex flex-wrap gap-x-5 gap-y-3">
-                      {["NEXT.JS", "TYPESCRIPT", "AI/LLM", "SAAS"].map((t) => (
-                        <span key={t} className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-silver/40 tracking-[0.2em]">{t}</span>
-                      ))}
-                    </div>
-                  </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {[
+                    {
+                      title: "Engram",
+                      description: "B2B AI SaaS platform with LLM-powered persistent memory for enterprise workflows.",
+                      tags: ["NEXT.JS", "TYPESCRIPT", "AI/LLM"],
+                      status: "In Progress",
+                      href: "https://engram-pi-ruddy.vercel.app",
+                      period: "2024 —",
+                      coverGradient: "linear-gradient(145deg, #1a1f2e 0%, #0f1318 60%, #1c2230 100%)",
+                    },
+                    {
+                      title: "DAWNTRACE",
+                      description: "Autonomous robotic platform with custom PCB design and embedded firmware.",
+                      tags: ["C/C++", "PCB", "FIRMWARE"],
+                      status: "In Progress",
+                      href: "https://github.com/maisinxyz/DAWNTRACE",
+                      period: "2025 —",
+                      coverGradient: "linear-gradient(145deg, #1f1a1a 0%, #141010 60%, #231c1c 100%)",
+                    },
+                    {
+                      title: "Coming Soon",
+                      description: "Details to be announced.",
+                      tags: [],
+                      status: "Planned",
+                      href: null,
+                      period: "",
+                      coverGradient: "linear-gradient(145deg, #171717 0%, #0d0d0d 60%, #1a1a1a 100%)",
+                    },
+                    {
+                      title: "Coming Soon",
+                      description: "Details to be announced.",
+                      tags: [],
+                      status: "Planned",
+                      href: null,
+                      period: "",
+                      coverGradient: "linear-gradient(145deg, #171717 0%, #0d0d0d 60%, #1a1a1a 100%)",
+                    },
+                  ].map((project, i) => {
+                    const cardContent = (
+                      <div
+                        key={i}
+                        className={`group border border-steel/20 bg-iron/10 transition-all duration-200 ${
+                          project.href
+                            ? "hover:border-steel/40 hover:-translate-y-[2px] hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)]"
+                            : ""
+                        }`}
+                      >
+                        {/* Cover area */}
+                        <div
+                          className="w-full h-[120px]"
+                          style={{ background: project.coverGradient }}
+                        />
 
-                  <div className="h-px w-full max-w-2xl bg-steel/15" />
+                        {/* Card body */}
+                        <div className="p-5">
+                          <div className="flex items-center justify-between mb-3">
+                            <h3 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-[16px] tracking-tight">
+                              {project.title}
+                            </h3>
+                            <span
+                              className={`font-[family-name:var(--font-space-mono-family)] text-[8px] tracking-[0.15em] px-2 py-0.5 border ${
+                                project.status === "In Progress"
+                                  ? "text-silver/50 border-steel/25"
+                                  : "text-silver/30 border-steel/15"
+                              }`}
+                            >
+                              {project.status.toUpperCase()}
+                            </span>
+                          </div>
 
-                  {/* DAWNTRACE */}
-                  <div>
-                    <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-4 gap-2">
-                      <a href="https://github.com/maisinxyz/DAWNTRACE" target="_blank" rel="noopener noreferrer"
-                        className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-xl sm:text-2xl hover:text-accent transition-colors group flex items-center gap-3">
-                        DAWNTRACE
-                        <span className="text-silver/25 group-hover:text-accent transition-colors text-base">↗</span>
-                      </a>
-                      <span className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-silver/30 tracking-[0.15em]">
-                        2025 — PRESENT
-                      </span>
-                    </div>
-                    <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/60 text-[15px] leading-relaxed max-w-xl mb-6">
-                      Autonomous robotic platform · Custom PCB design, embedded firmware (C/C++), sensor fusion, motion control systems.
-                    </p>
-                    <div className="flex flex-wrap gap-x-5 gap-y-3">
-                      {["ROBOTICS", "C/C++", "PCB", "FIRMWARE", "SENSORS"].map((t) => (
-                        <span key={t} className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-silver/40 tracking-[0.2em]">{t}</span>
-                      ))}
-                    </div>
-                  </div>
+                          <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/50 text-[12px] leading-[1.8] mb-4">
+                            {project.description}
+                          </p>
+
+                          {project.tags.length > 0 && (
+                            <div className="flex flex-wrap gap-x-4 gap-y-2">
+                              {project.tags.map((t) => (
+                                <span
+                                  key={t}
+                                  className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/35 tracking-[0.15em]"
+                                >
+                                  {t}
+                                </span>
+                              ))}
+                            </div>
+                          )}
+
+                          {project.period && (
+                            <p className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/25 tracking-[0.1em] mt-4">
+                              {project.period}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    );
+
+                    if (project.href) {
+                      return (
+                        <a
+                          key={i}
+                          href={project.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block"
+                        >
+                          {cardContent}
+                        </a>
+                      );
+                    }
+                    return cardContent;
+                  })}
                 </div>
               </motion.div>
 
@@ -661,7 +717,7 @@ export default function AboutPageClient() {
                     { label: "UNIVERSITY", value: "Simon Fraser University" },
                     { label: "PROGRAM", value: "Mechatronic Systems Eng." },
                     { label: "GPA", value: "3.7 / 4.33" },
-                    { label: "INTERESTS", value: "Firmware · Robotics · AI" },
+                    { label: "INTERESTS", value: "Robotics · Firmware · End-to-End Design" },
                     { label: "LANGUAGES", value: "C/C++ · Python · TS" },
                   ].map((item) => (
                     <div key={item.label}>

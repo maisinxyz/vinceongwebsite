@@ -6,129 +6,186 @@ import Footer from "@/components/ui/footer";
 import CustomCursor from "@/components/CustomCursor";
 import RevealOnScroll from "@/components/RevealOnScroll";
 
-const TIMELINE = [
+/* ═══════════════════════════════════════════════════
+   EXPERIENCE DATA (from resume)
+   ═══════════════════════════════════════════════════ */
+const EXPERIENCES = [
   {
-    company: "MECH",
-    role: "Finance & Development Lead",
-    dateRange: "Aug 2023 – Jul 2025",
-    type: "LEADERSHIP",
+    company: "Pacific National Exhibition",
+    role: "Games Attendant",
+    dateRange: "AUG – SEPT 2025",
+    location: "Vancouver, B.C.",
+    logo: "/logos/pne.png",
+    logoBg: "#1a0a6e",
+    logoInitials: "PNE",
     bullets: [
-      "Co-led a government-recognized BC non-profit focused on health awareness through digital platforms and fundraising.",
-      "Managed project timelines using GANTT scheduling, coordinated cross-functional teams, and oversaw financial growth of 250%.",
-      "Developed organizational infrastructure — digital presence, communication pipelines, and event logistics.",
+      "Demonstrated strong communication and interpersonal skills by actively engaging with a high volume of guests, ensuring a welcoming and entertaining environment to support daily revenue targets.",
+      "Collaborated effectively with team members and supervisors to seamlessly manage booth operations, track prize inventory with zero discrepancies, and resolve customer inquiries during a high-traffic, 3-week event.",
+      "Maintained strict operational guidelines for safety and game integrity, processing cash and card transactions efficiently to optimize throughput during peak hours.",
     ],
   },
   {
-    company: "PNE (Pacific National Exhibition)",
-    role: "Games Attendant",
-    dateRange: "Aug 2025 – Sep 2025",
-    type: "WORK",
+    company: "MECH",
+    subtitle: "Medical Envoys for Community Health",
+    role: "Finance & Development Lead",
+    dateRange: "AUG 2023 – JUL 2025",
+    location: "Langley, B.C.",
+    logo: "/logos/mech.png",
+    logoBg: "#2d6b5a",
+    logoInitials: "M",
     bullets: [
-      "Operated high-traffic game stations, managing customer interactions and maintaining equipment reliability.",
-      "Developed skills in fast-paced problem solving, public communication, and operational efficiency.",
+      "Spearheaded end-to-end financial operations across multiple fundraising campaigns, including budget allocation, operating margin analysis, and stakeholder reporting, ensuring full fiscal accountability.",
+      "Architected and maintained a custom expenditure tracking database, enforcing data standards that reduced reporting discrepancies and improved financial visibility for the entire team.",
+      "Drove revenue growth through coordinated digital and door-to-door marketing campaigns, scaling organizational net assets by over 250% across 2-years.",
+      "Organized structured outreach and educational programs, coordinating logistics and tracking KPIs to measure the efficacy of community health initiatives.",
     ],
   },
 ];
 
+/* ═══════════════════════════════════════════════════
+   LOGO FALLBACK COMPONENT
+   ═══════════════════════════════════════════════════ */
+type ExperienceType = typeof EXPERIENCES[number] & { imgClass?: string };
+
+function CompanyLogo({ exp }: { exp: ExperienceType }) {
+  return (
+    <div
+      className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl shrink-0 overflow-hidden border border-steel/20 flex items-center justify-center relative"
+      style={{ backgroundColor: exp.logoBg }}
+    >
+      {/* Initials fallback (always rendered behind) */}
+      <span className="text-white/80 text-xs font-bold tracking-wider absolute">
+        {exp.logoInitials}
+      </span>
+      {/* Actual image (covers the initials if it loads) */}
+      <img
+        src={exp.logo}
+        alt={exp.company}
+        className={`w-full h-full object-contain p-3 sm:p-4 relative z-10 ${exp.imgClass || ""}`}
+        onError={(e) => {
+          (e.currentTarget as HTMLImageElement).style.display = "none";
+        }}
+      />
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════
+   MAIN PAGE
+   ═══════════════════════════════════════════════════ */
 export default function ExperiencePageClient() {
   return (
     <>
       <CustomCursor />
       <Navbar />
 
-      <main className="relative pt-28 sm:pt-32">
-        {/* HERO */}
-        <section className="py-32 sm:py-44 overflow-hidden relative">
-          <div className="absolute inset-0 flex items-center justify-start pointer-events-none select-none overflow-hidden">
-            <span className="font-[family-name:var(--font-syne-family)] font-extrabold text-[18vw] text-silver/[0.03] leading-none ml-[-2vw]">
-              EXP
-            </span>
-          </div>
+      <main className="relative pt-48 sm:pt-56 pb-32 min-h-screen">
+        
+        {/* ── Page Header (Top Left Aligned) ── */}
+        <div className="max-w-[1400px] mx-auto px-10 sm:px-16 lg:px-24">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.25, 0, 0, 1] }}
+            className="mb-24"
+          >
+            <h1 className="font-[family-name:var(--font-syne-family)] font-extrabold text-chalk text-4xl sm:text-5xl lg:text-6xl tracking-tight">
+              EXPERIENCE
+            </h1>
+            <div className="h-px bg-silver/15 w-16 mt-6" />
+          </motion.div>
+        </div>
 
-          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: [0.25, 0, 0, 1] }}
-              className="space-y-6"
-            >
-              <div className="inline-block bg-iron/60 border border-steel/20 rounded-full px-4 py-1.5">
-                <p className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/50 tracking-[0.25em]">003 — EXPERIENCE</p>
-              </div>
-              <h1 className="font-[family-name:var(--font-syne-family)] font-extrabold text-chalk text-5xl sm:text-6xl lg:text-7xl tracking-tight">
-                EXPERIENCE
-              </h1>
-              <motion.div
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ delay: 0.4, duration: 0.8, ease: [0.25, 0, 0, 1] }}
-                className="h-px bg-silver/30 w-24 origin-left"
-              />
-            </motion.div>
-          </div>
-        </section>
+        <div className="max-w-[1400px] mx-auto pl-16 sm:pl-32 md:pl-48 lg:pl-48 xl:pl-64 pr-10 sm:pr-16 lg:pr-24">
+          {/* ── Experience Entries ── */}
+          <div className="relative">
 
-        {/* TIMELINE */}
-        <section className="pb-24">
-          <div className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12">
-            <div className="relative">
-              <div className="absolute left-[9px] top-2 bottom-0 w-px bg-steel/15" />
+            {/* Timeline vertical line (right side, desktop only) */}
+            <div className="hidden lg:block absolute right-0 top-4 bottom-0 w-px bg-steel/10" />
 
-              <div className="space-y-20">
-                {TIMELINE.map((item, i) => (
-                  <RevealOnScroll key={i} delay={i * 0.1}>
-                    <div className="relative pl-14">
-                      {/* Timeline dot */}
-                      <div className="absolute left-0 top-2 w-[18px] h-[18px] rounded-full border-2 border-steel/25 bg-carbon flex items-center justify-center">
-                        <div className={`w-2 h-2 rounded-full ${
-                          item.type === "LEADERSHIP" ? "bg-silver/50" : "bg-steel/50"
-                        }`} />
-                      </div>
+            <div className="space-y-36">
+              {EXPERIENCES.map((exp, i) => (
+                <div key={i} className="relative">
 
-                      <div className="bg-iron/30 border border-steel/15 rounded-xl p-8 sm:p-10">
-                        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4 mb-6">
-                          <div>
-                            <div className="flex items-center gap-3 mb-2">
-                              <h3 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-xl">{item.company}</h3>
-                              <span className="font-[family-name:var(--font-space-mono-family)] text-[8px] text-silver/30 tracking-widest bg-steel/15 rounded-full px-3 py-0.5">{item.type}</span>
+                    {/* Timeline dot (right side, desktop only) */}
+                    <div className="hidden lg:flex absolute -right-[7px] top-[280px] w-[15px] h-[15px] rounded-full border-2 border-steel/20 bg-carbon items-center justify-center z-10">
+                      <div className="w-[5px] h-[5px] rounded-full bg-silver/40" />
+                    </div>
+
+                    {/* Horizontal Placeholder Image */}
+                    <div className="w-full h-[200px] sm:h-[240px] rounded-xl bg-gradient-to-br from-iron/30 via-carbon to-steel/8 border border-steel/12 mb-12 flex items-center justify-center overflow-hidden relative group">
+                      {/* Subtle noise texture */}
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(255,255,255,0.015),transparent_60%)]" />
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(255,255,255,0.01),transparent_50%)]" />
+                      <span className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-silver/12 tracking-[0.35em] select-none">
+                        PHOTO COMING SOON
+                      </span>
+                    </div>
+
+                    {/* Content Row */}
+                    <div className="flex pl-[25%] sm:pl-[35%] md:pl-[45%] lg:pl-[50%] xl:pl-[55%]">
+                      {/* Main Content */}
+                      <div className="flex-1 min-w-0 lg:pr-16">
+
+                        {/* Header: Logo + Info */}
+                        <div className="flex items-start gap-5 sm:gap-6">
+                          <CompanyLogo exp={exp} />
+
+                          <div className="flex-1 min-w-0">
+                            {/* Company + Date Row */}
+                            <div className="flex items-start justify-between gap-4">
+                              <div>
+                                <h3 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-xl sm:text-2xl tracking-tight leading-tight">
+                                  {exp.company}
+                                </h3>
+                                {exp.subtitle && (
+                                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/35 text-[11px] mt-1 tracking-wide">
+                                    {exp.subtitle}
+                                  </p>
+                                )}
+                              </div>
+                              <span className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-silver/40 tracking-[0.15em] whitespace-nowrap pt-1.5">
+                                {exp.dateRange}
+                              </span>
                             </div>
-                            <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/50 text-sm">{item.role}</p>
+
+                            {/* Role + Location Row */}
+                            <div className="flex items-start justify-between gap-4 mt-3">
+                              <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/60 text-sm">
+                                {exp.role}
+                              </p>
+                              <span className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-silver/25 tracking-[0.15em] whitespace-nowrap">
+                                {exp.location}
+                              </span>
+                            </div>
                           </div>
-                          <span className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/30 tracking-widest shrink-0">{item.dateRange.toUpperCase()}</span>
                         </div>
 
-                        <ul className="space-y-4">
-                          {item.bullets.map((bullet, j) => (
-                            <li key={j} className="flex items-start gap-3">
-                              <div className="w-1 h-1 rounded-full bg-silver/20 mt-2 shrink-0" />
-                              <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/45 text-sm leading-relaxed">{bullet}</p>
+                        {/* Divider */}
+                        <div className="h-px bg-steel/10 mt-10 mb-8 ml-[76px] sm:ml-[88px]" />
+
+                        {/* Bullet Points */}
+                        <ul className="space-y-5 pl-[76px] sm:pl-[88px]">
+                          {exp.bullets.map((bullet, j) => (
+                            <li key={j} className="flex items-start gap-3.5">
+                              <div className="w-1 h-1 rounded-full bg-silver/25 mt-[9px] shrink-0" />
+                              <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/50 text-[13px] leading-[2]">
+                                {bullet}
+                              </p>
                             </li>
                           ))}
                         </ul>
                       </div>
                     </div>
-                  </RevealOnScroll>
-                ))}
-              </div>
+                  </div>
+              ))}
             </div>
-          </div>
-        </section>
 
-        {/* PLACEHOLDER — ADDITIONAL EXPERIENCES */}
-        <section className="py-16 sm:py-20">
-          <div className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12">
-            <RevealOnScroll>
-              <div className="border border-dashed border-steel/15 rounded-2xl py-16 px-10 text-center">
-                <div className="w-10 h-10 mx-auto mb-5 border border-steel/15 rounded-lg flex items-center justify-center">
-                  <div className="w-4 h-4 border border-steel/20 rounded-sm" />
-                </div>
-                <p className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/20 tracking-[0.2em]">
-                  ADDITIONAL EXPERIENCES / VOLUNTEER WORK
-                </p>
-              </div>
-            </RevealOnScroll>
+            {/* Timeline end cap */}
+            <div className="hidden lg:flex absolute -right-[5px] bottom-0 w-[11px] h-[11px] rounded-full border border-steel/15 bg-carbon items-center justify-center" />
+
           </div>
-        </section>
+        </div>
       </main>
 
       <Footer />

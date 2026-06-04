@@ -18,6 +18,8 @@ const EXPERIENCES = [
     logo: "/logos/pne.png",
     logoBg: "#1a0a6e",
     logoInitials: "PNE",
+    image: "/experiences/PNEimage2.jpg",
+    imagePosition: "object-[center_45%]",
     bullets: [
       "Demonstrated strong communication and interpersonal skills by actively engaging with a high volume of guests, ensuring a welcoming and entertaining environment to support daily revenue targets.",
       "Collaborated effectively with team members and supervisors to seamlessly manage booth operations, track prize inventory with zero discrepancies, and resolve customer inquiries during a high-traffic, 3-week event.",
@@ -33,6 +35,8 @@ const EXPERIENCES = [
     logo: "/logos/mech.png",
     logoBg: "#2d6b5a",
     logoInitials: "M",
+    image: "/experiences/MECHimage1.jpg",
+    imagePosition: "object-[center_5%]",
     bullets: [
       "Spearheaded end-to-end financial operations across multiple fundraising campaigns, including budget allocation, operating margin analysis, and stakeholder reporting, ensuring full fiscal accountability.",
       "Architected and maintained a custom expenditure tracking database, enforcing data standards that reduced reporting discrepancies and improved financial visibility for the entire team.",
@@ -87,7 +91,7 @@ export default function ExperiencePageClient() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.25, 0, 0, 1] }}
-            className="mb-24"
+            className="mb-48 sm:mb-64"
           >
             <h1 className="font-[family-name:var(--font-syne-family)] font-extrabold text-chalk text-4xl sm:text-5xl lg:text-6xl tracking-tight">
               EXPERIENCE
@@ -103,7 +107,7 @@ export default function ExperiencePageClient() {
             {/* Timeline vertical line (right side, desktop only) */}
             <div className="hidden lg:block absolute right-0 top-4 bottom-0 w-px bg-steel/10" />
 
-            <div className="space-y-36">
+            <div className="space-y-48 sm:space-y-64">
               {EXPERIENCES.map((exp, i) => (
                 <div key={i} className="relative">
 
@@ -112,18 +116,28 @@ export default function ExperiencePageClient() {
                       <div className="w-[5px] h-[5px] rounded-full bg-silver/40" />
                     </div>
 
-                    {/* Horizontal Placeholder Image */}
+                    {/* Horizontal Image */}
                     <div className="w-full h-[200px] sm:h-[240px] rounded-xl bg-gradient-to-br from-iron/30 via-carbon to-steel/8 border border-steel/12 mb-12 flex items-center justify-center overflow-hidden relative group">
-                      {/* Subtle noise texture */}
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(255,255,255,0.015),transparent_60%)]" />
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(255,255,255,0.01),transparent_50%)]" />
-                      <span className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-silver/12 tracking-[0.35em] select-none">
-                        PHOTO COMING SOON
-                      </span>
+                      {exp.image ? (
+                        <img 
+                          src={exp.image} 
+                          alt={`${exp.company} experience`} 
+                          className={`w-full h-full object-cover ${exp.imagePosition || 'object-center'}`} 
+                        />
+                      ) : (
+                        <>
+                          {/* Subtle noise texture */}
+                          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(255,255,255,0.015),transparent_60%)]" />
+                          <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(255,255,255,0.01),transparent_50%)]" />
+                          <span className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-silver/12 tracking-[0.35em] select-none z-10">
+                            PHOTO COMING SOON
+                          </span>
+                        </>
+                      )}
                     </div>
 
                     {/* Content Row */}
-                    <div className="flex pl-[25%] sm:pl-[35%] md:pl-[45%] lg:pl-[50%] xl:pl-[55%]">
+                    <div className="flex pr-[25%] sm:pr-[35%] md:pr-[45%] lg:pr-[50%] xl:pr-[55%]">
                       {/* Main Content */}
                       <div className="flex-1 min-w-0 lg:pr-16">
 

@@ -12,7 +12,5 @@ landing page:
 - Add light mode (make a light mode version of all the pages and link it to a variable that switches when the light button is pressed.) and remove the light mode button in the footer.
 
 About me page:
-- Fix the text on the left so it is not against the edge. 
-- Format differently so it is not as monotonous.
-- Remove the logo spinning when on the about page. 
-
+- Remove the logo spinning when on the experience page. 
+- add spcae to the right of the positon descriptions so there is room for 2 more images (add the 2 images for PNE and MECH)

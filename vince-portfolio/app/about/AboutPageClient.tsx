@@ -495,9 +495,7 @@ export default function AboutPageClient() {
             transition={{ duration: 0.6, ease: [0.25, 0, 0, 1] }}
             className="mb-20"
           >
-            <div className="inline-block bg-iron/60 border border-steel/20 rounded-full px-5 py-2 mb-8">
-              <p className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-silver/60 tracking-[0.25em]">001 — ABOUT</p>
-            </div>
+
             <h1 className="font-[family-name:var(--font-syne-family)] font-extrabold text-chalk text-6xl sm:text-7xl lg:text-8xl tracking-tight">
               ABOUT
             </h1>
@@ -519,35 +517,37 @@ export default function AboutPageClient() {
                 <div
                   className="border border-steel/20 bg-iron/10 p-10 sm:p-14 shadow-[0_4px_40px_rgba(0,0,0,0.3)]"
                 >
-                  <h2 className="font-[family-name:var(--font-space-grotesk-family)] font-bold text-chalk text-2xl sm:text-3xl tracking-tight mb-8">
+                  <h2 className="font-[family-name:var(--font-syne-family)] font-extrabold text-chalk text-3xl sm:text-4xl tracking-tight mb-8">
                     Vince Ong
                   </h2>
-                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/70 text-[12px] leading-[2.2] mb-5">
-                    Mechatronic Systems Engineering student at Simon Fraser University.
-                    I am deeply passionate about building end-to-end systems at the intersection of hardware and software. My expertise spans designing custom PCBs, developing robust embedded firmware in C/C++, and engineering scalable full-stack web applications using modern frameworks like React and Next.js.
+                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/70 text-[12px] leading-[2.2] mb-12">
+                    Mechatronic Systems Engineering student at Simon Fraser University. I am passionate about building end-to-end systems which integrate hardware and software. I have experience designing custom PCB&apos;s, developing firmware in C++ via raspberry pi and arduino systems, and using frame works such as React and Next.js.
+                  </p>
+                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/70 text-[12px] leading-[2.2] mb-12">
+                    Currently, I am focused on creating more technical projects, which integrate LLMs, specfiically with DAWNTRACE, a project I am working on.
                   </p>
                   <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/70 text-[12px] leading-[2.2] mb-10">
-                    Recently, I've been focused on integrating LLMs to architect and ship AI-driven SaaS platforms. Previously an IB Diploma graduate, I maintain a 3.7 GPA while actively participating in hackathons, developing complex autonomous projects, and co-founding startups. Based in Vancouver, B.C., I'm always looking for new opportunities to learn and innovate.
+                    On top of my projects, I maintain a 3.7 GPA while actively participating in hackathons. Based in Vancouver, B.C., looking for experinces to connect and gain new experiences with people, feel free to message me on linkedin!
                   </p>
 
                   <div className="h-px bg-steel/15 mb-10" />
 
                   <div className="grid grid-cols-3 gap-6">
                     <div>
-                      <p className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/35 tracking-[0.2em] mb-2">FOCUS</p>
-                      <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/60 text-[12px] leading-relaxed">
+                      <p className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-chalk tracking-[0.2em] mb-2">FOCUS</p>
+                      <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-chalk text-[12px] leading-relaxed">
                         Firmware · Robotics · Full-Stack · AI/ML
                       </p>
                     </div>
                     <div>
-                      <p className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/35 tracking-[0.2em] mb-2">EDUCATION</p>
-                      <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/60 text-[12px] leading-relaxed">
+                      <p className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-chalk tracking-[0.2em] mb-2">EDUCATION</p>
+                      <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-chalk text-[12px] leading-relaxed">
                         SFU · IB Diploma · 3.7 GPA
                       </p>
                     </div>
                     <div>
-                      <p className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/35 tracking-[0.2em] mb-2">BASED IN</p>
-                      <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/60 text-[12px] leading-relaxed">
+                      <p className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-chalk tracking-[0.2em] mb-2">BASED IN</p>
+                      <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-chalk text-[12px] leading-relaxed">
                         Vancouver, B.C.
                       </p>
                     </div>
@@ -563,10 +563,7 @@ export default function AboutPageClient() {
                 transition={{ duration: 0.5 }}
               >
                 <div className="mb-10">
-                  <p className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-silver/40 tracking-[0.25em] mb-5">
-                    002 — ACTIVE
-                  </p>
-                  <h2 className="font-[family-name:var(--font-space-grotesk-family)] font-extrabold text-chalk text-3xl sm:text-4xl lg:text-[2.5rem] tracking-tight">
+                  <h2 className="font-[family-name:var(--font-syne-family)] font-extrabold text-chalk text-2xl sm:text-3xl lg:text-3xl tracking-tight">
                     Currently Working On
                   </h2>
                 </div>

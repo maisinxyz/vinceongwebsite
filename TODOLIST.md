@@ -11,6 +11,8 @@
 landing page:
 - Add light mode (make a light mode version of all the pages and link it to a variable that switches when the light button is pressed.) and remove the light mode button in the footer.
 
-experiences page:
-- Remove the logo spinning when on the experience page. 
-- add spcae to the right of the positon descriptions so there is room for 2 more images (add the 2 images for PNE and MECH)
+Projects page:
+- make a 3D mesh and add a 3D demo of the spice dispenser that fully works.
+- Improve the PCB simulation for the digital dice. 
+- Think of something to do for dawntrace 
+- Space out projects more and make the projects page look better

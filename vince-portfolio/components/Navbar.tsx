@@ -10,7 +10,6 @@ const NAV_LINKS = [
   { href: "/projects", label: "PROJECTS" },
   { href: "/experience", label: "EXPERIENCE" },
   { href: "/education", label: "EDUCATION" },
-  { href: "/gurt", label: "GURT" },
 ];
 
 import SignatureLogo3D from "./SignatureLogo3D";

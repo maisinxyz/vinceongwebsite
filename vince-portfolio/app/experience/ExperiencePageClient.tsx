@@ -20,6 +20,10 @@ const EXPERIENCES = [
     logoInitials: "PNE",
     image: "/experiences/PNEimage2.jpg",
     imagePosition: "object-[center_45%]",
+    sideImages: [
+      { src: "/experiences/PNEimage1.jpg" }, 
+      { src: "/experiences/PNEimage2.jpg" }
+    ],
     bullets: [
       "Demonstrated strong communication and interpersonal skills by actively engaging with a high volume of guests, ensuring a welcoming and entertaining environment to support daily revenue targets.",
       "Collaborated effectively with team members and supervisors to seamlessly manage booth operations, track prize inventory with zero discrepancies, and resolve customer inquiries during a high-traffic, 3-week event.",
@@ -37,6 +41,10 @@ const EXPERIENCES = [
     logoInitials: "M",
     image: "/experiences/MECHimage1.jpg",
     imagePosition: "object-[center_5%]",
+    sideImages: [
+      { src: "/experiences/MECHimage2.jpg" }, 
+      { src: "/experiences/MECHimage3.jpg", position: "object-[center_40%]" }
+    ],
     bullets: [
       "Spearheaded end-to-end financial operations across multiple fundraising campaigns, including budget allocation, operating margin analysis, and stakeholder reporting, ensuring full fiscal accountability.",
       "Architected and maintained a custom expenditure tracking database, enforcing data standards that reduced reporting discrepancies and improved financial visibility for the entire team.",
@@ -49,13 +57,13 @@ const EXPERIENCES = [
 /* ═══════════════════════════════════════════════════
    LOGO FALLBACK COMPONENT
    ═══════════════════════════════════════════════════ */
-type ExperienceType = typeof EXPERIENCES[number] & { imgClass?: string };
+type ExperienceType = typeof EXPERIENCES[number] & { imgClass?: string, sideImages?: { src: string, position?: string }[] };
 
 function CompanyLogo({ exp }: { exp: ExperienceType }) {
   return (
     <div
-      className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl shrink-0 overflow-hidden border border-steel/20 flex items-center justify-center relative"
-      style={{ backgroundColor: exp.logoBg }}
+      className="w-16 h-16 rounded-xl shrink-0 overflow-hidden border border-steel/20 flex items-center justify-center relative"
+      style={{ backgroundColor: exp.logoBg, marginLeft: '24px' }}
     >
       {/* Initials fallback (always rendered behind) */}
       <span className="text-white/80 text-xs font-bold tracking-wider absolute">
@@ -65,7 +73,7 @@ function CompanyLogo({ exp }: { exp: ExperienceType }) {
       <img
         src={exp.logo}
         alt={exp.company}
-        className={`w-full h-full object-contain p-3 sm:p-4 relative z-10 ${exp.imgClass || ""}`}
+        className={`w-full h-full object-contain p-4 relative z-10 ${exp.imgClass || ""}`}
         onError={(e) => {
           (e.currentTarget as HTMLImageElement).style.display = "none";
         }}
@@ -107,9 +115,13 @@ export default function ExperiencePageClient() {
             {/* Timeline vertical line (right side, desktop only) */}
             <div className="hidden lg:block absolute right-0 top-4 bottom-0 w-px bg-steel/10" />
 
-            <div className="space-y-48 sm:space-y-64">
+            <div>
               {EXPERIENCES.map((exp, i) => (
-                <div key={i} className="relative">
+                <div 
+                  key={i} 
+                  className="relative"
+                  style={{ marginBottom: i !== EXPERIENCES.length - 1 ? '120px' : '0px' }}
+                >
 
                     {/* Timeline dot (right side, desktop only) */}
                     <div className="hidden lg:flex absolute -right-[7px] top-[280px] w-[15px] h-[15px] rounded-full border-2 border-steel/20 bg-carbon items-center justify-center z-10">
@@ -137,12 +149,12 @@ export default function ExperiencePageClient() {
                     </div>
 
                     {/* Content Row */}
-                    <div className="flex pr-[25%] sm:pr-[35%] md:pr-[45%] lg:pr-[50%] xl:pr-[55%]">
+                    <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 lg:pr-8 xl:pr-16">
                       {/* Main Content */}
-                      <div className="flex-1 min-w-0 lg:pr-16">
+                      <div className="flex-1 min-w-0">
 
                         {/* Header: Logo + Info */}
-                        <div className="flex items-start gap-5 sm:gap-6">
+                        <div className="flex items-start" style={{ gap: '24px' }}>
                           <CompanyLogo exp={exp} />
 
                           <div className="flex-1 min-w-0">
@@ -153,22 +165,22 @@ export default function ExperiencePageClient() {
                                   {exp.company}
                                 </h3>
                                 {exp.subtitle && (
-                                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/35 text-[11px] mt-1 tracking-wide">
+                                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/35 text-xs mt-1 tracking-wide">
                                     {exp.subtitle}
                                   </p>
                                 )}
                               </div>
-                              <span className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-silver/40 tracking-[0.15em] whitespace-nowrap pt-1.5">
+                              <span className="font-[family-name:var(--font-space-mono-family)] text-[11px] text-silver/40 tracking-[0.15em] whitespace-nowrap pt-1.5">
                                 {exp.dateRange}
                               </span>
                             </div>
 
                             {/* Role + Location Row */}
                             <div className="flex items-start justify-between gap-4 mt-3">
-                              <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/60 text-sm">
+                              <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/60 text-[15px]">
                                 {exp.role}
                               </p>
-                              <span className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-silver/25 tracking-[0.15em] whitespace-nowrap">
+                              <span className="font-[family-name:var(--font-space-mono-family)] text-[11px] text-silver/25 tracking-[0.15em] whitespace-nowrap">
                                 {exp.location}
                               </span>
                             </div>
@@ -176,10 +188,10 @@ export default function ExperiencePageClient() {
                         </div>
 
                         {/* Divider */}
-                        <div className="h-px bg-steel/10 mt-10 mb-8 ml-[76px] sm:ml-[88px]" />
+                        <div className="h-px bg-steel/10 mt-10 mb-8" style={{ marginLeft: '112px' }} />
 
                         {/* Bullet Points */}
-                        <ul className="space-y-5 pl-[76px] sm:pl-[88px]">
+                        <ul className="flex flex-col gap-8 sm:gap-10" style={{ paddingLeft: '112px' }}>
                           {exp.bullets.map((bullet, j) => (
                             <li key={j} className="flex items-start gap-3.5">
                               <div className="w-1 h-1 rounded-full bg-silver/25 mt-[9px] shrink-0" />
@@ -190,6 +202,17 @@ export default function ExperiencePageClient() {
                           ))}
                         </ul>
                       </div>
+                      
+                      {/* Right Side Images */}
+                      {exp.sideImages && exp.sideImages.length > 0 && (
+                        <div className="w-full lg:w-[35%] xl:w-[40%] flex flex-col gap-6 pt-4 lg:pt-0">
+                          {exp.sideImages.map((img, idx) => (
+                            <div key={idx} className="w-full h-[200px] sm:h-[240px] rounded-xl overflow-hidden border border-steel/12 bg-carbon relative">
+                              <img src={img.src} alt={`${exp.company} image ${idx + 1}`} className={`w-full h-full object-cover ${img.position || 'object-center'}`} />
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
               ))}

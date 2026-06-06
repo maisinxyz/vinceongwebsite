@@ -485,7 +485,7 @@ export default function AboutPageClient() {
       <CustomCursor />
       <Navbar />
 
-      <main className="relative pt-48 sm:pt-56 pb-32 min-h-screen">
+      <main className="relative pt-48 sm:pt-56 pb-[250px] lg:pb-[400px] min-h-screen">
         <div className="max-w-[1400px] mx-auto px-10 sm:px-16 lg:px-24 h-full flex flex-col">
           
           {/* ABOUT Header */}
@@ -512,7 +512,8 @@ export default function AboutPageClient() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.15 }}
-                className="mb-48 sm:mb-64"
+                className="mb-[250px] sm:mb-[300px] lg:mb-[450px]"
+                style={{ marginTop: '80px' }}
               >
                 <div
                   className="border border-steel/20 bg-iron/10 p-10 sm:p-14 shadow-[0_4px_40px_rgba(0,0,0,0.3)]"

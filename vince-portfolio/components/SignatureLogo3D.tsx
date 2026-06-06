@@ -15,8 +15,9 @@ function Model({ shouldSpin }: { shouldSpin: boolean }) {
   useEffect(() => {
     // Apply a material to ensure it responds well to lighting
     scene.traverse((child) => {
-      if (child instanceof THREE.Mesh) {
-        child.material = new THREE.MeshStandardMaterial({ 
+      if ((child as THREE.Mesh).isMesh) {
+        const mesh = child as THREE.Mesh;
+        mesh.material = new THREE.MeshStandardMaterial({ 
           color: 0xc0c0c0, 
           metalness: 1.0, 
           roughness: 0.15 

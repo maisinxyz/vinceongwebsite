@@ -512,23 +512,34 @@ export default function AboutPageClient() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.15 }}
-                className="mb-[250px] sm:mb-[300px] lg:mb-[450px]"
-                style={{ marginTop: '80px' }}
+                style={{ marginTop: '80px', marginBottom: '100px' }}
               >
                 <div
                   className="border border-steel/20 bg-iron/10 p-10 sm:p-14 shadow-[0_4px_40px_rgba(0,0,0,0.3)]"
+                  style={{ marginLeft: '-60px', marginRight: '-60px' }}
                 >
                   <h2 className="font-[family-name:var(--font-syne-family)] font-extrabold text-chalk text-3xl sm:text-4xl tracking-tight mb-8">
                     Vince Ong
                   </h2>
-                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/70 text-[12px] leading-[2.2] mb-12">
-                    Mechatronic Systems Engineering student at Simon Fraser University. I am passionate about building end-to-end systems which integrate hardware and software. I have experience designing custom PCB&apos;s, developing firmware in C++ via raspberry pi and arduino systems, and using frame works such as React and Next.js.
+                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/70 text-[12px] leading-[2.2] mb-6">
+                    Mechatronic Systems Engineering student at Simon Fraser University.
                   </p>
-                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/70 text-[12px] leading-[2.2] mb-12">
-                    Currently, I am focused on creating more technical projects, which integrate LLMs, specfiically with DAWNTRACE, a project I am working on.
+                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/70 text-[12px] leading-[2.2] mb-6">
+                    I am passionate about building end-to-end systems which integrate hardware and software.
                   </p>
                   <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/70 text-[12px] leading-[2.2] mb-10">
-                    On top of my projects, I maintain a 3.7 GPA while actively participating in hackathons. Based in Vancouver, B.C., looking for experinces to connect and gain new experiences with people, feel free to message me on linkedin!
+                    I have experience designing custom PCB&apos;s, developing firmware in C++ via raspberry pi and arduino systems, and using frameworks such as React and Next.js.
+                  </p>
+                  
+                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/70 text-[12px] leading-[2.2] mb-10">
+                    Currently, I am focused on creating more technical projects, which integrate LLMs, specifically with DAWNTRACE, a project I am working on.
+                  </p>
+                  
+                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/70 text-[12px] leading-[2.2] mb-6">
+                    On top of my projects, I maintain a 3.7 GPA while actively participating in hackathons.
+                  </p>
+                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/70 text-[12px] leading-[2.2] mb-10">
+                    Based in Vancouver, B.C., looking for experiences to connect and gain new experiences with people, feel free to message me on linkedin!
                   </p>
 
                   <div className="h-px bg-steel/15 mb-10" />

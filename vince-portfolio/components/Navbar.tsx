@@ -124,6 +124,7 @@ export default function Navbar() {
               className={`hidden md:flex items-center justify-end gap-8 transition-opacity duration-300 ${
                 isScrolling ? "opacity-0 pointer-events-none" : "opacity-100"
               }`}
+              style={{ marginRight: '40px' }}
             >
               {NAV_LINKS.map((link) => {
                 const isActive = pathname === link.href || pathname.startsWith(link.href + "/");

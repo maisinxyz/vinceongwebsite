@@ -208,7 +208,7 @@ export default function ExperiencePageClient() {
                         <div className="w-full lg:w-[35%] xl:w-[40%] flex flex-col gap-6 pt-4 lg:pt-0">
                           {exp.sideImages.map((img, idx) => (
                             <div key={idx} className="w-full h-[200px] sm:h-[240px] rounded-xl overflow-hidden border border-steel/12 bg-carbon relative">
-                              <img src={img.src} alt={`${exp.company} image ${idx + 1}`} className={`w-full h-full object-cover ${img.position || 'object-center'}`} />
+                              <img src={img.src} alt={`${exp.company} image ${idx + 1}`} className={`w-full h-full object-cover ${'position' in img ? img.position : 'object-center'}`} />
                             </div>
                           ))}
                         </div>

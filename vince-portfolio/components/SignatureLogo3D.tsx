@@ -17,10 +17,12 @@ function Model({ shouldSpin }: { shouldSpin: boolean }) {
     scene.traverse((child) => {
       if ((child as THREE.Mesh).isMesh) {
         const mesh = child as THREE.Mesh;
+        mesh.geometry.computeVertexNormals(); // Guarantee smooth shading
         mesh.material = new THREE.MeshStandardMaterial({ 
-          color: 0xc0c0c0, 
+          color: 0xffffff, // Pure silver reflection
           metalness: 1.0, 
-          roughness: 0.15 
+          roughness: 0.05, // Extremely smooth and shiny
+          envMapIntensity: 3.0 // Boost environment reflections dramatically
         });
       }
     });
@@ -79,8 +81,8 @@ export default function SignatureLogo3D() {
         {/* Frontal light so it's completely visible before scrolling */}
         <directionalLight position={[0, 0, 10]} intensity={1.2} />
         <directionalLight position={[10, 10, 10]} intensity={0.5} />
-        <Environment preset="city" />
         <Suspense fallback={null}>
+          <Environment preset="studio" />
           <Bounds fit clip observe margin={0.8}>
             <Model shouldSpin={shouldSpin} />
           </Bounds>

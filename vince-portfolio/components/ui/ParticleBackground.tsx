@@ -36,7 +36,7 @@ export function ParticleBackground() {
     let particles: Particle[] = [];
     let raf = 0;
 
-    const count = () => Math.floor((canvas.width * canvas.height) / 7000);
+    const count = () => Math.floor((canvas.width * canvas.height) / 20000);
 
     const make = (): Particle => {
       const fadeDelay = Math.random() * 600 + 100;

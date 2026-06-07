@@ -29,7 +29,8 @@ export function Waves({
     pointerSize = 0.5
 }: WavesProps) {
     const containerRef = useRef<HTMLDivElement>(null)
-    const svgRef = useRef<SVGSVGElement>(null)
+    const canvasRef = useRef<HTMLCanvasElement>(null)
+    const ctxRef = useRef<CanvasRenderingContext2D | null>(null)
     const mouseRef = useRef({
         x: -10,
         y: 0,
@@ -42,15 +43,17 @@ export function Waves({
         a: 0,
         set: false,
     })
-    const pathsRef = useRef<SVGPathElement[]>([])
     const linesRef = useRef<Point[][]>([])
     const noiseRef = useRef<((x: number, y: number) => number) | null>(null)
     const rafRef = useRef<number | null>(null)
     const boundingRef = useRef<DOMRect | null>(null)
+    const isVisibleRef = useRef(true)
+    const lastTickRef = useRef(0)
 
     useEffect(() => {
-        if (!containerRef.current || !svgRef.current) return
+        if (!containerRef.current || !canvasRef.current) return
 
+        ctxRef.current = canvasRef.current.getContext('2d')
         noiseRef.current = createNoise2D()
 
         setSize()
@@ -61,6 +64,11 @@ export function Waves({
 
         const container = containerRef.current
         container.addEventListener('touchmove', onTouchMove, { passive: false })
+        
+        const observer = new IntersectionObserver(([entry]) => {
+            isVisibleRef.current = entry.isIntersecting
+        })
+        observer.observe(container)
 
         rafRef.current = requestAnimationFrame(tick)
 
@@ -69,33 +77,31 @@ export function Waves({
             window.removeEventListener('resize', onResize)
             window.removeEventListener('mousemove', onMouseMove)
             container?.removeEventListener('touchmove', onTouchMove)
+            observer.disconnect()
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     function setSize() {
-        if (!containerRef.current || !svgRef.current) return
+        if (!containerRef.current || !canvasRef.current) return
 
         boundingRef.current = containerRef.current.getBoundingClientRect()
         const { width, height } = boundingRef.current
 
-        svgRef.current.style.width = `${width}px`
-        svgRef.current.style.height = `${height}px`
+        canvasRef.current.width = width
+        canvasRef.current.height = height
+        canvasRef.current.style.width = `${width}px`
+        canvasRef.current.style.height = `${height}px`
     }
 
     function setLines() {
-        if (!svgRef.current || !boundingRef.current) return
+        if (!boundingRef.current) return
 
         const { width, height } = boundingRef.current
         linesRef.current = []
 
-        pathsRef.current.forEach(path => {
-            path.remove()
-        })
-        pathsRef.current = []
-
-        const xGap = 8
-        const yGap = 8
+        const xGap = 9.5
+        const yGap = 9.5
 
         const oWidth = width + 200
         const oHeight = height + 30
@@ -119,19 +125,6 @@ export function Waves({
 
                 points.push(point)
             }
-
-            const path = document.createElementNS(
-                'http://www.w3.org/2000/svg',
-                'path'
-            )
-            path.classList.add('a__line')
-            path.classList.add('js-line')
-            path.setAttribute('fill', 'none')
-            path.setAttribute('stroke', strokeColor)
-            path.setAttribute('stroke-width', '1')
-
-            svgRef.current.appendChild(path)
-            pathsRef.current.push(path)
 
             linesRef.current.push(points)
         }
@@ -181,6 +174,13 @@ export function Waves({
 
         if (!noise) return
 
+        const l = Math.max(175, mouse.vs)
+        const cosA = Math.cos(mouse.a)
+        const sinA = Math.sin(mouse.a)
+        const mouseForce = l * mouse.vs * 0.00035
+        const vxForce = cosA * mouseForce
+        const vyForce = sinA * mouseForce
+
         lines.forEach((points) => {
             points.forEach((p: Point) => {
                 const move = noise(
@@ -193,15 +193,17 @@ export function Waves({
 
                 const dx = p.x - mouse.sx
                 const dy = p.y - mouse.sy
-                const d = Math.hypot(dx, dy)
-                const l = Math.max(175, mouse.vs)
 
-                if (d < l) {
-                    const s = 1 - d / l
-                    const f = Math.cos(d * 0.001) * s
+                // Fast bounding box check
+                if (Math.abs(dx) < l && Math.abs(dy) < l) {
+                    const d = Math.hypot(dx, dy)
+                    if (d < l) {
+                        const s = 1 - d / l
+                        const f = Math.cos(d * 0.001) * s
 
-                    p.cursor.vx += Math.cos(mouse.a) * f * l * mouse.vs * 0.00035
-                    p.cursor.vy += Math.sin(mouse.a) * f * l * mouse.vs * 0.00035
+                        p.cursor.vx += vxForce * f
+                        p.cursor.vy += vyForce * f
+                    }
                 }
 
                 p.cursor.vx += (0 - p.cursor.x) * 0.01
@@ -213,8 +215,8 @@ export function Waves({
                 p.cursor.x += p.cursor.vx
                 p.cursor.y += p.cursor.vy
 
-                p.cursor.x = Math.min(50, Math.max(-50, p.cursor.x))
-                p.cursor.y = Math.min(50, Math.max(-50, p.cursor.y))
+                p.cursor.x = p.cursor.x > 50 ? 50 : p.cursor.x < -50 ? -50 : p.cursor.x
+                p.cursor.y = p.cursor.y > 50 ? 50 : p.cursor.y < -50 ? -50 : p.cursor.y
             })
         })
     }
@@ -229,25 +231,42 @@ export function Waves({
     }
 
     function drawLines() {
+        const ctx = ctxRef.current
         const { current: lines } = linesRef
-        const { current: paths } = pathsRef
+        if (!ctx || !canvasRef.current) return
 
-        lines.forEach((points, lIndex) => {
-            if (points.length < 2 || !paths[lIndex]) return;
+        ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height)
+        ctx.strokeStyle = strokeColor
+        ctx.lineWidth = 1
+        ctx.beginPath()
+
+        lines.forEach((points) => {
+            if (points.length < 2) return
 
             const firstPoint = moved(points[0], false)
-            let d = `M ${firstPoint.x} ${firstPoint.y}`
+            ctx.moveTo(firstPoint.x, firstPoint.y)
 
             for (let i = 1; i < points.length; i++) {
                 const current = moved(points[i])
-                d += `L ${current.x} ${current.y}`
+                ctx.lineTo(current.x, current.y)
             }
-
-            paths[lIndex].setAttribute('d', d)
         })
+        ctx.stroke()
     }
 
     function tick(time: number) {
+        if (!isVisibleRef.current) {
+            rafRef.current = requestAnimationFrame(tick)
+            return
+        }
+
+        // Throttle to roughly 60fps to prevent high refresh rate monitors from dying
+        if (time - lastTickRef.current < 16) {
+            rafRef.current = requestAnimationFrame(tick)
+            return
+        }
+        lastTickRef.current = time
+
         const { current: mouse } = mouseRef
 
         mouse.sx += (mouse.x - mouse.sx) * 0.1
@@ -295,10 +314,9 @@ export function Waves({
                 '--y': '50%',
             } as React.CSSProperties}
         >
-            <svg
-                ref={svgRef}
-                className="block w-full h-full js-svg"
-                xmlns="http://www.w3.org/2000/svg"
+            <canvas
+                ref={canvasRef}
+                className="block w-full h-full js-canvas"
             />
             <div
                 className="pointer-dot"

@@ -16,3 +16,4 @@ Projects page:
 - Improve the PCB simulation for the digital dice. 
 - Think of something to do for dawntrace 
 - Space out projects more and make the projects page look better
+- Fix logo (it looks plastic-like, i want it to be metallic)

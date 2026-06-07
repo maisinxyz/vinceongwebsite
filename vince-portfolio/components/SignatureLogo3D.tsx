@@ -1,10 +1,66 @@
 "use client";
 
-import { Canvas, useFrame } from "@react-three/fiber";
-import { useGLTF, Environment, Bounds } from "@react-three/drei";
-import { useRef, Suspense, useEffect } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { useGLTF, Bounds } from "@react-three/drei";
+import { useRef, Suspense, useEffect, useMemo } from "react";
 import * as THREE from "three";
 import { usePathname } from "next/navigation";
+
+function LocalMetalEnvironment() {
+  const { gl } = useThree();
+
+  const textures = useMemo(() => {
+    const makeFace = (top: string, middle: string, bottom: string) => {
+      const canvas = document.createElement("canvas");
+      canvas.width = 128;
+      canvas.height = 128;
+      const context = canvas.getContext("2d");
+      if (!context) return canvas;
+
+      const gradient = context.createLinearGradient(0, 0, 128, 128);
+      gradient.addColorStop(0, top);
+      gradient.addColorStop(0.48, middle);
+      gradient.addColorStop(1, bottom);
+      context.fillStyle = gradient;
+      context.fillRect(0, 0, 128, 128);
+
+      context.fillStyle = "rgba(255,255,255,0.86)";
+      context.fillRect(10, 12, 92, 10);
+      context.fillStyle = "rgba(120,150,170,0.55)";
+      context.fillRect(34, 76, 82, 8);
+      context.fillStyle = "rgba(20,24,28,0.72)";
+      context.fillRect(0, 104, 128, 24);
+
+      return canvas;
+    };
+
+    const cubeTexture = new THREE.CubeTexture([
+      makeFace("#f6f8ff", "#9daebb", "#16191d"),
+      makeFace("#eef2f7", "#7d8992", "#0d0f12"),
+      makeFace("#ffffff", "#bdc7cf", "#272b30"),
+      makeFace("#d9e0e8", "#65717c", "#050607"),
+      makeFace("#ffffff", "#a7b8c8", "#111417"),
+      makeFace("#ced8e2", "#52606a", "#030405"),
+    ]);
+    cubeTexture.colorSpace = THREE.SRGBColorSpace;
+    cubeTexture.needsUpdate = true;
+
+    const pmrem = new THREE.PMREMGenerator(gl);
+    const envMap = pmrem.fromCubemap(cubeTexture).texture;
+    pmrem.dispose();
+
+    return { cubeTexture, envMap };
+  }, [gl]);
+
+  useEffect(() => {
+    return () => {
+      textures.cubeTexture.dispose();
+      textures.envMap.dispose();
+    };
+  }, [textures]);
+
+  return <primitive object={textures.envMap} attach="environment" />;
+}
 
 function Model({ shouldSpin }: { shouldSpin: boolean }) {
   const { scene } = useGLTF("/vinceonglogo.glb");
@@ -16,10 +72,13 @@ function Model({ shouldSpin }: { shouldSpin: boolean }) {
     // Apply a material to ensure it responds well to lighting
     scene.traverse((child) => {
       if (child instanceof THREE.Mesh) {
-        child.material = new THREE.MeshStandardMaterial({ 
+        child.material = new THREE.MeshPhysicalMaterial({
           color: 0xc0c0c0, 
           metalness: 1.0, 
-          roughness: 0.15 
+          roughness: 0.12,
+          clearcoat: 0.55,
+          clearcoatRoughness: 0.18,
+          envMapIntensity: 1.9,
         });
       }
     });
@@ -73,12 +132,21 @@ export default function SignatureLogo3D() {
 
   return (
     <div className="w-48 h-28 flex items-center justify-center pointer-events-none drop-shadow-[0_8px_24px_rgba(255,255,255,0.4)]">
-      <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
+      <Canvas
+        camera={{ position: [0, 0, 5], fov: 50 }}
+        gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+        onCreated={({ gl }) => {
+          gl.outputColorSpace = THREE.SRGBColorSpace;
+          gl.toneMapping = THREE.ACESFilmicToneMapping;
+          gl.toneMappingExposure = 1.08;
+        }}
+      >
         <ambientLight intensity={1.2} />
         {/* Frontal light so it's completely visible before scrolling */}
-        <directionalLight position={[0, 0, 10]} intensity={1.2} />
-        <directionalLight position={[10, 10, 10]} intensity={0.5} />
-        <Environment preset="city" />
+        <directionalLight position={[0, 0, 10]} intensity={1.35} />
+        <directionalLight position={[10, 10, 10]} intensity={0.7} />
+        <directionalLight position={[-8, 4, 6]} intensity={0.35} />
+        <LocalMetalEnvironment />
         <Suspense fallback={null}>
           <Bounds fit clip observe margin={0.8}>
             <Model shouldSpin={shouldSpin} />

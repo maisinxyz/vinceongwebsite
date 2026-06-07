@@ -67,10 +67,10 @@ const PROJECT_ROWS = [
 function ProjectMedia({ project }: { project: typeof PROJECT_ROWS[number] }) {
   if (project.mediaType === "video") {
     return (
-      <div className="relative w-full h-full rounded-xl overflow-hidden bg-void">
+      <div className="relative w-full h-full rounded-xl overflow-hidden bg-void flex items-center justify-center">
         <video
           src={project.mediaSrc}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-contain"
           autoPlay
           muted
           loop
@@ -160,7 +160,7 @@ export default function ProjectsPageClient() {
         {/* PROJECT ROWS */}
         <section className="pb-24">
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-            <div className="space-y-16">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
               {PROJECT_ROWS.map((project, i) => (
                 <RevealOnScroll key={project.slug} delay={i * 0.1}>
                   <div
@@ -196,7 +196,7 @@ export default function ProjectsPageClient() {
                         <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/40 text-xs tracking-wider mb-4">
                           {project.tagline}
                         </p>
-                        <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/50 text-sm leading-relaxed mb-6">
+                        <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/50 text-sm mb-6" style={{ lineHeight: '2' }}>
                           {project.description}
                         </p>
                         <div className="flex flex-wrap gap-2 mb-8">
@@ -225,7 +225,7 @@ export default function ProjectsPageClient() {
                     </div>
 
                     {/* Right: Media */}
-                    <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
+                    <div className="relative rounded-xl flex items-center justify-center overflow-hidden" style={{ aspectRatio: '3 / 2' }}>
                       <ProjectMedia project={project} />
                     </div>
                   </div>

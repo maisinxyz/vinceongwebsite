@@ -2,14 +2,15 @@
 
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useGLTF, Bounds } from "@react-three/drei";
-import { useRef, Suspense, useEffect, useMemo } from "react";
+import { useRef, Suspense, useEffect, useMemo, useState } from "react";
 import * as THREE from "three";
 import { usePathname } from "next/navigation";
 
 function LocalMetalEnvironment() {
   const { gl } = useThree();
+  const [envMap, setEnvMap] = useState<THREE.Texture | null>(null);
 
-  const textures = useMemo(() => {
+  useEffect(() => {
     const makeFace = (top: string, middle: string, bottom: string) => {
       const canvas = document.createElement("canvas");
       canvas.width = 128;
@@ -46,20 +47,19 @@ function LocalMetalEnvironment() {
     cubeTexture.needsUpdate = true;
 
     const pmrem = new THREE.PMREMGenerator(gl);
-    const envMap = pmrem.fromCubemap(cubeTexture).texture;
+    const generatedEnvMap = pmrem.fromCubemap(cubeTexture).texture;
     pmrem.dispose();
 
-    return { cubeTexture, envMap };
+    setEnvMap(generatedEnvMap);
+
+    return () => {
+      cubeTexture.dispose();
+      generatedEnvMap.dispose();
+    };
   }, [gl]);
 
-  useEffect(() => {
-    return () => {
-      textures.cubeTexture.dispose();
-      textures.envMap.dispose();
-    };
-  }, [textures]);
-
-  return <primitive object={textures.envMap} attach="environment" />;
+  if (!envMap) return null;
+  return <primitive object={envMap} attach="environment" />;
 }
 
 function Model({ shouldSpin }: { shouldSpin: boolean }) {

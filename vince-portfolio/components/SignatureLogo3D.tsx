@@ -128,7 +128,8 @@ export default function SignatureLogo3D() {
   const pathname = usePathname();
   const isAboutPage = pathname === "/about" || pathname.startsWith("/about/");
   const isExperiencePage = pathname === "/experience" || pathname.startsWith("/experience/");
-  const shouldSpin = !(isAboutPage || isExperiencePage);
+  const isEducationPage = pathname === "/education" || pathname.startsWith("/education/");
+  const shouldSpin = !(isAboutPage || isExperiencePage || isEducationPage);
 
   return (
     <div className="w-48 h-28 flex items-center justify-center pointer-events-none drop-shadow-[0_8px_24px_rgba(255,255,255,0.4)]">

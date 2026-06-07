@@ -1,10 +1,15 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 
 export default function CustomCursor() {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [ringPosition, setRingPosition] = useState({ x: 0, y: 0 });
+  const dotRef = useRef<HTMLDivElement>(null);
+  const ringRef = useRef<HTMLDivElement>(null);
+
+  // Use refs for tracking to avoid React re-renders at 60fps
+  const mousePos = useRef({ x: 0, y: 0 });
+  const ringPos = useRef({ x: 0, y: 0 });
+  
   const [isHovering, setIsHovering] = useState(false);
   const [isViewer, setIsViewer] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -18,8 +23,13 @@ export default function CustomCursor() {
 
   // Mouse tracking
   const handleMouseMove = useCallback((e: MouseEvent) => {
-    setPosition({ x: e.clientX, y: e.clientY });
+    mousePos.current = { x: e.clientX, y: e.clientY };
     if (!isVisible) setIsVisible(true);
+    
+    // Update dot immediately
+    if (dotRef.current) {
+      dotRef.current.style.transform = `translate(${e.clientX - 3}px, ${e.clientY - 3}px)`;
+    }
   }, [isVisible]);
 
   // Lerp ring follow
@@ -28,15 +38,19 @@ export default function CustomCursor() {
 
     let animationId: number;
     const lerp = () => {
-      setRingPosition((prev) => ({
-        x: prev.x + (position.x - prev.x) * 0.15,
-        y: prev.y + (position.y - prev.y) * 0.15,
-      }));
+      ringPos.current.x += (mousePos.current.x - ringPos.current.x) * 0.15;
+      ringPos.current.y += (mousePos.current.y - ringPos.current.y) * 0.15;
+      
+      if (ringRef.current) {
+        // The offset depends on hovering state, but we apply a generic offset here
+        // and handle size changes via CSS classes
+        ringRef.current.style.transform = `translate(${ringPos.current.x}px, ${ringPos.current.y}px)`;
+      }
       animationId = requestAnimationFrame(lerp);
     };
     animationId = requestAnimationFrame(lerp);
     return () => cancelAnimationFrame(animationId);
-  }, [position, isTouchDevice]);
+  }, [isTouchDevice]);
 
   // Event listeners
   useEffect(() => {
@@ -89,9 +103,9 @@ export default function CustomCursor() {
     <>
       {/* Small dot — follows exactly */}
       <div
+        ref={dotRef}
         className="fixed top-0 left-0 pointer-events-none z-[9997] mix-blend-difference"
         style={{
-          transform: `translate(${position.x - 3}px, ${position.y - 3}px)`,
           opacity: isVisible ? 1 : 0,
           transition: "opacity 0.15s ease",
         }}
@@ -105,11 +119,9 @@ export default function CustomCursor() {
 
       {/* Larger ring — follows with lerp delay */}
       <div
-        className="fixed top-0 left-0 pointer-events-none z-[9996] mix-blend-difference"
+        ref={ringRef}
+        className="fixed top-0 left-0 pointer-events-none z-[9996] mix-blend-difference -ml-4 -mt-4"
         style={{
-          transform: `translate(${ringPosition.x - (isHovering ? 24 : 16)}px, ${
-            ringPosition.y - (isHovering ? 24 : 16)
-          }px)`,
           opacity: isVisible ? 1 : 0,
           transition: "opacity 0.15s ease",
         }}
@@ -117,9 +129,9 @@ export default function CustomCursor() {
         <div
           className={`rounded-full border transition-all duration-200 ${
             isViewer
-              ? "w-10 h-10 border-chalk/40"
+              ? "w-10 h-10 border-chalk/40 -ml-1 -mt-1"
               : isHovering
-              ? "w-12 h-12 border-chalk/60 bg-silver/15"
+              ? "w-12 h-12 border-chalk/60 bg-silver/15 -ml-2 -mt-2"
               : "w-8 h-8 border-chalk/30"
           }`}
           style={{

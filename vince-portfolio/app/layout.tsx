@@ -11,7 +11,7 @@ import AsciiEasterEgg from "@/components/AsciiEasterEgg";
    METADATA — SEO & Open Graph
    ═══════════════════════════════════════════════════ */
 export const metadata: Metadata = {
-  title: "Vince Ong — Mechatronic Systems Engineer",
+  title: "Vince Ong",
   description:
     "Portfolio of Vince Ong, SFU Mechatronic Systems Engineering student. Embedded systems, AI SaaS, PCB design. Firmware. Systems. Products.",
   keywords: [

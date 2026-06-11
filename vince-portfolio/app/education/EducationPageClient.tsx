@@ -105,20 +105,23 @@ export default function EducationPageClient() {
           style={{ backgroundImage: "url('/stickerpage.png')" }}
         />
         {/* Dark overlay — lets colours bleed through while keeping text readable */}
-        <div className="fixed inset-0 w-full h-full bg-black/60" />
+        <div className="fixed inset-0 w-full h-full bg-black/65" />
 
         {/* All page content sits above the background */}
         <div className="relative z-10">
         {/* ── Page Header ── */}
         <div className="max-w-[1400px] mx-auto px-10 sm:px-16 lg:px-24">
-          <header className="mb-24 sm:mb-32">
-            <h1 className="font-[family-name:var(--font-syne-family)] font-extrabold text-chalk text-5xl sm:text-6xl lg:text-7xl tracking-tight uppercase">
-              EDUCATION
-            </h1>
-            <div className="h-px bg-silver/15 w-24 mt-8 mb-8" />
-            <p className="text-silver/60 font-[family-name:var(--font-ibm-plex-mono-family)] text-sm max-w-xl leading-[1.8] uppercase tracking-widest">
-              Academic history, coursework & recognitions.
-            </p>
+          <header className="mb-24 sm:mb-32 group/header relative">
+            <div className="absolute -inset-x-6 -inset-y-4 rounded-2xl transition-all duration-500 ease-out opacity-0 group-hover/header:opacity-100 backdrop-blur-md bg-white/[0.03]" />
+            <div className="relative">
+              <h1 className="font-[family-name:var(--font-syne-family)] font-extrabold text-chalk text-5xl sm:text-6xl lg:text-7xl tracking-tight uppercase">
+                EDUCATION
+              </h1>
+              <div className="h-px bg-silver/15 w-24 mt-8 mb-8" />
+              <p className="text-silver/60 font-[family-name:var(--font-ibm-plex-mono-family)] text-sm max-w-xl leading-[1.8] uppercase tracking-widest">
+                Academic history, coursework & recognitions.
+              </p>
+            </div>
           </header>
         </div>
 
@@ -147,7 +150,7 @@ export default function EducationPageClient() {
                     <div className="h-[2px] w-12 bg-white/20 mb-8 transition-all duration-500 group-hover:w-full group-hover:bg-white/40" />
                     
                     <div className="flex flex-col sm:flex-row gap-8 items-start">
-                      <div className={`shrink-0 ${edu.logoContainerClass}`}>
+                      <div className={`shrink-0 transition-transform duration-300 ease-out hover:-translate-y-1 ${edu.logoContainerClass}`}>
                         <img
                           src={edu.logo}
                           alt={`${edu.institution} Logo`}
@@ -196,7 +199,7 @@ export default function EducationPageClient() {
                 <div className="flex flex-col rounded-xl border border-steel/15 overflow-hidden bg-iron/5 shadow-sm">
                   {COURSEWORK.map((course, index) => (
                     <div key={course.code} className={`flex items-start gap-6 group p-6 sm:p-8 hover:bg-white/[0.02] transition-colors ${index !== COURSEWORK.length - 1 ? 'border-b border-steel/15' : ''}`}>
-                      <div className="w-12 h-12 rounded-lg bg-carbon border border-steel/20 flex items-center justify-center shrink-0 overflow-hidden relative">
+                      <div className="w-12 h-12 rounded-lg bg-carbon border border-steel/20 flex items-center justify-center shrink-0 overflow-hidden relative transition-transform duration-300 ease-out hover:-translate-y-1">
                         {course.logo ? (
                            <img src={course.logo} alt={course.code} className="w-full h-full object-contain p-2" />
                         ) : (
@@ -228,7 +231,7 @@ export default function EducationPageClient() {
                   {AWARDS.map((award, index) => (
                     <div key={award.title} className={`flex items-start gap-6 group p-6 sm:p-8 hover:bg-white/[0.02] transition-colors ${index !== AWARDS.length - 1 ? 'border-b border-steel/15' : ''}`}>
                       <div 
-                        className="w-12 h-12 rounded-lg bg-carbon border border-steel/20 flex items-center justify-center shrink-0 overflow-hidden relative"
+                        className="w-12 h-12 rounded-lg bg-carbon border border-steel/20 flex items-center justify-center shrink-0 overflow-hidden relative transition-transform duration-300 ease-out hover:-translate-y-1"
                         style={{ backgroundColor: award.logoBg }}
                       >
                         <span className="text-white/80 text-[9px] font-bold tracking-wider absolute">

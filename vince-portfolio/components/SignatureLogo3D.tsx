@@ -6,9 +6,8 @@ import { useRef, Suspense, useEffect, useMemo, useState } from "react";
 import * as THREE from "three";
 import { usePathname } from "next/navigation";
 
-function LocalMetalEnvironment() {
-  const { gl } = useThree();
-  const [envMap, setEnvMap] = useState<THREE.Texture | null>(null);
+function LocalMetalEnvironment({ setEnvMap }: { setEnvMap: (tex: THREE.Texture | null) => void }) {
+  const { gl, scene } = useThree();
 
   useEffect(() => {
     const makeFace = (top: string, middle: string, bottom: string) => {
@@ -47,25 +46,29 @@ function LocalMetalEnvironment() {
     cubeTexture.needsUpdate = true;
 
     const pmrem = new THREE.PMREMGenerator(gl);
+    pmrem.compileCubemapShader();
     const generatedEnvMap = pmrem.fromCubemap(cubeTexture).texture;
     pmrem.dispose();
 
+    scene.environment = generatedEnvMap;
     setEnvMap(generatedEnvMap);
 
     return () => {
       cubeTexture.dispose();
       generatedEnvMap.dispose();
+      if (scene.environment === generatedEnvMap) {
+        scene.environment = null;
+      }
+      setEnvMap(null);
     };
-  }, [gl]);
+  }, [gl, scene, setEnvMap]);
 
-  if (!envMap) return null;
-  return <primitive object={envMap} attach="environment" />;
+  return null;
 }
 
-function Model({ shouldSpin }: { shouldSpin: boolean }) {
+function Model({ shouldSpin, envMap }: { shouldSpin: boolean; envMap: THREE.Texture | null }) {
   const { scene } = useGLTF("/vinceonglogo.glb");
   const groupRef = useRef<THREE.Group>(null);
-
   const scrollRef = useRef(0);
 
   useEffect(() => {
@@ -79,10 +82,12 @@ function Model({ shouldSpin }: { shouldSpin: boolean }) {
           clearcoat: 0.55,
           clearcoatRoughness: 0.18,
           envMapIntensity: 1.9,
+          envMap: envMap,
         });
+        child.material.needsUpdate = true;
       }
     });
-  }, [scene]);
+  }, [scene, envMap]);
 
   useEffect(() => {
     if (!shouldSpin) return;
@@ -130,6 +135,7 @@ export default function SignatureLogo3D() {
   const isExperiencePage = pathname === "/experience" || pathname.startsWith("/experience/");
   const isEducationPage = pathname === "/education" || pathname.startsWith("/education/");
   const shouldSpin = !(isAboutPage || isExperiencePage || isEducationPage);
+  const [envMap, setEnvMap] = useState<THREE.Texture | null>(null);
 
   return (
     <div className="w-48 h-28 flex items-center justify-center pointer-events-none drop-shadow-[0_8px_24px_rgba(255,255,255,0.4)]">
@@ -147,10 +153,10 @@ export default function SignatureLogo3D() {
         <directionalLight position={[0, 0, 10]} intensity={1.35} />
         <directionalLight position={[10, 10, 10]} intensity={0.7} />
         <directionalLight position={[-8, 4, 6]} intensity={0.35} />
-        <LocalMetalEnvironment />
+        <LocalMetalEnvironment setEnvMap={setEnvMap} />
         <Suspense fallback={null}>
           <Bounds fit clip observe margin={0.8}>
-            <Model shouldSpin={shouldSpin} />
+            <Model shouldSpin={shouldSpin} envMap={envMap} />
           </Bounds>
         </Suspense>
       </Canvas>

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { ChevronDown, Briefcase, FolderCode, GraduationCap, Mail, MapPin, Sun, Moon, Play, Square } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/ui/footer";
@@ -19,6 +19,16 @@ export default function Home() {
   const scrollIndicatorOpacity = useTransform(scrollY, [0, 200], [1, 0]);
   const { isLight, toggleTheme, overlayStyle } = useThemeTransition();
   const { isTouring, startTour, stopTour, cursorRef } = useAutoTour();
+  const [showInProgress, setShowInProgress] = useState(false);
+  const inProgressTimeout = useRef<NodeJS.Timeout | null>(null);
+
+  const handleLightClick = () => {
+    setShowInProgress(true);
+    if (inProgressTimeout.current) clearTimeout(inProgressTimeout.current);
+    inProgressTimeout.current = setTimeout(() => {
+      setShowInProgress(false);
+    }, 3000);
+  };
 
   return (
     <>
@@ -76,7 +86,7 @@ export default function Home() {
             >
               {/* Theme Toggle */}
               <button
-                onClick={toggleTheme}
+                onClick={handleLightClick}
                 className="group flex items-center gap-2.5 font-[family-name:var(--font-ibm-plex-mono-family)] text-[11px] tracking-[0.15em] text-silver/60 border border-silver/15 rounded-full px-5 py-2.5 hover:bg-iron/60 hover:text-chalk hover:border-silver/30 transition-all duration-300"
               >
                 {isLight ? (
@@ -383,6 +393,29 @@ export default function Home() {
       </main>
 
       <Footer />
+
+      {/* In Progress Notice */}
+      <div
+        style={{
+          position: "fixed",
+          bottom: "40px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          pointerEvents: "none",
+          zIndex: 99995,
+          opacity: showInProgress ? 0.6 : 0,
+          transition: "opacity 0.6s ease",
+          mixBlendMode: "difference",
+          color: "#fff",
+          fontFamily: "var(--font-space-mono-family)",
+          fontSize: "12px",
+          letterSpacing: "0.2em",
+          textTransform: "uppercase",
+          textAlign: "center"
+        }}
+      >
+        In progress
+      </div>
     </>
   );
 }

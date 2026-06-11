@@ -28,7 +28,7 @@ export default function CustomCursor() {
     
     // Update dot immediately
     if (dotRef.current) {
-      dotRef.current.style.transform = `translate(${e.clientX - 3}px, ${e.clientY - 3}px)`;
+      dotRef.current.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
     }
   }, [isVisible]);
 
@@ -42,8 +42,6 @@ export default function CustomCursor() {
       ringPos.current.y += (mousePos.current.y - ringPos.current.y) * 0.15;
       
       if (ringRef.current) {
-        // The offset depends on hovering state, but we apply a generic offset here
-        // and handle size changes via CSS classes
         ringRef.current.style.transform = `translate(${ringPos.current.x}px, ${ringPos.current.y}px)`;
       }
       animationId = requestAnimationFrame(lerp);
@@ -104,14 +102,14 @@ export default function CustomCursor() {
       {/* Small dot — follows exactly */}
       <div
         ref={dotRef}
-        className="fixed top-0 left-0 pointer-events-none z-[9997] mix-blend-difference"
+        className="fixed top-0 left-0 pointer-events-none z-[9997] mix-blend-difference w-0 h-0"
         style={{
           opacity: isVisible ? 1 : 0,
           transition: "opacity 0.15s ease",
         }}
       >
         <div
-          className={`rounded-full bg-chalk transition-all duration-150 ${
+          className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-chalk transition-all duration-150 ${
             isViewer ? "w-0 h-0" : "w-1.5 h-1.5"
           }`}
         />
@@ -120,18 +118,18 @@ export default function CustomCursor() {
       {/* Larger ring — follows with lerp delay */}
       <div
         ref={ringRef}
-        className="fixed top-0 left-0 pointer-events-none z-[9996] mix-blend-difference -ml-4 -mt-4"
+        className="fixed top-0 left-0 pointer-events-none z-[9996] mix-blend-difference w-0 h-0"
         style={{
           opacity: isVisible ? 1 : 0,
           transition: "opacity 0.15s ease",
         }}
       >
         <div
-          className={`rounded-full border transition-all duration-200 ${
+          className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border transition-all duration-200 ${
             isViewer
-              ? "w-10 h-10 border-chalk/40 -ml-1 -mt-1"
+              ? "w-10 h-10 border-chalk/40"
               : isHovering
-              ? "w-12 h-12 border-chalk/60 bg-silver/15 -ml-2 -mt-2"
+              ? "w-12 h-12 border-chalk/60 bg-silver/15"
               : "w-8 h-8 border-chalk/30"
           }`}
           style={{

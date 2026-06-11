@@ -4,7 +4,7 @@ General chaanges:
 - Make it compatible on phone and ipad.
 - Add a logo and add that logo to the tab.
 - research how to get my own domain and host website on there
-
+- TROUBLESHOOT LOGO (NOT SHOWING TEXTURES ON VERCEL DEPLOYMENT.)
 
 Projects page:
 - make a 3D mesh and add a 3D demo of the spice dispenser that fully works.

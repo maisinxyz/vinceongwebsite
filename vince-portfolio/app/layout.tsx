@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import AsciiEasterEgg from "@/components/AsciiEasterEgg";
+import { Analytics } from "@vercel/analytics/react";
 
 /* ═══════════════════════════════════════════════════
    FONT LOADING
@@ -60,6 +61,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-carbon text-chalk">
         <AsciiEasterEgg />
         {children}
+        <Analytics /> {/* Added the Analytics component here */}
       </body>
     </html>
   );

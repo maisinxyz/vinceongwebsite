@@ -1,93 +1,62 @@
 "use client";
 
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { useGLTF, Bounds } from "@react-three/drei";
-import { useRef, Suspense, useEffect, useMemo, useState } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { useGLTF, Bounds, Environment } from "@react-three/drei";
+import { useRef, Suspense, useEffect } from "react";
 import * as THREE from "three";
 import { usePathname } from "next/navigation";
 
-function LocalMetalEnvironment({ setEnvMap }: { setEnvMap: (tex: THREE.Texture | null) => void }) {
-  const { gl, scene } = useThree();
-
-  useEffect(() => {
-    const makeFace = (top: string, middle: string, bottom: string) => {
-      const canvas = document.createElement("canvas");
-      canvas.width = 128;
-      canvas.height = 128;
-      const context = canvas.getContext("2d");
-      if (!context) return canvas;
-
-      const gradient = context.createLinearGradient(0, 0, 128, 128);
-      gradient.addColorStop(0, top);
-      gradient.addColorStop(0.48, middle);
-      gradient.addColorStop(1, bottom);
-      context.fillStyle = gradient;
-      context.fillRect(0, 0, 128, 128);
-
-      context.fillStyle = "rgba(255,255,255,0.86)";
-      context.fillRect(10, 12, 92, 10);
-      context.fillStyle = "rgba(120,150,170,0.55)";
-      context.fillRect(34, 76, 82, 8);
-      context.fillStyle = "rgba(20,24,28,0.72)";
-      context.fillRect(0, 104, 128, 24);
-
-      return canvas;
-    };
-
-    const cubeTexture = new THREE.CubeTexture([
-      makeFace("#f6f8ff", "#9daebb", "#16191d"),
-      makeFace("#eef2f7", "#7d8992", "#0d0f12"),
-      makeFace("#ffffff", "#bdc7cf", "#272b30"),
-      makeFace("#d9e0e8", "#65717c", "#050607"),
-      makeFace("#ffffff", "#a7b8c8", "#111417"),
-      makeFace("#ced8e2", "#52606a", "#030405"),
-    ]);
-    cubeTexture.colorSpace = THREE.SRGBColorSpace;
-    cubeTexture.needsUpdate = true;
-
-    const pmrem = new THREE.PMREMGenerator(gl);
-    pmrem.compileCubemapShader();
-    const generatedEnvMap = pmrem.fromCubemap(cubeTexture).texture;
-    pmrem.dispose();
-
-    scene.environment = generatedEnvMap;
-    setEnvMap(generatedEnvMap);
-
-    return () => {
-      cubeTexture.dispose();
-      generatedEnvMap.dispose();
-      if (scene.environment === generatedEnvMap) {
-        scene.environment = null;
-      }
-      setEnvMap(null);
-    };
-  }, [gl, scene, setEnvMap]);
-
-  return null;
-}
-
-function Model({ shouldSpin, envMap }: { shouldSpin: boolean; envMap: THREE.Texture | null }) {
+function Model({ shouldSpin }: { shouldSpin: boolean }) {
   const { scene } = useGLTF("/vinceonglogo.glb");
   const groupRef = useRef<THREE.Group>(null);
   const scrollRef = useRef(0);
 
   useEffect(() => {
-    // Apply a material to ensure it responds well to lighting
+    // Generate a procedural brushed metal texture.
+    // This is CRITICAL for flat geometries (like extruded logos) 
+    // to actually catch light and look metallic rather than like flat plastic.
+    const canvas = document.createElement("canvas");
+    canvas.width = 1024;
+    canvas.height = 1024;
+    const ctx = canvas.getContext("2d");
+    if (ctx) {
+      // Base color for roughness (mid-grey means somewhat shiny)
+      ctx.fillStyle = "#888888"; 
+      ctx.fillRect(0, 0, 1024, 1024);
+      // Draw thousands of horizontal streaks to simulate brushed silver
+      for (let i = 0; i < 20000; i++) {
+        ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.15})`;
+        ctx.fillRect(0, Math.random() * 1024, 1024, Math.random() * 3);
+        ctx.fillStyle = `rgba(0, 0, 0, ${Math.random() * 0.15})`;
+        ctx.fillRect(0, Math.random() * 1024, 1024, Math.random() * 3);
+      }
+    }
+    const brushedTexture = new THREE.CanvasTexture(canvas);
+    brushedTexture.wrapS = THREE.RepeatWrapping;
+    brushedTexture.wrapT = THREE.RepeatWrapping;
+    brushedTexture.anisotropy = 16;
+    brushedTexture.needsUpdate = true;
+
     scene.traverse((child) => {
       if (child instanceof THREE.Mesh) {
-        child.material = new THREE.MeshPhysicalMaterial({
-          color: 0xc0c0c0, 
-          metalness: 1.0, 
-          roughness: 0.12,
-          clearcoat: 0.55,
-          clearcoatRoughness: 0.18,
-          envMapIntensity: 1.9,
-          envMap: envMap,
+        // Ensure normals are computed properly for lighting calculations
+        child.geometry.computeVertexNormals();
+        
+        child.material = new THREE.MeshStandardMaterial({
+          color: 0xe0e5ec, // Bright silver
+          metalness: 1.0, // 100% metal
+          roughness: 0.35, // High enough to catch the procedural texture
+          roughnessMap: brushedTexture, // Creates anisotropic shine
+          bumpMap: brushedTexture, // Physically breaks up the flat face
+          bumpScale: 0.002, // Subtle but essential for light catching
+          envMapIntensity: 3.5, // High intensity reflections
+          transparent: false,
+          opacity: 1.0,
         });
         child.material.needsUpdate = true;
       }
     });
-  }, [scene, envMap]);
+  }, [scene]);
 
   useEffect(() => {
     if (!shouldSpin) return;
@@ -134,8 +103,8 @@ export default function SignatureLogo3D() {
   const isAboutPage = pathname === "/about" || pathname.startsWith("/about/");
   const isExperiencePage = pathname === "/experience" || pathname.startsWith("/experience/");
   const isEducationPage = pathname === "/education" || pathname.startsWith("/education/");
-  const shouldSpin = !(isAboutPage || isExperiencePage || isEducationPage);
-  const [envMap, setEnvMap] = useState<THREE.Texture | null>(null);
+  const isResumePage = pathname === "/resume" || pathname.startsWith("/resume/");
+  const shouldSpin = !(isAboutPage || isExperiencePage || isEducationPage || isResumePage);
 
   return (
     <div className="w-48 h-28 flex items-center justify-center pointer-events-none drop-shadow-[0_8px_24px_rgba(255,255,255,0.4)]">
@@ -148,15 +117,18 @@ export default function SignatureLogo3D() {
           gl.toneMappingExposure = 1.08;
         }}
       >
-        <ambientLight intensity={1.2} />
-        {/* Frontal light so it's completely visible before scrolling */}
-        <directionalLight position={[0, 0, 10]} intensity={1.35} />
-        <directionalLight position={[10, 10, 10]} intensity={0.7} />
-        <directionalLight position={[-8, 4, 6]} intensity={0.35} />
-        <LocalMetalEnvironment setEnvMap={setEnvMap} />
+        <ambientLight intensity={1.0} />
+        {/* Multi-directional colored lights to create dynamic rim lighting as it spins */}
+        <directionalLight position={[5, 5, 10]} intensity={2.5} />
+        <directionalLight position={[-5, 5, -10]} intensity={1.5} color="#cceeff" />
+        <directionalLight position={[0, -5, 5]} intensity={1.0} color="#ffddbb" />
+        
+        {/* City preset provides high-contrast outdoor reflections perfect for chrome/silver */}
+        <Environment preset="city" />
+        
         <Suspense fallback={null}>
           <Bounds fit clip observe margin={0.8}>
-            <Model shouldSpin={shouldSpin} envMap={envMap} />
+            <Model shouldSpin={shouldSpin} />
           </Bounds>
         </Suspense>
       </Canvas>

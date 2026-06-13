@@ -109,6 +109,14 @@ export default function Home() {
                 )}
                 {isTouring ? "STOP" : "TOUR"}
               </button>
+
+              {/* Resume Button */}
+              <a
+                href="/resume"
+                className="group flex items-center gap-2.5 font-[family-name:var(--font-ibm-plex-mono-family)] text-[11px] tracking-[0.15em] text-silver/60 border border-silver/15 rounded-full px-5 py-2.5 hover:bg-iron/60 hover:text-chalk hover:border-silver/30 transition-all duration-300"
+              >
+                RESUME
+              </a>
             </motion.div>
           </div>
 
@@ -328,9 +336,15 @@ export default function Home() {
                         SEP 2025 – PRESENT
                       </span>
                     </div>
-                    <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/50 text-sm">
+                    <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/50 text-sm mb-6">
                       B.A.Sc. Mechatronic Systems Engineering
                     </p>
+                    <a
+                      href="/resume"
+                      className="inline-flex items-center gap-2.5 font-[family-name:var(--font-ibm-plex-mono-family)] text-[11px] tracking-[0.15em] text-silver/60 border border-silver/15 rounded-full px-5 py-2.5 hover:bg-iron/60 hover:text-chalk hover:border-silver/30 transition-all duration-300"
+                    >
+                      RESUME
+                    </a>
                   </div>
                 </RevealOnScroll>
               </div>

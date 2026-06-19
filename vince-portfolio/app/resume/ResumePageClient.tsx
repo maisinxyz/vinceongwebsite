@@ -12,11 +12,16 @@ export default function ResumePageClient() {
   const [isZoomedInFullscreen, setIsZoomedInFullscreen] = useState(false);
 
   const toggleFullscreen = () => {
+    // iOS Safari doesn't support Fullscreen API — fall back to opening PDF directly
     if (!document.fullscreenElement) {
-      containerRef.current?.requestFullscreen().catch(err => {
-        // Fallback if full screen is not supported
+      if (containerRef.current?.requestFullscreen) {
+        containerRef.current.requestFullscreen().catch(() => {
+          window.open("/ResumeNew.pdf", "_blank");
+        });
+      } else {
+        // Fullscreen API not supported (iOS Safari)
         window.open("/ResumeNew.pdf", "_blank");
-      });
+      }
     } else {
       document.exitFullscreen();
     }
@@ -61,8 +66,11 @@ export default function ResumePageClient() {
             <div 
               ref={containerRef}
               className={`relative group bg-iron/5 border border-steel/15 shadow-sm overflow-hidden flex flex-col transition-all duration-300 mx-auto ${
-                isFullscreen ? "w-full h-screen border-none rounded-none" : "aspect-[8.5/11] h-[75vh] max-w-full rounded-xl"
+                isFullscreen 
+                  ? "w-full h-screen border-none rounded-none" 
+                  : "w-full aspect-[8.5/11] rounded-xl"
               }`}
+              style={!isFullscreen ? { maxWidth: "min(100%, calc(75vh * 8.5 / 11))" } : {}}
             >
               {/* ESC text in top left during fullscreen */}
               {isFullscreen && (

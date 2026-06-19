@@ -63,7 +63,7 @@ function CompanyLogo({ exp }: { exp: ExperienceType }) {
   return (
     <div
       className="w-16 h-16 rounded-xl shrink-0 overflow-hidden border border-steel/20 flex items-center justify-center relative"
-      style={{ backgroundColor: exp.logoBg, marginLeft: '24px' }}
+      style={{ backgroundColor: exp.logoBg }}
     >
       {/* Initials fallback (always rendered behind) */}
       <span className="text-white/80 text-xs font-bold tracking-wider absolute">
@@ -91,15 +91,15 @@ export default function ExperiencePageClient() {
       <CustomCursor />
       <Navbar />
 
-      <main className="relative pt-48 sm:pt-56 pb-32 min-h-screen">
+      <main className="relative pb-32 min-h-screen" style={{ paddingTop: 'clamp(120px, 15vw, 224px)' }}>
         
         {/* ── Page Header (Top Left Aligned) ── */}
-        <div className="max-w-[1400px] mx-auto px-10 sm:px-16 lg:px-24">
+        <div className="max-w-[1400px] mx-auto" style={{ paddingLeft: 'clamp(20px, 5vw, 96px)', paddingRight: 'clamp(20px, 5vw, 96px)' }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.25, 0, 0, 1] }}
-            className="mb-48 sm:mb-64"
+            className="mb-24 sm:mb-48 lg:mb-64"
           >
             <h1 className="font-[family-name:var(--font-syne-family)] font-extrabold text-chalk text-4xl sm:text-5xl lg:text-6xl tracking-tight">
               EXPERIENCE
@@ -108,7 +108,7 @@ export default function ExperiencePageClient() {
           </motion.div>
         </div>
 
-        <div className="max-w-[1400px] mx-auto pl-16 sm:pl-32 md:pl-48 lg:pl-48 xl:pl-64 pr-10 sm:pr-16 lg:pr-24">
+        <div className="max-w-[1400px] mx-auto" style={{ paddingLeft: 'clamp(20px, 5vw, 96px)', paddingRight: 'clamp(20px, 5vw, 96px)' }}>
           {/* ── Experience Entries ── */}
           <div className="relative">
 
@@ -154,7 +154,7 @@ export default function ExperiencePageClient() {
                       <div className="flex-1 min-w-0">
 
                         {/* Header: Logo + Info */}
-                        <div className="flex items-start" style={{ gap: '24px' }}>
+                        <div className="flex items-start flex-col sm:flex-row" style={{ gap: 'clamp(12px, 3vw, 24px)' }}>
                           <CompanyLogo exp={exp} />
 
                           <div className="flex-1 min-w-0">
@@ -188,10 +188,10 @@ export default function ExperiencePageClient() {
                         </div>
 
                         {/* Divider */}
-                        <div className="h-px bg-steel/10 mt-10 mb-8" style={{ marginLeft: '112px' }} />
+                        <div className="h-px bg-steel/10 mt-8 sm:mt-10 mb-6 sm:mb-8" style={{ marginLeft: 'clamp(0px, 10vw, 112px)' }} />
 
                         {/* Bullet Points */}
-                        <ul className="flex flex-col gap-8 sm:gap-10" style={{ paddingLeft: '112px' }}>
+                        <ul className="flex flex-col gap-6 sm:gap-8 lg:gap-10" style={{ paddingLeft: 'clamp(0px, 10vw, 112px)' }}>
                           {exp.bullets.map((bullet, j) => (
                             <li key={j} className="flex items-start gap-3.5">
                               <div className="w-1 h-1 rounded-full bg-silver/25 mt-[9px] shrink-0" />

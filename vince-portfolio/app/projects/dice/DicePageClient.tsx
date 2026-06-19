@@ -82,7 +82,7 @@ export default function DicePageClient() {
             </RevealOnScroll>
 
             <RevealOnScroll delay={0.1}>
-              <div className="bg-iron/30 border border-steel/15 rounded-xl p-10 sm:p-14 max-w-lg mx-auto">
+              <div className="bg-iron/30 border border-steel/15 rounded-xl p-6 sm:p-14 max-w-lg mx-auto w-full">
                 <SevenSegmentDisplay />
               </div>
             </RevealOnScroll>
@@ -100,7 +100,12 @@ export default function DicePageClient() {
 
             <RevealOnScroll delay={0.1}>
               <div className="bg-iron/30 border border-steel/15 rounded-xl overflow-hidden max-w-3xl">
-                <table className="w-full">
+                {/* Scroll hint on mobile */}
+                <div className="sm:hidden flex items-center justify-end gap-2 px-4 pt-3 pb-1">
+                  <span className="font-[family-name:var(--font-space-mono-family)] text-[8px] text-silver/25 tracking-[0.2em]">SCROLL →</span>
+                </div>
+                <div className="table-scroll-container">
+                <table className="w-full min-w-[520px]">
                   <thead>
                     <tr className="border-b border-steel/10">
                       <th className="p-4 text-left font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/35 tracking-[0.2em]">BINARY</th>
@@ -131,6 +136,7 @@ export default function DicePageClient() {
                     ))}
                   </tbody>
                 </table>
+                </div>
               </div>
             </RevealOnScroll>
           </div>

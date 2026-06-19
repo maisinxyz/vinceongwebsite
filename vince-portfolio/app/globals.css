@@ -107,7 +107,7 @@ body {
   color: var(--chalk);
   font-family: var(--font-ibm-plex-mono-family);
   overflow-x: hidden;
-  min-height: 100vh;
+  min-height: 100dvh;
   position: relative;
 }
 
@@ -192,6 +192,17 @@ body {
     cursor: none !important;
   }
 }
+
+/* ═══════════════════════════════════════════════════
+   TOUCH DEVICE — show labels that are hover-only on desktop
+   ═══════════════════════════════════════════════════ */
+@media (hover: none) and (pointer: coarse) {
+  .touch-show {
+    opacity: 1 !important;
+  }
+}
+
+
 
 /* ═══════════════════════════════════════════════════
    AUTO-TOUR — disable navbar interference
@@ -326,5 +337,39 @@ html.tour-active nav {
     padding-left: 18vw;
     padding-right: 18vw;
   }
+}
+
+
+/* ═══════════════════════════════════════════════════
+   SCROLLABLE TABLE CONTAINER (for truth table on mobile)
+   ═══════════════════════════════════════════════════ */
+.table-scroll-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.table-scroll-container::-webkit-scrollbar {
+  height: 3px;
+}
+
+.table-scroll-container::-webkit-scrollbar-thumb {
+  background: var(--silver);
+  border-radius: 0;
+}
+
+/* ═══════════════════════════════════════════════════
+   FORM INPUT — prevent iOS auto-zoom on focus
+   ═══════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+}
+
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 

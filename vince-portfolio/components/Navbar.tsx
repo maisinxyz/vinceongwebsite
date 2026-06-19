@@ -149,7 +149,7 @@ export default function Navbar() {
             <div className="md:hidden flex-1 flex justify-end">
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="relative w-8 h-8 flex items-center justify-center"
+                className="relative w-11 h-11 flex items-center justify-center"
                 aria-label="Toggle menu"
                 aria-expanded={mobileMenuOpen}
               >

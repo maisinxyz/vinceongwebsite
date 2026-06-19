@@ -12,6 +12,7 @@ import { Waves } from "@/components/ui/Waves";
 import { LogosSlider } from "@/components/LogosSlider";
 import { useThemeTransition, ThemeTransitionOverlay } from "@/components/ThemeTransition";
 import { useAutoTour, VirtualCursor } from "@/components/AutoTour";
+import { useDeviceType } from "@/hooks/useDeviceType";
 
 export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -19,8 +20,11 @@ export default function Home() {
   const scrollIndicatorOpacity = useTransform(scrollY, [0, 200], [1, 0]);
   const { isLight, toggleTheme, overlayStyle } = useThemeTransition();
   const { isTouring, startTour, stopTour, cursorRef } = useAutoTour();
+  const { device, isTouchDevice, mounted } = useDeviceType();
   const [showInProgress, setShowInProgress] = useState(false);
   const inProgressTimeout = useRef<NodeJS.Timeout | null>(null);
+
+  const isMobileOrTablet = mounted && (device === 'phone' || device === 'tablet' || isTouchDevice);
 
   const handleLightClick = () => {
     setShowInProgress(true);
@@ -45,10 +49,25 @@ export default function Home() {
           ref={heroRef}
           className="relative min-h-screen flex items-center justify-center overflow-hidden"
         >
-          {/* Animated wave background */}
-          <div className="absolute inset-0" style={{ zIndex: 0 }}>
-            <Waves strokeColor="#3a3a3a" backgroundColor="#000000" />
-          </div>
+          {/* Animated wave background (Desktop only) */}
+          {mounted && !isMobileOrTablet ? (
+            <div className="absolute inset-0" style={{ zIndex: 0 }}>
+              <Waves strokeColor="#3a3a3a" backgroundColor="#000000" />
+            </div>
+          ) : mounted && isMobileOrTablet ? (
+            /* Regular moving gradient background for mobile/tablet */
+            <div 
+              className="absolute inset-0" 
+              style={{ 
+                zIndex: 0,
+                background: "linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%)",
+                backgroundSize: "400% 400%",
+                animation: "gradientFlow 15s ease infinite"
+              }} 
+            />
+          ) : (
+            <div className="absolute inset-0 bg-black" style={{ zIndex: 0 }} />
+          )}
 
 
 
@@ -82,7 +101,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.6, ease: [0.25, 0, 0, 1] }}
-              className="flex items-center gap-4 mt-8 pointer-events-auto"
+              className="flex items-center flex-wrap justify-center gap-3 sm:gap-4 mt-8 pointer-events-auto"
             >
               {/* Theme Toggle */}
               <button
@@ -155,17 +174,17 @@ export default function Home() {
         {/* ═══════════════════════════════════════════
             SECTION 2: RESUME TEASER (full screen)
         ═══════════════════════════════════════════ */}
-        <section data-tour-section="resume" className="relative bg-black flex items-start py-32 sm:py-40" style={{ zIndex: 20 }}>
+        <section data-tour-section="resume" className="relative bg-black flex items-start" style={{ zIndex: 20, paddingTop: 'clamp(80px, 10vw, 160px)', paddingBottom: 'clamp(80px, 10vw, 160px)' }}>
           {/* Horizontal padding to push content inwards */}
-          <div className="max-w-[1440px] mx-auto px-12 sm:px-16 md:px-24 lg:px-32 xl:px-48 w-full flex flex-col lg:flex-row items-start justify-between gap-16 lg:gap-24">
+          <div className="max-w-[1440px] mx-auto w-full flex flex-col lg:flex-row items-start justify-between gap-12 lg:gap-24" style={{ paddingLeft: 'clamp(20px, 5vw, 192px)', paddingRight: 'clamp(20px, 5vw, 192px)' }}>
             
             {/* Left Column: Resume Preview */}
-            <div className="w-full lg:w-[55%]" style={{ transform: "translateX(80px)", display: "flex", flexDirection: "column", gap: "64px" }}>
+            <div className="w-full lg:w-[55%]" style={{ display: "flex", flexDirection: "column", gap: "clamp(32px, 5vw, 64px)" }}>
               
               {/* Intro */}
               <RevealOnScroll>
                 <div>
-                  <h2 data-tour-section="meet-vince" className="font-[family-name:var(--font-syne-family)] font-extrabold text-chalk text-5xl sm:text-7xl tracking-tight leading-none mb-8">
+                  <h2 data-tour-section="meet-vince" className="font-[family-name:var(--font-syne-family)] font-extrabold text-chalk text-3xl sm:text-5xl lg:text-7xl tracking-tight leading-none mb-6 sm:mb-8">
                     Meet Vince
                   </h2>
                   <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/60 text-base sm:text-lg leading-[2] max-w-xl">

@@ -130,19 +130,24 @@ export default function SevenSegmentDisplay() {
       </button>
 
       {/* Binary output */}
-      <div className="flex items-center gap-4">
-        <span className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-silver/40 tracking-widest">
-          DECIMAL:
-        </span>
-        <span className="font-[family-name:var(--font-space-mono-family)] text-lg text-chalk">
-          {value !== null ? value : "-"}
-        </span>
-        <span className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-silver/40 tracking-widest ml-4">
-          BINARY:
-        </span>
-        <span className="font-[family-name:var(--font-space-mono-family)] text-lg text-chalk tracking-widest">
-          {binaryStr}
-        </span>
+      <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 w-full justify-center text-center mt-2">
+        <div className="flex items-center gap-2">
+          <span className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-silver/40 tracking-widest">
+            DECIMAL:
+          </span>
+          <span className="font-[family-name:var(--font-space-mono-family)] text-lg text-chalk">
+            {value !== null ? value : "-"}
+          </span>
+        </div>
+        <div className="hidden sm:block w-px h-4 bg-steel/30 mx-2" />
+        <div className="flex items-center gap-2">
+          <span className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-silver/40 tracking-widest">
+            BINARY:
+          </span>
+          <span className="font-[family-name:var(--font-space-mono-family)] text-lg text-chalk tracking-widest">
+            {binaryStr}
+          </span>
+        </div>
       </div>
     </div>
   );

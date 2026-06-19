@@ -243,10 +243,8 @@ function RecordPlayer() {
         onEnded={handleAudioEnded}
       />
 
-      {/* 3D Scene Container */}
-      <div 
+      <div className="relative w-full flex flex-col items-center h-[280px] sm:h-[380px] mb-6"
         style={{ perspective: "1200px" }} 
-        className="w-full flex justify-center items-center h-[380px] mb-6"
       >
         <div 
           style={{ 
@@ -279,7 +277,7 @@ function RecordPlayer() {
             <div 
               className="absolute rounded-sm overflow-hidden flex items-center justify-center bg-carbon"
               style={{
-                width: "230px", height: "230px",
+                width: 'clamp(160px, 35vw, 230px)', height: 'clamp(160px, 35vw, 230px)',
                 transform: "translateZ(4px)",
                 background: `url("${album.image}") center/cover, ${album.coverBg}`,
                 boxShadow: "inset 0 0 20px rgba(0,0,0,0.6)",
@@ -302,7 +300,7 @@ function RecordPlayer() {
             <div 
               className="absolute bg-iron rounded-sm"
               style={{
-                width: "230px", height: "230px",
+                width: 'clamp(160px, 35vw, 230px)', height: 'clamp(160px, 35vw, 230px)',
                 transform: "translateZ(-4px) rotateY(180deg)",
               }}
             />
@@ -311,7 +309,7 @@ function RecordPlayer() {
             <div 
               className="absolute bg-steel/40"
               style={{
-                width: "8px", height: "230px",
+                width: "8px", height: 'clamp(160px, 35vw, 230px)',
                 right: "-4px",
                 transform: "rotateY(90deg)",
               }}
@@ -320,7 +318,7 @@ function RecordPlayer() {
             <div 
               className="absolute bg-steel/30"
               style={{
-                width: "230px", height: "8px",
+                width: 'clamp(160px, 35vw, 230px)', height: "8px",
                 top: "-4px",
                 transform: "rotateX(90deg)",
               }}
@@ -341,7 +339,7 @@ function RecordPlayer() {
               transition={{ duration: 1.8, repeat: isPlaying ? Infinity : 0, ease: "linear" }}
               className="relative rounded-full bg-[#111]"
               style={{ 
-                width: "220px", height: "220px",
+                width: 'clamp(150px, 33vw, 220px)', height: 'clamp(150px, 33vw, 220px)',
                 transformStyle: "preserve-3d",
                 boxShadow: "0 0 1px rgba(255,255,255,0.1), inset 0 0 5px #000"
               }}
@@ -444,7 +442,7 @@ function RecordPlayer() {
             ) : (
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
             )}
-            <span className={`font-[family-name:var(--font-space-mono-family)] text-[9px] tracking-[0.2em] opacity-0 group-hover:opacity-100 transition-opacity ${!audioUrl ? 'hidden' : ''}`}>
+            <span className={`font-[family-name:var(--font-space-mono-family)] text-[9px] tracking-[0.2em] touch-show opacity-0 group-hover:opacity-100 transition-opacity ${!audioUrl ? 'hidden' : ''}`}>
               {isPlaying ? "PAUSE" : "PLAY"}
             </span>
           </button>
@@ -453,7 +451,7 @@ function RecordPlayer() {
             className="flex flex-col items-center gap-2.5 text-silver/40 hover:text-chalk transition-colors group"
             aria-label="Skip track">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" /></svg>
-            <span className="font-[family-name:var(--font-space-mono-family)] text-[9px] tracking-[0.2em] opacity-0 group-hover:opacity-100 transition-opacity">
+            <span className="font-[family-name:var(--font-space-mono-family)] text-[9px] tracking-[0.2em] touch-show opacity-0 group-hover:opacity-100 transition-opacity">
               SKIP
             </span>
           </button>
@@ -485,8 +483,8 @@ export default function AboutPageClient() {
       <CustomCursor />
       <Navbar />
 
-      <main className="relative pt-48 sm:pt-56 pb-[250px] lg:pb-[400px] min-h-screen">
-        <div className="max-w-[1400px] mx-auto px-10 sm:px-16 lg:px-24 h-full flex flex-col">
+      <main className="relative pb-[250px] lg:pb-[400px] min-h-screen" style={{ paddingTop: 'clamp(120px, 15vw, 224px)' }}>
+        <div className="max-w-[1400px] mx-auto h-full flex flex-col" style={{ paddingLeft: 'clamp(20px, 5vw, 96px)', paddingRight: 'clamp(20px, 5vw, 96px)' }}>
           
           {/* ABOUT Header */}
           <motion.div
@@ -505,7 +503,7 @@ export default function AboutPageClient() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 lg:gap-32 w-full">
             
             {/* ── LEFT COLUMN: Bio + Projects (Wider side) ── */}
-            <div className="lg:col-span-6 lg:col-start-2 flex flex-col pl-16 sm:pl-32 md:pl-48 lg:pl-48 xl:pl-64">
+            <div className="lg:col-span-6 lg:col-start-2 flex flex-col pl-0 lg:pl-48 xl:pl-64">
 
               {/* Bio: Floating Textbox */}
               <motion.div
@@ -515,8 +513,7 @@ export default function AboutPageClient() {
                 style={{ marginTop: '80px', marginBottom: '100px' }}
               >
                 <div
-                  className="border border-steel/20 bg-iron/10 p-10 sm:p-14 shadow-[0_4px_40px_rgba(0,0,0,0.3)]"
-                  style={{ marginLeft: '-60px', marginRight: '-60px' }}
+                  className="border border-steel/20 bg-iron/10 p-6 sm:p-10 lg:p-14 shadow-[0_4px_40px_rgba(0,0,0,0.3)]"
                 >
                   <h2 className="font-[family-name:var(--font-syne-family)] font-extrabold text-chalk text-3xl sm:text-4xl tracking-tight mb-8">
                     Vince Ong

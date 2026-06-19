@@ -143,7 +143,7 @@ export default function ContactPageClient() {
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full bg-steel/10 border border-steel/20 rounded-lg px-5 py-3.5 font-[family-name:var(--font-ibm-plex-mono-family)] text-chalk text-sm placeholder-silver/20 focus:border-silver/30 focus:outline-none transition-colors"
+                      className="w-full bg-steel/10 border border-steel/20 rounded-lg px-5 py-3.5 font-[family-name:var(--font-ibm-plex-mono-family)] text-chalk text-base placeholder-silver/20 focus:border-silver/30 focus:outline-none transition-colors"
                       placeholder="Your name"
                     />
                   </div>
@@ -158,7 +158,7 @@ export default function ContactPageClient() {
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full bg-steel/10 border border-steel/20 rounded-lg px-5 py-3.5 font-[family-name:var(--font-ibm-plex-mono-family)] text-chalk text-sm placeholder-silver/20 focus:border-silver/30 focus:outline-none transition-colors"
+                      className="w-full bg-steel/10 border border-steel/20 rounded-lg px-5 py-3.5 font-[family-name:var(--font-ibm-plex-mono-family)] text-chalk text-base placeholder-silver/20 focus:border-silver/30 focus:outline-none transition-colors"
                       placeholder="you@company.com"
                     />
                   </div>
@@ -173,7 +173,7 @@ export default function ContactPageClient() {
                       rows={5}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full bg-steel/10 border border-steel/20 rounded-lg px-5 py-3.5 font-[family-name:var(--font-ibm-plex-mono-family)] text-chalk text-sm placeholder-silver/20 focus:border-silver/30 focus:outline-none transition-colors resize-none"
+                      className="w-full bg-steel/10 border border-steel/20 rounded-lg px-5 py-3.5 font-[family-name:var(--font-ibm-plex-mono-family)] text-chalk text-base placeholder-silver/20 focus:border-silver/30 focus:outline-none transition-colors resize-none"
                       placeholder="Tell me about the opportunity..."
                     />
                   </div>
@@ -181,7 +181,7 @@ export default function ContactPageClient() {
                   <button
                     type="submit"
                     disabled={formState === "sending" || formState === "sent"}
-                    className={`w-full flex items-center justify-center gap-2.5 py-3.5 rounded-lg font-[family-name:var(--font-ibm-plex-mono-family)] text-sm tracking-wider transition-all duration-200 ${
+                    className={`w-full flex items-center justify-center gap-2.5 py-4 min-h-[44px] rounded-lg font-[family-name:var(--font-ibm-plex-mono-family)] text-sm tracking-wider transition-all duration-200 ${
                       formState === "sent"
                         ? "bg-green-500/20 border border-green-500/30 text-green-400"
                         : formState === "error"

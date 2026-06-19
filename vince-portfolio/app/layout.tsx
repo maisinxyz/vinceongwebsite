@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import AsciiEasterEgg from "@/components/AsciiEasterEgg";
 import { Analytics } from "@vercel/analytics/react";
@@ -7,6 +7,15 @@ import { Analytics } from "@vercel/analytics/react";
    FONT LOADING
    Loaded via Google Fonts CDN to ensure reliability
    ═══════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════
+   VIEWPORT — responsive & iOS safe areas
+   ═══════════════════════════════════════════════════ */
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
 
 /* ═══════════════════════════════════════════════════
    METADATA — SEO & Open Graph

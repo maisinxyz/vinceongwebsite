@@ -98,7 +98,7 @@ export default function EducationPageClient() {
       <CustomCursor />
       <Navbar />
 
-      <main className="min-h-screen text-chalk selection:bg-silver/30 selection:text-white pt-40 pb-40 relative">
+      <main className="min-h-screen text-chalk selection:bg-silver/30 selection:text-white pb-40 relative" style={{ paddingTop: 'clamp(100px, 14vw, 160px)' }}>
         {/* Background image */}
         <div
           className="fixed inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
@@ -110,7 +110,7 @@ export default function EducationPageClient() {
         {/* All page content sits above the background */}
         <div className="relative z-10">
         {/* ── Page Header ── */}
-        <div className="max-w-[1400px] mx-auto px-10 sm:px-16 lg:px-24">
+        <div className="max-w-[1400px] mx-auto" style={{ paddingLeft: 'clamp(20px, 5vw, 96px)', paddingRight: 'clamp(20px, 5vw, 96px)' }}>
           <header className="mb-24 sm:mb-32 group/header relative">
             <div className="absolute -inset-x-6 -inset-y-4 rounded-2xl transition-all duration-500 ease-out opacity-0 group-hover/header:opacity-100 backdrop-blur-md bg-white/[0.03]" />
             <div className="relative">
@@ -125,9 +125,9 @@ export default function EducationPageClient() {
           </header>
         </div>
 
-        <div className="max-w-[1400px] mx-auto px-10 sm:px-16 lg:px-24 h-full flex flex-col">
+        <div className="max-w-[1400px] mx-auto h-full flex flex-col" style={{ paddingLeft: 'clamp(20px, 5vw, 96px)', paddingRight: 'clamp(20px, 5vw, 96px)' }}>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 lg:gap-32 w-full">
-            <div className="lg:col-span-11 lg:col-start-2 flex flex-col gap-24 pl-16 sm:pl-32 md:pl-48 lg:pl-48 xl:pl-64">
+            <div className="lg:col-span-11 lg:col-start-2 flex flex-col gap-24 pl-0 lg:pl-48 xl:pl-64">
             
             {/* ── DEGREES SECTION ── */}
             <section className="relative">

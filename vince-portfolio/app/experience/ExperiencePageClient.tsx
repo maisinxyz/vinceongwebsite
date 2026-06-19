@@ -62,7 +62,7 @@ type ExperienceType = typeof EXPERIENCES[number] & { imgClass?: string, sideImag
 function CompanyLogo({ exp }: { exp: ExperienceType }) {
   return (
     <div
-      className="w-16 h-16 rounded-xl shrink-0 overflow-hidden border border-steel/20 flex items-center justify-center relative"
+      className="w-16 h-16 rounded-xl shrink-0 overflow-hidden border border-steel/20 flex items-center justify-center relative max-lg:ml-0 lg:ml-[24px]"
       style={{ backgroundColor: exp.logoBg }}
     >
       {/* Initials fallback (always rendered behind) */}
@@ -91,10 +91,10 @@ export default function ExperiencePageClient() {
       <CustomCursor />
       <Navbar />
 
-      <main className="relative pb-32 min-h-screen" style={{ paddingTop: 'clamp(120px, 15vw, 224px)' }}>
+      <main className="relative max-lg:pt-[clamp(120px,15vw,224px)] lg:pt-48 xl:pt-56 pb-32 min-h-screen">
         
         {/* ── Page Header (Top Left Aligned) ── */}
-        <div className="max-w-[1400px] mx-auto" style={{ paddingLeft: 'clamp(20px, 5vw, 96px)', paddingRight: 'clamp(20px, 5vw, 96px)' }}>
+        <div className="max-w-[1400px] mx-auto max-lg:px-[clamp(20px,5vw,96px)] lg:px-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -108,7 +108,7 @@ export default function ExperiencePageClient() {
           </motion.div>
         </div>
 
-        <div className="max-w-[1400px] mx-auto" style={{ paddingLeft: 'clamp(20px, 5vw, 96px)', paddingRight: 'clamp(20px, 5vw, 96px)' }}>
+        <div className="max-w-[1400px] mx-auto max-lg:px-[clamp(20px,5vw,96px)] lg:pl-48 xl:pl-64 lg:pr-24">
           {/* ── Experience Entries ── */}
           <div className="relative">
 
@@ -154,7 +154,7 @@ export default function ExperiencePageClient() {
                       <div className="flex-1 min-w-0">
 
                         {/* Header: Logo + Info */}
-                        <div className="flex items-start flex-col sm:flex-row" style={{ gap: 'clamp(12px, 3vw, 24px)' }}>
+                        <div className="flex max-lg:flex-col lg:flex-row items-start max-lg:gap-[clamp(12px,3vw,24px)] lg:gap-[24px]">
                           <CompanyLogo exp={exp} />
 
                           <div className="flex-1 min-w-0">
@@ -188,10 +188,10 @@ export default function ExperiencePageClient() {
                         </div>
 
                         {/* Divider */}
-                        <div className="h-px bg-steel/10 mt-8 sm:mt-10 mb-6 sm:mb-8" style={{ marginLeft: 'clamp(0px, 10vw, 112px)' }} />
+                        <div className="h-px bg-steel/10 mt-8 sm:mt-10 mb-6 sm:mb-8 max-lg:ml-[clamp(0px,10vw,112px)] lg:ml-[112px]" />
 
                         {/* Bullet Points */}
-                        <ul className="flex flex-col gap-6 sm:gap-8 lg:gap-10" style={{ paddingLeft: 'clamp(0px, 10vw, 112px)' }}>
+                        <ul className="flex flex-col gap-6 sm:gap-8 lg:gap-10 max-lg:pl-[clamp(0px,10vw,112px)] lg:pl-[112px]">
                           {exp.bullets.map((bullet, j) => (
                             <li key={j} className="flex items-start gap-3.5">
                               <div className="w-1 h-1 rounded-full bg-silver/25 mt-[9px] shrink-0" />

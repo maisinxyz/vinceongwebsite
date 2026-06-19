@@ -174,17 +174,25 @@ export default function Home() {
         {/* ═══════════════════════════════════════════
             SECTION 2: RESUME TEASER (full screen)
         ═══════════════════════════════════════════ */}
-        <section data-tour-section="resume" className="relative bg-black flex items-start" style={{ zIndex: 20, paddingTop: 'clamp(80px, 10vw, 160px)', paddingBottom: 'clamp(80px, 10vw, 160px)' }}>
+        <section 
+          data-tour-section="resume" 
+          className="relative bg-black flex items-start max-lg:pt-[clamp(80px,10vw,160px)] max-lg:pb-[clamp(80px,10vw,160px)] lg:py-32 xl:py-40"
+          style={{ zIndex: 20 }}
+        >
           {/* Horizontal padding to push content inwards */}
-          <div className="max-w-[1440px] mx-auto w-full flex flex-col lg:flex-row items-start justify-between gap-12 lg:gap-24" style={{ paddingLeft: 'clamp(20px, 5vw, 192px)', paddingRight: 'clamp(20px, 5vw, 192px)' }}>
+          <div 
+            className="max-w-[1440px] mx-auto w-full flex flex-col lg:flex-row items-start justify-between max-lg:px-[clamp(24px,5vw,64px)] lg:px-32 xl:px-48 max-lg:gap-12 lg:gap-24"
+          >
             
             {/* Left Column: Resume Preview */}
-            <div className="w-full lg:w-[55%]" style={{ display: "flex", flexDirection: "column", gap: "clamp(32px, 5vw, 64px)" }}>
+            <div 
+              className="w-full lg:w-[55%] flex flex-col max-lg:gap-[clamp(32px,5vw,64px)] lg:gap-[64px] lg:translate-x-[80px]"
+            >
               
               {/* Intro */}
               <RevealOnScroll>
                 <div>
-                  <h2 data-tour-section="meet-vince" className="font-[family-name:var(--font-syne-family)] font-extrabold text-chalk text-3xl sm:text-5xl lg:text-7xl tracking-tight leading-none mb-6 sm:mb-8">
+                  <h2 data-tour-section="meet-vince" className="font-[family-name:var(--font-syne-family)] font-extrabold text-chalk tracking-tight leading-none max-lg:text-3xl max-lg:sm:text-5xl lg:text-7xl mb-6 lg:mb-8">
                     Meet Vince
                   </h2>
                   <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/60 text-base sm:text-lg leading-[2] max-w-xl">
@@ -371,8 +379,8 @@ export default function Home() {
             </div>
 
             {/* Right Column: Image Placeholder + Contact */}
-            <div className="w-full lg:w-[45%] flex flex-col items-end gap-12 lg:sticky lg:top-40">
-              <RevealOnScroll delay={0.3} className="w-full flex justify-end">
+            <div className="w-full max-lg:max-w-md max-lg:mx-auto lg:w-[45%] flex flex-col max-lg:items-center lg:items-end gap-12 lg:sticky lg:top-40">
+              <RevealOnScroll delay={0.3} className="w-full max-lg:flex-col lg:flex lg:justify-end">
                 <div className="relative aspect-[4/5] w-full max-w-md bg-iron/10 border border-steel/10 rounded-xl overflow-hidden flex items-center justify-center">
                   <img src="/profile.jpg" alt="Vince Ong" className="w-full h-full object-cover" />
                 </div>

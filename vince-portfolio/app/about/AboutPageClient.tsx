@@ -483,8 +483,8 @@ export default function AboutPageClient() {
       <CustomCursor />
       <Navbar />
 
-      <main className="relative pb-[250px] lg:pb-[400px] min-h-screen" style={{ paddingTop: 'clamp(120px, 15vw, 224px)' }}>
-        <div className="max-w-[1400px] mx-auto h-full flex flex-col" style={{ paddingLeft: 'clamp(20px, 5vw, 96px)', paddingRight: 'clamp(20px, 5vw, 96px)' }}>
+      <main className="relative max-lg:pt-[clamp(120px,15vw,224px)] lg:pt-48 xl:pt-56 pb-[250px] lg:pb-[400px] min-h-screen">
+        <div className="max-w-[1400px] mx-auto h-full flex flex-col max-lg:px-[clamp(20px,5vw,96px)] lg:px-24">
           
           {/* ABOUT Header */}
           <motion.div

@@ -100,7 +100,7 @@ function ProjectMedia({ project }: { project: typeof PROJECT_ROWS[number] }) {
         />
         <div className="text-center relative z-10">
           <div className="w-16 h-16 mx-auto mb-4 border border-silver/15 rounded-full flex items-center justify-center">
-            <div className="w-6 h-6 border border-silver/20 rounded-md animate-spin" style={{ animationDuration: "8s" }} />
+            <div className="w-6 h-6 border border-silver/20 rounded-md" />
           </div>
           <p className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-silver/25 tracking-[0.3em] mb-2">
             COMING SOON

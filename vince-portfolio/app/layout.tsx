@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import AsciiEasterEgg from "@/components/AsciiEasterEgg";
-import { Analytics } from "@vercel/analytics/react";
+import { Analytics } from "@vercel/analytics/next";
 
 /* ═══════════════════════════════════════════════════
    FONT LOADING

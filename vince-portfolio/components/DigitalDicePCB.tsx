@@ -19,19 +19,19 @@ const FACE_LEDS: Record<number, LedKey[]> = {
 };
 
 const LEDS: Array<{ key: LedKey; ref: string; x: number; y: number }> = [
-  { key: "TL", ref: "LED1", x: 318, y: 96 },
-  { key: "TR", ref: "LED2", x: 396, y: 96 },
-  { key: "ML", ref: "LED3", x: 318, y: 146 },
-  { key: "CC", ref: "LED4", x: 357, y: 146 },
-  { key: "MR", ref: "LED5", x: 396, y: 146 },
-  { key: "BL", ref: "LED6", x: 318, y: 196 },
-  { key: "BR", ref: "LED7", x: 396, y: 196 },
+  { key: "TL", ref: "LED1", x: 350, y: 96 },
+  { key: "TR", ref: "LED2", x: 418, y: 96 },
+  { key: "ML", ref: "LED3", x: 350, y: 146 },
+  { key: "CC", ref: "LED4", x: 384, y: 146 },
+  { key: "MR", ref: "LED5", x: 418, y: 146 },
+  { key: "BL", ref: "LED6", x: 350, y: 196 },
+  { key: "BR", ref: "LED7", x: 418, y: 196 },
 ];
 
 const SMD_CAPS = [
   [78, 59, "C1"], [128, 59, "C2"], [78, 221, "C3"], [128, 221, "C4"],
   [196, 58, "C5"], [246, 58, "C6"], [196, 222, "C7"], [246, 222, "C8"],
-  [298, 250, "C9"], [356, 250, "C10"], [414, 250, "C11"],
+  [298, 250, "C9"], [356, 250, "C10"], [436, 250, "C11"],
 ] as const;
 
 const RESISTORS = [
@@ -64,7 +64,7 @@ function SmdPad({ x, y, w, h }: { x: number; y: number; w: number; h: number }) 
 }
 
 export default function DigitalDicePCB({ className }: DigitalDicePCBProps) {
-  const [powered, setPowered] = useState(false);
+  const [powered, setPowered] = useState(true);
   const [face, setFace] = useState(1);
   const [rolling, setRolling] = useState(false);
   const [settlePulse, setSettlePulse] = useState(0);
@@ -137,16 +137,20 @@ export default function DigitalDicePCB({ className }: DigitalDicePCBProps) {
     <div ref={wrapperRef} className={cn("relative w-full max-w-[480px] mx-auto select-none", className)}>
       <div className="rounded-lg bg-[#101722] shadow-inner shadow-black/40">
         <svg
-          viewBox="0 0 480 320"
+          viewBox="0 0 480 380"
           role="img"
           aria-label="Interactive SFU ENSC 120 digital dice PCB simulation"
-          className="block w-full aspect-[3/2]"
+          className="block w-full"
           style={{
-            filter: powered
-              ? "brightness(1.08) drop-shadow(0 0 13px rgba(39, 214, 112, 0.18))"
-              : "brightness(0.72) saturate(0.82)",
-            transition: "filter 180ms ease",
+            aspectRatio: "480 / 380",
+            ...{
+              filter: powered
+                ? "brightness(1.08) drop-shadow(0 0 13px rgba(39, 214, 112, 0.18))"
+                : "brightness(0.72) saturate(0.82)",
+              transition: "filter 180ms ease",
+            },
           }}
+
           xmlns="http://www.w3.org/2000/svg"
         >
           <defs>
@@ -187,10 +191,10 @@ export default function DigitalDicePCB({ className }: DigitalDicePCBProps) {
             </filter>
           </defs>
 
-          <rect x="8" y="8" width="464" height="304" rx="17" fill="url(#boardSubtle)" stroke="#15592f" strokeWidth="3" />
-          <rect x="18" y="18" width="444" height="284" rx="12" fill="none" stroke="#7ecf97" strokeWidth="0.5" opacity="0.18" />
+          <rect x="8" y="8" width="464" height="364" rx="17" fill="url(#boardSubtle)" stroke="#15592f" strokeWidth="3" />
+          <rect x="18" y="18" width="444" height="344" rx="12" fill="none" stroke="#7ecf97" strokeWidth="0.5" opacity="0.18" />
 
-          {[30, 450].map((x) => [30, 290].map((y) => <SolderPad key={`${x}-${y}`} x={x} y={y} r={6} />))}
+          {[30, 450].map((x) => [30, 350].map((y) => <SolderPad key={`${x}-${y}`} x={x} y={y} r={6} />))}
 
           <g fill="none" stroke="#c8a04a" strokeLinecap="round" strokeLinejoin="round" opacity="0.72">
             <path d="M60 45 H420 V232 H300" strokeWidth="1.6" />
@@ -204,24 +208,24 @@ export default function DigitalDicePCB({ className }: DigitalDicePCBProps) {
 
           <text
             x="37"
-            y="48"
+            y="26"
             fill="#e7f3d8"
             fontFamily="monospace"
-            fontSize="13"
+            fontSize="12"
             fontWeight="700"
             className="cursor-pointer"
             onClick={() => setShowBoardInfo((value) => !value)}
           >
             E120-DIE-R2A
           </text>
-          <text x="348" y="290" fill="#d8ead0" fontFamily="monospace" fontSize="10" fontWeight="700">SFU ENSC 120</text>
+          <text x="140" y="348" fill="#d8ead0" fontFamily="monospace" fontSize="10" fontWeight="700">SFU ENSC 120</text>
 
           {showBoardInfo && (
             <g>
-              <rect x="38" y="56" width="240" height="44" rx="5" fill="#0d1711" stroke="#d8ead0" strokeWidth="0.7" opacity="0.97" />
-              <text x="50" y="73" fill="#f4f7ee" fontFamily="monospace" fontSize="8.6">SFU ENSC 120 Soldering Project</text>
-              <text x="50" y="86" fill="#c7d6c1" fontFamily="monospace" fontSize="7.4">Random Dice Roller. Mixed-technology PWB</text>
-              <text x="50" y="96" fill="#c7d6c1" fontFamily="monospace" fontSize="7.4">using SMD and through-hole components.</text>
+              <rect x="38" y="32" width="240" height="44" rx="5" fill="#0d1711" stroke="#d8ead0" strokeWidth="0.7" opacity="0.97" />
+              <text x="50" y="49" fill="#f4f7ee" fontFamily="monospace" fontSize="8.6">SFU ENSC 120 Soldering Project</text>
+              <text x="50" y="62" fill="#c7d6c1" fontFamily="monospace" fontSize="7.4">Random Dice Roller. Mixed-technology PWB</text>
+              <text x="50" y="72" fill="#c7d6c1" fontFamily="monospace" fontSize="7.4">using SMD and through-hole components.</text>
             </g>
           )}
 
@@ -301,7 +305,7 @@ export default function DigitalDicePCB({ className }: DigitalDicePCBProps) {
           ))}
 
           <g {...hover("C12 — electrolytic capacitor — timing/bypass")} className="cursor-help">
-            <text x="380" y="65" fill="#e7f3d8" fontFamily="monospace" fontSize="7">C12</text>
+            <text x="374" y="56" fill="#e7f3d8" fontFamily="monospace" fontSize="7">C12</text>
             <SolderPad x={390} y={82} r={4} />
             <SolderPad x={410} y={82} r={4} />
             <ellipse cx="400" cy="75" rx="19" ry="9" fill="#31363a" />
@@ -339,45 +343,47 @@ export default function DigitalDicePCB({ className }: DigitalDicePCBProps) {
             <line x1="433" y1="50" x2="433" y2="58" stroke="#c9c9c4" strokeWidth="1.3" />
           </g>
 
-          <g {...hover("BT1 — 9 V battery snap connector")} className="cursor-help">
-            <text x="42" y="291" fill="#e7f3d8" fontFamily="monospace" fontSize="8">BT1 9V</text>
-            <SolderPad x={52} y={270} r={4} />
-            <SolderPad x={68} y={270} r={4} />
-            <path d="M52 270 C35 253 32 236 45 225" stroke="#222" strokeWidth="3" fill="none" />
-            <path d="M68 270 C52 250 52 231 68 220" stroke="#b81717" strokeWidth="3" fill="none" />
-            <rect x="41" y="216" width="38" height="13" rx="3" fill="#202225" stroke="#8a8a8a" strokeWidth="0.7" />
-            <circle cx="52" cy="222.5" r="4" fill="#d7d7cf" />
-            <circle cx="68" cy="222.5" r="3" fill="#868982" />
+          <g {...hover("BT1 — 9 V battery snap connector (connected)")} className="cursor-help">
+            <text x="48" y="365" fill="#e7f3d8" fontFamily="monospace" fontSize="8">BT1 9V</text>
+            <SolderPad x={52} y={335} r={4} />
+            <SolderPad x={68} y={335} r={4} />
+            <path d="M52 335 C35 318 32 304 45 295" stroke="#222" strokeWidth="3" fill="none" />
+            <path d="M68 335 C52 315 52 300 68 290" stroke="#b81717" strokeWidth="3" fill="none" />
+            <rect x="41" y="286" width="38" height="13" rx="3" fill="#202225" stroke="#8a8a8a" strokeWidth="0.7" />
+            <circle cx="52" cy="292.5" r="4" fill="#d7d7cf" />
+            <circle cx="68" cy="292.5" r="3" fill="#868982" />
+            {/* Connected indicator */}
+            <circle cx="38" cy="335" r="3" fill="#27d670" opacity="0.8" />
           </g>
 
           <g
-            {...hover(powered ? "SW1 ROLL — hold to clock the counter, release to freeze result" : "SW1 ROLL — connect battery first")}
+            {...hover("SW1 ROLL — hold to clock the counter, release to freeze result")}
             onPointerDown={startRolling}
             onPointerUp={stopRolling}
             onPointerCancel={stopRolling}
-            className={powered ? "cursor-pointer" : "cursor-not-allowed"}
+            className="cursor-pointer"
             filter="url(#buttonShadow)"
           >
-            <text x="336" y="278" fill="#e7f3d8" fontFamily="monospace" fontSize="8">SW1 ROLL</text>
-            <SolderPad x={326} y={276} r={3.2} />
-            <SolderPad x={374} y={276} r={3.2} />
-            <SolderPad x={326} y={306} r={3.2} />
-            <SolderPad x={374} y={306} r={3.2} />
-            <rect x="326" y="274" width="48" height="34" rx="5" fill="#686d71" stroke="#c6c8ca" strokeWidth="1" />
+            <text x="404" y="278" fill="#e7f3d8" fontFamily="monospace" fontSize="8">SW1 ROLL</text>
+            <SolderPad x={396} y={286} r={3.2} />
+            <SolderPad x={444} y={286} r={3.2} />
+            <SolderPad x={396} y={316} r={3.2} />
+            <SolderPad x={444} y={316} r={3.2} />
+            <rect x="396" y="284" width="48" height="34" rx="5" fill="#686d71" stroke="#c6c8ca" strokeWidth="1" />
             <rect
-              x={rolling ? "338" : "336"}
-              y={rolling ? "282" : "280"}
+              x={rolling ? "408" : "406"}
+              y={rolling ? "292" : "290"}
               width="28"
               height="18"
               rx="4"
-              fill={powered ? "#b5b9bc" : "#787d80"}
+              fill="#b5b9bc"
               stroke="#f2f2f0"
               strokeWidth="0.8"
             />
           </g>
 
           <g>
-            <text x="337" y="70" fill="#e7f3d8" fontFamily="monospace" fontSize="8">DICE LEDS</text>
+            <text x="355" y="66" fill="#e7f3d8" fontFamily="monospace" fontSize="8">DICE LEDS</text>
             {LEDS.map((led) => {
               const lit = activeLeds.includes(led.key);
               return (
@@ -399,13 +405,13 @@ export default function DigitalDicePCB({ className }: DigitalDicePCBProps) {
                     }}
                   />
                   <circle cx={led.x - 4} cy={led.y - 4} r="2.4" fill="#fff" opacity={lit ? "0.65" : "0.18"} />
-                  <text x={led.x - 14} y={led.y - 16} fill="#e7f3d8" fontFamily="monospace" fontSize="6.5">{led.ref}</text>
+                  <text x={led.x} y={led.y - 15} textAnchor="middle" fill="#e7f3d8" fontFamily="monospace" fontSize="6.5">{led.ref}</text>
                 </g>
               );
             })}
           </g>
 
-          <text x="264" y="290" fill="#f2f2f0" fontFamily="monospace" fontSize="11" fontWeight="700">
+          <text x="264" y="348" fill="#f2f2f0" fontFamily="monospace" fontSize="11" fontWeight="700">
             FACE {powered ? face : "-"}
           </text>
         </svg>
@@ -420,34 +426,7 @@ export default function DigitalDicePCB({ className }: DigitalDicePCBProps) {
         </div>
       )}
 
-      <div className="mt-1 flex flex-wrap items-center justify-center gap-1.5 sm:justify-between">
-        <button
-          type="button"
-          onClick={() => {
-            if (powered) {
-              rollingRef.current = false;
-              setRolling(false);
-              setFace(1);
-            }
-            setPowered((value) => !value);
-          }}
-          className={cn(
-            "rounded-md border px-2 py-1 text-[8px] font-bold tracking-[0.12em] transition-colors sm:px-3 sm:text-[10px] sm:tracking-[0.18em]",
-            powered
-              ? "border-red-400/30 bg-red-500/10 text-red-200 hover:bg-red-500/15"
-              : "border-green-400/30 bg-green-500/10 text-green-200 hover:bg-green-500/15"
-          )}
-        >
-          {powered ? "DISCONNECT BATTERY" : "CONNECT BATTERY"}
-        </button>
 
-        <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 rounded-md border border-steel/20 bg-iron/40 px-2 py-1 font-[family-name:var(--font-space-mono-family)] text-[8px] text-silver/55 sm:gap-x-3 sm:px-3 sm:text-[9px]">
-          <span><span className="text-[#5a2420]">●</span> LED off</span>
-          <span><span className="text-[#ff4a22]">●</span> LED on</span>
-          <span><span className="text-[#b79662]">◼</span> SMD</span>
-          <span><span className="text-[#c9c9c4]">◉</span> Through-hole</span>
-        </div>
-      </div>
 
       <style jsx>{`
         @keyframes pcb-led-settle {

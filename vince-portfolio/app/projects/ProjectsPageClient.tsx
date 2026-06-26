@@ -6,107 +6,135 @@ import { ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/ui/footer";
 import CustomCursor from "@/components/CustomCursor";
-import RevealOnScroll from "@/components/RevealOnScroll";
+import { cn } from "@/lib/utils";
 import { DigitalDicePCB } from "@/components/DigitalDicePCB";
+
+/* ═══════════════════════════════════════════════════
+   TYPE DEFINITIONS
+   ═══════════════════════════════════════════════════ */
+interface Project {
+  slug: string;
+  title: string;
+  description: string;
+  skills: string[];
+  status: "COMPLETED" | "ACTIVE" | "IN PROGRESS";
+  year: string;
+  mediaType: "video" | "pcb" | "coming-soon" | "placeholder";
+  mediaSrc?: string;
+  detailPage?: boolean;
+}
 
 /* ═══════════════════════════════════════════════════
    PROJECT DATA
    ═══════════════════════════════════════════════════ */
-const PROJECT_ROWS = [
+const HARDWARE_PROJECTS: Project[] = [
+  {
+    slug: "dawntrace",
+    title: "DAWNTRACE",
+    description:
+      "A bedside sleep companion that silently logs sleep data through the night, then wakes with a gradual sunrise light and rising alarm melody. Built on Arduino with sensor fusion and EEPROM data logging.",
+    skills: ["C++", "Arduino", "Sensor Fusion", "PCB Design", "EEPROM"],
+    status: "IN PROGRESS",
+    year: "2026",
+    mediaType: "coming-soon",
+    detailPage: false,
+  },
   {
     slug: "spice",
     title: "AUTOMATIC SPICE DISPENSER",
-    tagline: "Embedded Systems · C++ · Arduino · 3D Printing",
     description:
-      "Designed and built a fully automated spice dispensing system using stepper motor firmware with sub-degree precision. Engineered 3D-printed mechanical assemblies in CAD to house a rotating carousel mechanism, and developed custom C++ Arduino firmware to control dispensing sequences, motor calibration, and user input via push buttons.",
-    tags: ["C++", "Arduino", "3D Printing", "Stepper Motors", "CAD"],
+      "A fully automated spice dispensing system using stepper motor firmware with sub-degree precision. Features 3D-printed mechanical assemblies and custom C++ Arduino firmware.",
+    skills: ["C++", "Arduino", "3D Printing", "Stepper Motors", "CAD"],
     status: "COMPLETED",
     year: "2025",
-    mediaType: "video" as const,
+    mediaType: "video",
     mediaSrc: "/spicedispenserdemovideo.MOV",
-  },
-  {
-    slug: "engram",
-    title: "ENGRAM",
-    tagline: "B2B AI SaaS · LLM-Powered Enterprise Memory",
-    description:
-      "Co-founded and developed a B2B AI SaaS platform leveraging LLM-powered persistent memory to unify fragmented workflow data across enterprise systems. Built the full-stack application using TypeScript, Next.js, and Python, with Supabase as the backend. Implemented retrieval-augmented generation (RAG) pipelines to transform unstructured enterprise knowledge into a queryable intelligence layer.",
-    tags: ["TypeScript", "Python", "Supabase", "RAG", "LLM", "Next.js"],
-    status: "ACTIVE",
-    year: "2026",
-    mediaType: "video" as const,
-    mediaSrc: "/Engramvideodemo.mp4",
+    detailPage: true,
   },
   {
     slug: "dice",
     title: "DIGITAL DICE",
-    tagline: "Boolean Logic · PCB Assembly · SMD Soldering",
     description:
-      "Designed and assembled a mixed-technology PCB using combinational boolean logic to decode binary counter states into 7-segment LED dice patterns. Performed schematic capture and board layout in EAGLE, hand-soldered SMD and through-hole components, and verified circuit behavior against truth tables. Completed as part of SFU ENSC 120.",
-    tags: ["Boolean Logic", "PCB", "SMD Soldering", "EAGLE", "ENSC 120"],
+      "A mixed-technology PCB using combinational boolean logic to decode binary counter states into 7-segment LED dice patterns. Hand-soldered SMD and through-hole components.",
+    skills: ["Boolean Logic", "PCB", "SMD Soldering", "EAGLE"],
     status: "COMPLETED",
     year: "2025",
-    mediaType: "pcb" as const,
+    mediaType: "pcb",
+    detailPage: true,
+  },
+];
+
+const SOFTWARE_PROJECTS: Project[] = [
+  {
+    slug: "engram",
+    title: "ENGRAM",
+    description:
+      "A B2B AI SaaS platform leveraging LLM-powered persistent memory to unify fragmented workflow data across enterprise systems. Built with RAG pipelines and full-stack TypeScript.",
+    skills: ["TypeScript", "Python", "Supabase", "RAG", "LLM", "Next.js"],
+    status: "ACTIVE",
+    year: "2026",
+    mediaType: "video",
+    mediaSrc: "/Engramvideodemo.mp4",
+    detailPage: true,
   },
   {
-    slug: "dawntrace",
-    title: "DAWNTRACE",
-    tagline: "Embedded Systems · Arduino · C++ · Sensor Fusion",
+    slug: "tbd",
+    title: "COMING SOON",
     description:
-      "Developing a bedside sleep companion device that silently logs sleep schedules and bedroom environment data through the night, then wakes with a gradual sunrise light and rising alarm melody. Built on an Arduino Uno with DHT11 temperature/humidity sensing, LDR light intrusion detection, EEPROM-based 30-night data logging, and a 4×4 keypad settings interface. Designed a full state machine architecture and custom PCB pin allocation for 15+ components.",
-    tags: ["C++", "Arduino", "EEPROM", "Sensor Fusion", "PCB Design"],
+      "A new software project is currently in development. Details will be revealed soon.",
+    skills: [],
     status: "IN PROGRESS",
-    year: "2026",
-    mediaType: "coming-soon" as const,
+    year: "—",
+    mediaType: "placeholder",
+    detailPage: false,
   },
 ];
 
 /* ═══════════════════════════════════════════════════
    MEDIA RENDERER COMPONENT
    ═══════════════════════════════════════════════════ */
-function ProjectMedia({ project }: { project: typeof PROJECT_ROWS[number] }) {
-  if (project.mediaType === "video") {
+function ProjectMedia({ project }: { project: Project }) {
+  if (project.mediaType === "video" && project.mediaSrc) {
     return (
-      <div className="relative w-full h-full rounded-xl overflow-hidden bg-void flex items-center justify-center">
+      <div className="relative w-full h-full rounded-lg overflow-hidden bg-void flex items-center justify-center">
         <video
           src={project.mediaSrc}
-          className="w-full h-full object-contain"
+          className="w-full h-full object-cover"
           autoPlay
           muted
           loop
           playsInline
         />
-        {/* Subtle overlay for consistency */}
-        <div className="absolute inset-0 pointer-events-none border border-steel/15 rounded-xl" />
       </div>
     );
   }
 
   if (project.mediaType === "pcb") {
-    return <DigitalDicePCB />;
+    return (
+      <div className="w-full h-full flex items-center justify-center bg-[#101722] rounded-lg overflow-hidden">
+        <DigitalDicePCB className="!max-w-none w-full" />
+      </div>
+    );
   }
 
-  if (project.mediaType === "coming-soon") {
+  if (project.mediaType === "coming-soon" || project.mediaType === "placeholder") {
     return (
-      <div className="relative w-full h-full bg-void border border-steel/15 rounded-xl flex items-center justify-center overflow-hidden">
-        {/* Grid background */}
+      <div className="relative w-full h-full bg-iron/30 border border-steel/10 rounded-lg flex items-center justify-center overflow-hidden">
+        {/* Subtle grid */}
         <div
-          className="absolute inset-0 opacity-[0.03]"
+          className="absolute inset-0 opacity-[0.025]"
           style={{
             backgroundImage:
               "linear-gradient(rgba(168,168,168,1) 1px, transparent 1px), linear-gradient(90deg, rgba(168,168,168,1) 1px, transparent 1px)",
-            backgroundSize: "40px 40px",
+            backgroundSize: "32px 32px",
           }}
         />
         <div className="text-center relative z-10">
-          <div className="w-16 h-16 mx-auto mb-4 border border-silver/15 rounded-full flex items-center justify-center">
-            <div className="w-6 h-6 border border-silver/20 rounded-md" />
+          <div className="w-10 h-10 mx-auto mb-3 border border-silver/10 rounded-full flex items-center justify-center">
+            <div className="w-3.5 h-3.5 border border-silver/15 rounded-sm" />
           </div>
-          <p className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-silver/25 tracking-[0.3em] mb-2">
+          <p className="font-[family-name:var(--font-space-mono-family)] text-[8px] text-silver/20 tracking-[0.3em]">
             COMING SOON
-          </p>
-          <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-[9px] text-silver/15 max-w-[200px] mx-auto">
-            Demo content in development
           </p>
         </div>
       </div>
@@ -114,6 +142,102 @@ function ProjectMedia({ project }: { project: typeof PROJECT_ROWS[number] }) {
   }
 
   return null;
+}
+
+/* ═══════════════════════════════════════════════════
+   PROJECT CARD COMPONENT
+   ═══════════════════════════════════════════════════ */
+function ProjectCard({ project }: { project: Project; index: number }) {
+  return (
+    <motion.div
+      whileHover={{ y: -4 }}
+      transition={{ duration: 0.25, ease: [0.25, 0, 0, 1] }}
+      className="group border border-steel/12 rounded-xl p-4 hover:border-silver/20 transition-colors duration-300"
+    >
+      {/* Media */}
+      <div
+        className={cn(
+          "relative rounded-lg overflow-hidden mb-6 bg-void/50",
+          project.mediaType === "pcb" ? "aspect-[480/380]" : "aspect-[3/2]"
+        )}
+      >
+        <ProjectMedia project={project} />
+      </div>
+
+      {/* Content */}
+      <div className="space-y-2.5">
+        {/* Title */}
+        <h3 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-base tracking-tight">
+          {project.title}
+        </h3>
+
+        {/* Description */}
+        <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/45 text-[10px] leading-[1.8]">
+          {project.description}
+        </p>
+
+        {/* Skills */}
+        {project.skills.length > 0 && (
+          <div className="flex flex-wrap gap-1 pt-0.5">
+            {project.skills.map((skill) => (
+              <span
+                key={skill}
+                className="font-[family-name:var(--font-ibm-plex-mono-family)] text-[7px] text-silver/30 tracking-wider bg-steel/8 rounded-full px-2 py-0.5"
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {/* View details link */}
+        {project.detailPage && (
+          <Link
+            href={`/projects/${project.slug}`}
+            className="inline-flex items-center gap-1.5 font-[family-name:var(--font-ibm-plex-mono-family)] text-[9px] text-silver/35 hover:text-chalk transition-colors pt-1"
+          >
+            VIEW DETAILS
+            <ArrowRight
+              size={9}
+              className="group-hover:translate-x-0.5 transition-transform"
+            />
+          </Link>
+        )}
+      </div>
+    </motion.div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════
+   COLUMN HEADER COMPONENT
+   ═══════════════════════════════════════════════════ */
+function ColumnHeader({
+  label,
+  count,
+  delay,
+}: {
+  label: string;
+  count: number;
+  delay: number;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay, ease: [0.25, 0, 0, 1] }}
+      className="mb-10"
+    >
+      <div className="flex items-center gap-3 mb-3">
+        <h2 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-2xl sm:text-3xl tracking-tight">
+          {label}
+        </h2>
+        <span className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-silver/25 tracking-widest self-end mb-1">
+          ({String(count).padStart(2, "0")})
+        </span>
+      </div>
+      <div className="h-px bg-steel/20" />
+    </motion.div>
+  );
 }
 
 /* ═══════════════════════════════════════════════════
@@ -125,115 +249,57 @@ export default function ProjectsPageClient() {
       <CustomCursor />
       <Navbar />
 
-      <main className="relative pt-28 sm:pt-32">
-        {/* HEADER */}
-        <section className="py-32 sm:py-44 overflow-hidden relative">
-          <div className="absolute inset-0 flex items-center justify-start pointer-events-none select-none overflow-hidden">
-            <span className="font-[family-name:var(--font-syne-family)] font-extrabold text-[20vw] text-silver/[0.03] leading-none ml-[-2vw]">
-              WORK
-            </span>
-          </div>
+      <main className="relative max-lg:pt-[clamp(120px,15vw,224px)] lg:pt-48 xl:pt-56 pb-32 min-h-screen">
+        {/* ── Page Header ── */}
+        <div className="max-w-[1400px] mx-auto max-lg:px-[clamp(20px,5vw,96px)] lg:px-24">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.25, 0, 0, 1] }}
+            className="mb-[160px] lg:mb-[220px]"
+          >
+            <h1 className="font-[family-name:var(--font-syne-family)] font-extrabold text-chalk text-4xl sm:text-5xl lg:text-6xl tracking-tight">
+              PROJECTS
+            </h1>
+            <div className="h-px bg-silver/15 w-16 mt-6" />
+          </motion.div>
+        </div>
 
-          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: [0.25, 0, 0, 1] }}
-              className="space-y-6"
-            >
-              <div className="inline-block bg-iron/60 border border-steel/20 rounded-full px-4 py-1.5">
-                <p className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/50 tracking-[0.25em]">002 — PROJECTS</p>
-              </div>
-              <h1 className="font-[family-name:var(--font-syne-family)] font-extrabold text-chalk text-5xl sm:text-6xl lg:text-7xl tracking-tight">
-                PROJECTS
-              </h1>
-              <motion.div
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ delay: 0.4, duration: 0.8, ease: [0.25, 0, 0, 1] }}
-                className="h-px bg-silver/30 w-24 origin-left"
+        {/* ── Split Columns ── */}
+        <div className="max-w-[1400px] mx-auto max-lg:px-[clamp(20px,5vw,96px)] lg:px-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-12 relative">
+            {/* Vertical divider (desktop only) */}
+            <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-silver/20 -translate-x-px" />
+
+            {/* ── LEFT: Hardware Projects ── */}
+            <div className="lg:pr-10">
+              <ColumnHeader
+                label="HARDWARE"
+                count={HARDWARE_PROJECTS.length}
+                delay={0.1}
               />
-            </motion.div>
-          </div>
-        </section>
+              <div className="flex flex-col gap-[100px]">
+                {HARDWARE_PROJECTS.map((project, i) => (
+                  <ProjectCard key={project.slug} project={project} index={i} />
+                ))}
+              </div>
+            </div>
 
-        {/* PROJECT ROWS */}
-        <section className="pb-24">
-          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-              {PROJECT_ROWS.map((project, i) => (
-                <RevealOnScroll key={project.slug} delay={i * 0.1}>
-                  <div
-                    id={
-                      project.slug === "spice"
-                        ? "automatic-spice-dispenser"
-                        : project.slug === "dice"
-                        ? "digital-dice"
-                        : project.slug
-                    }
-                    className="grid lg:grid-cols-2 gap-8 lg:gap-12 bg-iron/20 border border-steel/10 rounded-2xl p-8 sm:p-10 hover:border-silver/15 transition-all duration-500"
-                  >
-                    {/* Left: Info */}
-                    <div className="flex flex-col justify-between">
-                      <div>
-                        <div className="flex items-center gap-3 mb-4">
-                          <span
-                            className={`font-[family-name:var(--font-space-mono-family)] text-[7px] tracking-widest px-2.5 py-0.5 rounded-full border ${
-                              project.status === "ACTIVE" || project.status === "IN PROGRESS"
-                                ? "text-green-400/60 border-green-400/20"
-                                : "text-silver/30 border-silver/10"
-                            }`}
-                          >
-                            {project.status}
-                          </span>
-                          <span className="font-[family-name:var(--font-space-mono-family)] text-[8px] text-silver/25 tracking-widest">
-                            {project.year}
-                          </span>
-                        </div>
-                        <h2 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-2xl sm:text-3xl tracking-tight mb-3">
-                          {project.title}
-                        </h2>
-                        <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/40 text-xs tracking-wider mb-4">
-                          {project.tagline}
-                        </p>
-                        <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/50 text-sm mb-6" style={{ lineHeight: '2' }}>
-                          {project.description}
-                        </p>
-                        <div className="flex flex-wrap gap-2 mb-8">
-                          {project.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="font-[family-name:var(--font-ibm-plex-mono-family)] text-[9px] text-silver/35 tracking-wider bg-steel/10 rounded-full px-3 py-1"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                      {project.slug !== "dawntrace" && (
-                        <Link
-                          href={`/projects/${project.slug}`}
-                          className="group inline-flex items-center gap-2 font-[family-name:var(--font-ibm-plex-mono-family)] text-xs text-silver/50 hover:text-chalk transition-colors w-fit"
-                        >
-                          VIEW DETAILS
-                          <ArrowRight
-                            size={12}
-                            className="group-hover:translate-x-1 transition-transform"
-                          />
-                        </Link>
-                      )}
-                    </div>
-
-                    {/* Right: Media */}
-                    <div className="relative rounded-xl flex items-center justify-center overflow-hidden" style={{ aspectRatio: '3 / 2' }}>
-                      <ProjectMedia project={project} />
-                    </div>
-                  </div>
-                </RevealOnScroll>
-              ))}
+            {/* ── RIGHT: Software Projects ── */}
+            <div className="lg:pl-10">
+              <ColumnHeader
+                label="SOFTWARE"
+                count={SOFTWARE_PROJECTS.length}
+                delay={0.15}
+              />
+              <div className="flex flex-col gap-[100px]">
+                {SOFTWARE_PROJECTS.map((project, i) => (
+                  <ProjectCard key={project.slug} project={project} index={i} />
+                ))}
+              </div>
             </div>
           </div>
-        </section>
+        </div>
       </main>
 
       <Footer />

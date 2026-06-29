@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 /* ═══════════════════════════════════════════════════
    INLINE SVG ICONS — no extra deps
@@ -99,6 +100,33 @@ export default function CardPageClient() {
         overflow: "hidden",
       }}
     >
+      {/* ── Logo → Home ── */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.1, duration: 0.5 }}
+        style={{
+          position: "absolute",
+          top: "20px",
+          left: "20px",
+          zIndex: 10,
+        }}
+      >
+        <Link href="/" aria-label="Back to home">
+          <Image
+            src="/icon.png"
+            alt="Vince Ong logo"
+            width={40}
+            height={40}
+            style={{
+              opacity: 0.6,
+              transition: "opacity 0.2s",
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.opacity = "1"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.opacity = "0.6"; }}
+          />
+        </Link>
+      </motion.div>
       {/* ── Business Card ── */}
       <motion.div
         initial={{ opacity: 0, y: 24, scale: 0.96 }}

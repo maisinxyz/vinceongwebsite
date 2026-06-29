@@ -431,6 +431,24 @@ export default function Home() {
           <PlayingCards />
         </div>
 
+        {/* ═══════════════════════════════════════════
+            BUSINESS CARD CTA
+        ═══════════════════════════════════════════ */}
+        <section className="relative z-10 bg-void py-16 sm:py-20 flex flex-col items-center gap-4">
+          <a
+            href="/card"
+            className="group inline-flex items-center gap-3 bg-iron/60 border border-steel/30 rounded-full px-8 py-3.5 hover:border-silver/40 hover:bg-iron transition-all duration-200"
+          >
+            <span className="font-[family-name:var(--font-ibm-plex-mono-family)] text-chalk text-sm tracking-wider">
+              Business Card
+            </span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-silver/40 group-hover:text-silver/70 transition-colors">
+              <path d="M7 17L17 7" />
+              <path d="M7 7h10v10" />
+            </svg>
+          </a>
+        </section>
+
       </main>
 
       <Footer />

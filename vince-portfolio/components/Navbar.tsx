@@ -12,11 +12,11 @@ const DESKTOP_LINKS = [
 ];
 
 const MOBILE_LINKS = [
-  { href: "/resume", label: "RESUME" },
   { href: "/about", label: "ABOUT" },
   { href: "/projects", label: "PROJECTS" },
   { href: "/experience", label: "EXPERIENCE" },
   { href: "/education", label: "EDUCATION" },
+  { href: "/resume", label: "RESUME" },
   { href: "/contact", label: "CONTACT" },
   { href: "/card", label: "BUSINESS CARD" },
 ];

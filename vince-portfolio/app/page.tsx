@@ -42,10 +42,7 @@ export default function Home() {
       <ThemeTransitionOverlay style={overlayStyle} />
       <VirtualCursor cursorRef={cursorRef} isTouring={isTouring} />
 
-      {/* Side navigation — desktop only */}
-      {mounted && !isMobileOrTablet && <SideNav />}
-
-      <main className="relative">
+      <main className="relative z-10 w-full min-h-screen">
         {/* ═══════════════════════════════════════════
             SECTION 1: HERO (full screen)
         ═══════════════════════════════════════════ */}
@@ -110,12 +107,12 @@ export default function Home() {
               {/* Theme Toggle */}
               <button
                 onClick={handleLightClick}
-                className="group flex items-center gap-3 font-[family-name:var(--font-ibm-plex-mono-family)] text-sm tracking-[0.15em] text-silver/60 border border-silver/15 rounded-full px-8 py-3.5 hover:bg-iron/60 hover:text-chalk hover:border-silver/30 transition-all duration-300"
+                className="group flex items-center gap-2.5 sm:gap-3 font-[family-name:var(--font-ibm-plex-mono-family)] text-[11px] sm:text-sm tracking-[0.15em] text-silver/60 border border-silver/15 rounded-full px-5 py-2.5 sm:px-8 sm:py-3.5 hover:bg-iron/60 hover:text-chalk hover:border-silver/30 transition-all duration-300"
               >
                 {isLight ? (
-                  <Moon className="w-5 h-5 group-hover:rotate-[-15deg] transition-transform" strokeWidth={1.5} />
+                  <Moon className="w-3.5 h-3.5 sm:w-5 sm:h-5 group-hover:rotate-[-15deg] transition-transform" strokeWidth={1.5} />
                 ) : (
-                  <Sun className="w-5 h-5 group-hover:rotate-[15deg] transition-transform" strokeWidth={1.5} />
+                  <Sun className="w-3.5 h-3.5 sm:w-5 sm:h-5 group-hover:rotate-[15deg] transition-transform" strokeWidth={1.5} />
                 )}
                 {isLight ? "DARK" : "LIGHT"}
               </button>
@@ -123,12 +120,12 @@ export default function Home() {
               {/* Auto Tour */}
               <button
                 onClick={isTouring ? stopTour : startTour}
-                className="group flex items-center gap-3 font-[family-name:var(--font-ibm-plex-mono-family)] text-sm tracking-[0.15em] text-silver/60 border border-silver/15 rounded-full px-8 py-3.5 hover:bg-iron/60 hover:text-chalk hover:border-silver/30 transition-all duration-300"
+                className="group flex items-center gap-2.5 sm:gap-3 font-[family-name:var(--font-ibm-plex-mono-family)] text-[11px] sm:text-sm tracking-[0.15em] text-silver/60 border border-silver/15 rounded-full px-5 py-2.5 sm:px-8 sm:py-3.5 hover:bg-iron/60 hover:text-chalk hover:border-silver/30 transition-all duration-300"
               >
                 {isTouring ? (
-                  <Square className="w-4 h-4 fill-current" strokeWidth={1.5} />
+                  <Square className="w-3 h-3 sm:w-4 sm:h-4 fill-current" strokeWidth={1.5} />
                 ) : (
-                  <Play className="w-5 h-5 fill-current" strokeWidth={1.5} />
+                  <Play className="w-3.5 h-3.5 sm:w-5 sm:h-5 fill-current" strokeWidth={1.5} />
                 )}
                 {isTouring ? "STOP" : "TOUR"}
               </button>
@@ -136,7 +133,7 @@ export default function Home() {
               {/* Resume Button */}
               <a
                 href="/resume"
-                className="group flex items-center gap-3 font-[family-name:var(--font-ibm-plex-mono-family)] text-sm tracking-[0.15em] text-silver/60 border border-silver/15 rounded-full px-8 py-3.5 hover:bg-iron/60 hover:text-chalk hover:border-silver/30 transition-all duration-300"
+                className="group flex items-center gap-2.5 sm:gap-3 font-[family-name:var(--font-ibm-plex-mono-family)] text-[11px] sm:text-sm tracking-[0.15em] text-silver/60 border border-silver/15 rounded-full px-5 py-2.5 sm:px-8 sm:py-3.5 hover:bg-iron/60 hover:text-chalk hover:border-silver/30 transition-all duration-300"
               >
                 RESUME
               </a>
@@ -434,24 +431,6 @@ export default function Home() {
         <div data-tour-section="explore" className="relative z-10 bg-void">
           <PlayingCards />
         </div>
-
-        {/* ═══════════════════════════════════════════
-            BUSINESS CARD CTA
-        ═══════════════════════════════════════════ */}
-        <section className="relative z-10 bg-void py-16 sm:py-20 flex flex-col items-center gap-4">
-          <a
-            href="/card"
-            className="group inline-flex items-center gap-3 bg-iron/60 border border-steel/30 rounded-full px-8 py-3.5 hover:border-silver/40 hover:bg-iron transition-all duration-200"
-          >
-            <span className="font-[family-name:var(--font-ibm-plex-mono-family)] text-chalk text-sm tracking-wider">
-              Business Card
-            </span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-silver/40 group-hover:text-silver/70 transition-colors">
-              <path d="M7 17L17 7" />
-              <path d="M7 7h10v10" />
-            </svg>
-          </a>
-        </section>
 
       </main>
 

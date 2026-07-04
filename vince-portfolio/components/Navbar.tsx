@@ -5,9 +5,20 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const NAV_LINKS = [
+const DESKTOP_LINKS = [
   { href: "/resume", label: "RESUME" },
   { href: "/contact", label: "CONTACT" },
+  { href: "/card", label: "BUSINESS CARD" },
+];
+
+const MOBILE_LINKS = [
+  { href: "/resume", label: "RESUME" },
+  { href: "/about", label: "ABOUT" },
+  { href: "/projects", label: "PROJECTS" },
+  { href: "/experience", label: "EXPERIENCE" },
+  { href: "/education", label: "EDUCATION" },
+  { href: "/contact", label: "CONTACT" },
+  { href: "/card", label: "BUSINESS CARD" },
 ];
 
 import SignatureLogo3D from "./SignatureLogo3D";
@@ -112,8 +123,8 @@ export default function Navbar() {
               >
                 <SignatureLogo3D />
                 {pathname !== "/" && (
-                  <span className="absolute bottom-2 text-[9px] font-[family-name:var(--font-space-mono-family)] tracking-[0.2em] text-silver/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-                    RETURN TO HOME
+                  <span className="absolute top-2 max-sm:-top-2 text-[8px] sm:text-[9px] font-[family-name:var(--font-space-mono-family)] tracking-[0.2em] text-silver/40 whitespace-nowrap">
+                    PRESS LOGO TO RETURN TO HOME
                   </span>
                 )}
               </Link>
@@ -124,18 +135,18 @@ export default function Navbar() {
 
             {/* Desktop Nav Links - Right Aligned & Fade on Scroll */}
             <div 
-              className={`hidden md:flex items-center justify-end gap-8 transition-opacity duration-300 ${
+              className={`hidden md:flex items-center justify-end gap-5 transition-opacity duration-300 ${
                 isScrolling ? "opacity-0 pointer-events-none" : "opacity-100"
               }`}
               style={{ marginRight: '24px' }}
             >
-              {NAV_LINKS.map((link) => {
+              {DESKTOP_LINKS.map((link) => {
                 const isActive = pathname === link.href || pathname.startsWith(link.href + "/");
                 return (
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`nav-link-underline font-[family-name:var(--font-ibm-plex-mono-family)] text-xs tracking-[0.2em] transition-colors duration-200 ${
+                    className={`nav-link-underline font-[family-name:var(--font-ibm-plex-mono-family)] text-xs tracking-[0.12em] transition-colors duration-200 ${
                       isActive
                         ? "text-chalk active"
                         : "text-silver hover:text-chalk"
@@ -189,7 +200,7 @@ export default function Navbar() {
             className="fixed inset-0 z-40 bg-carbon/98 backdrop-blur-lg md:hidden"
           >
             <div className="flex flex-col items-center justify-center h-full gap-10">
-              {NAV_LINKS.map((link, index) => {
+              {MOBILE_LINKS.map((link, index) => {
                 const isActive = pathname === link.href || pathname.startsWith(link.href + "/");
                 return (
                   <motion.div

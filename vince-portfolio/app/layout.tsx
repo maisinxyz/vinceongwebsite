@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import AsciiEasterEgg from "@/components/AsciiEasterEgg";
+import SideNav from "@/components/SideNav";
 import { Analytics } from "@vercel/analytics/react";
 
 /* ═══════════════════════════════════════════════════
@@ -69,6 +70,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col bg-carbon text-chalk">
         <AsciiEasterEgg />
+        <SideNav />
         {children}
         <Analytics /> {/* Added the Analytics component here */}
       </body>

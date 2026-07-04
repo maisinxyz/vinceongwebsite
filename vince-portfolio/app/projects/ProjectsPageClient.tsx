@@ -249,7 +249,7 @@ export default function ProjectsPageClient() {
       <CustomCursor />
       <Navbar />
 
-      <main className="relative max-lg:pt-[clamp(120px,15vw,224px)] lg:pt-48 xl:pt-56 pb-32 min-h-screen">
+      <main className="relative max-lg:pt-[clamp(120px,15vw,224px)] lg:pt-48 xl:pt-56 pb-32 min-h-screen lg:pl-[80px] lg:pr-[80px]">
         {/* ── Page Header ── */}
         <div className="max-w-[1400px] mx-auto max-lg:px-[clamp(20px,5vw,96px)] lg:px-24">
           <motion.div

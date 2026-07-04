@@ -91,7 +91,7 @@ export default function ExperiencePageClient() {
       <CustomCursor />
       <Navbar />
 
-      <main className="relative max-lg:pt-[clamp(120px,15vw,224px)] lg:pt-48 xl:pt-56 pb-32 min-h-screen">
+      <main className="relative max-lg:pt-[clamp(120px,15vw,224px)] lg:pt-48 xl:pt-56 pb-32 min-h-screen lg:pl-[80px] lg:pr-[80px]">
 
         {/* ── Page Header (Top Left Aligned) ── */}
         <div className="max-w-[1400px] mx-auto max-lg:px-[clamp(20px,5vw,96px)] lg:px-24">
@@ -108,7 +108,7 @@ export default function ExperiencePageClient() {
           </motion.div>
         </div>
 
-        <div className="max-w-[1400px] mx-auto max-lg:px-[clamp(20px,5vw,96px)] lg:pl-48 xl:pl-64 lg:pr-24">
+        <div className="max-w-[1400px] mx-auto max-lg:px-[clamp(20px,5vw,96px)] lg:px-24">
           {/* ── Experience Entries ── */}
           <div className="relative">
 

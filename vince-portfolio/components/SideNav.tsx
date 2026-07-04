@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useScroll } from "framer-motion";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const SIDE_LINKS = [
   { href: "/about", label: "ABOUT" },
@@ -12,6 +13,20 @@ const SIDE_LINKS = [
 ];
 
 export default function SideNav() {
+  const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
+  const [isMobileOrTablet, setIsMobileOrTablet] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    const checkMobile = () => {
+      setIsMobileOrTablet(window.innerWidth < 1024);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   const { scrollY } = useScroll();
   const [hasScrolled, setHasScrolled] = useState(false);
 
@@ -22,8 +37,14 @@ export default function SideNav() {
     return () => unsubscribe();
   }, [scrollY]);
 
-  // Hero: ~1.5cm ≈ 57px protrusion, Scrolled: ~0.8cm ≈ 30px
-  const baseWidth = hasScrolled ? 30 : 57;
+  if (!mounted || isMobileOrTablet) return null;
+
+  const validPaths = ["/", "/about", "/projects", "/experience", "/education"];
+  if (!validPaths.includes(pathname)) return null;
+
+  // Hero landing page: ~1.5cm ≈ 57px protrusion. Scrolled or Other pages: ~0.8cm ≈ 30px
+  const isHomePage = pathname === "/";
+  const baseWidth = (isHomePage && !hasScrolled) ? 57 : 30;
 
   return (
     <nav

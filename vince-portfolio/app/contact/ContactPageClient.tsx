@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, MapPin, ArrowUpRight, CheckCircle, Loader2 } from "lucide-react";
+import { Mail, MapPin, ArrowUpRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/ui/footer";
 import CustomCursor from "@/components/CustomCursor";
@@ -55,34 +55,6 @@ const CONTACT_INFO = [
 ];
 
 export default function ContactPageClient() {
-  const [formState, setFormState] = useState<"idle" | "sending" | "sent" | "error">("idle");
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setFormState("sending");
-
-    try {
-      const res = await fetch("https://formspree.io/f/YOUR_FORM_ID", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      if (res.ok) {
-        setFormState("sent");
-        setFormData({ name: "", email: "", message: "" });
-      } else {
-        setFormState("error");
-      }
-    } catch {
-      setFormState("error");
-    }
-
-    setTimeout(() => {
-      if (formState !== "idle") setFormState("idle");
-    }, 5000);
-  };
 
   return (
     <>
@@ -111,7 +83,7 @@ export default function ContactPageClient() {
                 </p>
               </div>
               <h1 className="font-[family-name:var(--font-syne-family)] font-extrabold text-chalk text-5xl sm:text-6xl lg:text-7xl tracking-tight">
-                GET IN TOUCH
+                CONTACT
               </h1>
               <motion.div
                 initial={{ scaleX: 0 }}
@@ -126,117 +98,53 @@ export default function ContactPageClient() {
           </div>
         </section>
 
-        {/* FORM + INFO */}
+        {/* INFO GRID */}
         <section className="pb-32 sm:pb-40">
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-            <div className="grid lg:grid-cols-5 gap-16 lg:gap-24">
-              {/* Form (3 cols) */}
-              <RevealOnScroll className="lg:col-span-3">
-                <form onSubmit={handleSubmit} className="bg-iron/30 border border-steel/15 rounded-xl p-8 sm:p-10 space-y-6">
-                  <div>
-                    <label htmlFor="name" className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/40 tracking-[0.2em] block mb-3">
-                      NAME
-                    </label>
-                    <input
-                      id="name"
-                      type="text"
-                      required
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full bg-steel/10 border border-steel/20 rounded-lg px-5 py-3.5 font-[family-name:var(--font-ibm-plex-mono-family)] text-chalk text-base placeholder-silver/20 focus:border-silver/30 focus:outline-none transition-colors"
-                      placeholder="Your name"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="email" className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/40 tracking-[0.2em] block mb-3">
-                      EMAIL
-                    </label>
-                    <input
-                      id="email"
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full bg-steel/10 border border-steel/20 rounded-lg px-5 py-3.5 font-[family-name:var(--font-ibm-plex-mono-family)] text-chalk text-base placeholder-silver/20 focus:border-silver/30 focus:outline-none transition-colors"
-                      placeholder="you@company.com"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="message" className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/40 tracking-[0.2em] block mb-3">
-                      MESSAGE
-                    </label>
-                    <textarea
-                      id="message"
-                      required
-                      rows={5}
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full bg-steel/10 border border-steel/20 rounded-lg px-5 py-3.5 font-[family-name:var(--font-ibm-plex-mono-family)] text-chalk text-base placeholder-silver/20 focus:border-silver/30 focus:outline-none transition-colors resize-none"
-                      placeholder="Tell me about the opportunity..."
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    disabled={formState === "sending" || formState === "sent"}
-                    className={`w-full flex items-center justify-center gap-2.5 py-4 min-h-[44px] rounded-lg font-[family-name:var(--font-ibm-plex-mono-family)] text-sm tracking-wider transition-all duration-200 ${
-                      formState === "sent"
-                        ? "bg-green-500/20 border border-green-500/30 text-green-400"
-                        : formState === "error"
-                        ? "bg-red-500/20 border border-red-500/30 text-red-400"
-                        : "bg-chalk text-void hover:bg-silver"
-                    }`}
-                  >
-                    {formState === "sending" && <><Loader2 size={14} className="animate-spin" /> SENDING...</>}
-                    {formState === "sent" && <><CheckCircle size={14} /> MESSAGE SENT</>}
-                    {formState === "error" && "ERROR — TRY AGAIN"}
-                    {formState === "idle" && "SEND MESSAGE"}
-                  </button>
-                </form>
-              </RevealOnScroll>
-
-              {/* Contact cards (2 cols) */}
-              <RevealOnScroll delay={0.15} className="lg:col-span-2">
-                <div className="space-y-4">
-                  {CONTACT_INFO.map((info) => {
-                    const Inner = (
-                      <div className="group bg-iron/30 border border-steel/15 rounded-xl p-6 flex items-start gap-5 hover:border-silver/20 transition-all duration-200">
-                        <div className="w-10 h-10 border border-steel/20 rounded-lg flex items-center justify-center shrink-0 group-hover:border-silver/25 transition-colors">
-                          <info.icon size={16} className="text-silver/40 group-hover:text-silver/60 transition-colors" />
-                        </div>
-                        <div className="min-w-0">
-                          <span className="font-[family-name:var(--font-space-mono-family)] text-[8px] text-silver/30 tracking-[0.2em] block mb-1">
-                            {info.label}
-                          </span>
-                          <span className="font-[family-name:var(--font-ibm-plex-mono-family)] text-chalk text-sm truncate block">
-                            {info.value}
-                          </span>
-                        </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-10">
+              {CONTACT_INFO.map((info, idx) => {
+                const Inner = (
+                  <div className="group h-full bg-iron/30 border border-steel/15 rounded-2xl p-8 sm:p-12 flex flex-col items-start gap-8 hover:border-silver/30 hover:bg-iron/50 hover:scale-[1.02] transition-all duration-300">
+                    <div className="w-16 h-16 border border-steel/20 rounded-xl flex items-center justify-center shrink-0 group-hover:border-silver/40 group-hover:bg-silver/5 transition-all duration-300">
+                      <info.icon size={24} className="text-silver/50 group-hover:text-chalk transition-colors duration-300" />
+                    </div>
+                    <div className="min-w-0 w-full mt-auto">
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="font-[family-name:var(--font-space-mono-family)] text-[10px] sm:text-xs text-silver/40 tracking-[0.25em] block">
+                          {info.label}
+                        </span>
                         {info.href && (
-                          <ArrowUpRight size={14} className="text-silver/20 shrink-0 ml-auto group-hover:text-silver/50 transition-colors" />
+                          <ArrowUpRight size={18} className="text-silver/20 shrink-0 group-hover:text-chalk group-hover:-translate-y-1 group-hover:translate-x-1 transition-all duration-300" />
                         )}
                       </div>
-                    );
+                      <span className="font-[family-name:var(--font-ibm-plex-mono-family)] text-chalk text-lg sm:text-xl lg:text-2xl truncate block group-hover:text-white transition-colors duration-300">
+                        {info.value}
+                      </span>
+                    </div>
+                  </div>
+                );
 
-                    if (info.href) {
-                      return (
-                        <a
-                          key={info.label}
-                          href={info.href}
-                          target={info.label !== "EMAIL" ? "_blank" : undefined}
-                          rel={info.label !== "EMAIL" ? "noopener noreferrer" : undefined}
-                        >
-                          {Inner}
-                        </a>
-                      );
-                    }
+                if (info.href) {
+                  return (
+                    <RevealOnScroll key={info.label} delay={idx * 0.1}>
+                      <a
+                        href={info.href}
+                        target={info.label !== "EMAIL" ? "_blank" : undefined}
+                        rel={info.label !== "EMAIL" ? "noopener noreferrer" : undefined}
+                        className="block h-full outline-none"
+                      >
+                        {Inner}
+                      </a>
+                    </RevealOnScroll>
+                  );
+                }
 
-                    return <div key={info.label}>{Inner}</div>;
-                  })}
-                </div>
-              </RevealOnScroll>
+                return (
+                  <RevealOnScroll key={info.label} delay={idx * 0.1}>
+                    <div className="h-full">{Inner}</div>
+                  </RevealOnScroll>
+                );
+              })}
             </div>
           </div>
         </section>

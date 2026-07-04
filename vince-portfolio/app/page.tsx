@@ -13,6 +13,7 @@ import { LogosSlider } from "@/components/LogosSlider";
 import { useThemeTransition, ThemeTransitionOverlay } from "@/components/ThemeTransition";
 import { useAutoTour, VirtualCursor } from "@/components/AutoTour";
 import { useDeviceType } from "@/hooks/useDeviceType";
+import SideNav from "@/components/SideNav";
 
 export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -40,6 +41,9 @@ export default function Home() {
       <Navbar />
       <ThemeTransitionOverlay style={overlayStyle} />
       <VirtualCursor cursorRef={cursorRef} isTouring={isTouring} />
+
+      {/* Side navigation — desktop only */}
+      {mounted && !isMobileOrTablet && <SideNav />}
 
       <main className="relative">
         {/* ═══════════════════════════════════════════
@@ -106,12 +110,12 @@ export default function Home() {
               {/* Theme Toggle */}
               <button
                 onClick={handleLightClick}
-                className="group flex items-center gap-2.5 font-[family-name:var(--font-ibm-plex-mono-family)] text-[11px] tracking-[0.15em] text-silver/60 border border-silver/15 rounded-full px-5 py-2.5 hover:bg-iron/60 hover:text-chalk hover:border-silver/30 transition-all duration-300"
+                className="group flex items-center gap-3 font-[family-name:var(--font-ibm-plex-mono-family)] text-sm tracking-[0.15em] text-silver/60 border border-silver/15 rounded-full px-8 py-3.5 hover:bg-iron/60 hover:text-chalk hover:border-silver/30 transition-all duration-300"
               >
                 {isLight ? (
-                  <Moon className="w-3.5 h-3.5 group-hover:rotate-[-15deg] transition-transform" strokeWidth={1.5} />
+                  <Moon className="w-5 h-5 group-hover:rotate-[-15deg] transition-transform" strokeWidth={1.5} />
                 ) : (
-                  <Sun className="w-3.5 h-3.5 group-hover:rotate-[15deg] transition-transform" strokeWidth={1.5} />
+                  <Sun className="w-5 h-5 group-hover:rotate-[15deg] transition-transform" strokeWidth={1.5} />
                 )}
                 {isLight ? "DARK" : "LIGHT"}
               </button>
@@ -119,12 +123,12 @@ export default function Home() {
               {/* Auto Tour */}
               <button
                 onClick={isTouring ? stopTour : startTour}
-                className="group flex items-center gap-2.5 font-[family-name:var(--font-ibm-plex-mono-family)] text-[11px] tracking-[0.15em] text-silver/60 border border-silver/15 rounded-full px-5 py-2.5 hover:bg-iron/60 hover:text-chalk hover:border-silver/30 transition-all duration-300"
+                className="group flex items-center gap-3 font-[family-name:var(--font-ibm-plex-mono-family)] text-sm tracking-[0.15em] text-silver/60 border border-silver/15 rounded-full px-8 py-3.5 hover:bg-iron/60 hover:text-chalk hover:border-silver/30 transition-all duration-300"
               >
                 {isTouring ? (
-                  <Square className="w-3 h-3 fill-current" strokeWidth={1.5} />
+                  <Square className="w-4 h-4 fill-current" strokeWidth={1.5} />
                 ) : (
-                  <Play className="w-3.5 h-3.5 fill-current" strokeWidth={1.5} />
+                  <Play className="w-5 h-5 fill-current" strokeWidth={1.5} />
                 )}
                 {isTouring ? "STOP" : "TOUR"}
               </button>
@@ -132,7 +136,7 @@ export default function Home() {
               {/* Resume Button */}
               <a
                 href="/resume"
-                className="group flex items-center gap-2.5 font-[family-name:var(--font-ibm-plex-mono-family)] text-[11px] tracking-[0.15em] text-silver/60 border border-silver/15 rounded-full px-5 py-2.5 hover:bg-iron/60 hover:text-chalk hover:border-silver/30 transition-all duration-300"
+                className="group flex items-center gap-3 font-[family-name:var(--font-ibm-plex-mono-family)] text-sm tracking-[0.15em] text-silver/60 border border-silver/15 rounded-full px-8 py-3.5 hover:bg-iron/60 hover:text-chalk hover:border-silver/30 transition-all duration-300"
               >
                 RESUME
               </a>

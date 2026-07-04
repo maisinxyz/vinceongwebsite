@@ -7,10 +7,7 @@ import { usePathname } from "next/navigation";
 
 const NAV_LINKS = [
   { href: "/resume", label: "RESUME" },
-  { href: "/about", label: "ABOUT" },
-  { href: "/projects", label: "PROJECTS" },
-  { href: "/experience", label: "EXPERIENCE" },
-  { href: "/education", label: "EDUCATION" },
+  { href: "/contact", label: "CONTACT" },
 ];
 
 import SignatureLogo3D from "./SignatureLogo3D";
@@ -114,6 +111,11 @@ export default function Navbar() {
                 aria-label="Home"
               >
                 <SignatureLogo3D />
+                {pathname !== "/" && (
+                  <span className="absolute bottom-2 text-[9px] font-[family-name:var(--font-space-mono-family)] tracking-[0.2em] text-silver/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                    RETURN TO HOME
+                  </span>
+                )}
               </Link>
             </div>
 
@@ -125,7 +127,7 @@ export default function Navbar() {
               className={`hidden md:flex items-center justify-end gap-8 transition-opacity duration-300 ${
                 isScrolling ? "opacity-0 pointer-events-none" : "opacity-100"
               }`}
-              style={{ marginRight: '40px' }}
+              style={{ marginRight: '24px' }}
             >
               {NAV_LINKS.map((link) => {
                 const isActive = pathname === link.href || pathname.startsWith(link.href + "/");

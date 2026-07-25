@@ -9,15 +9,7 @@ import Footer from "@/components/ui/footer";
 import CustomCursor from "@/components/CustomCursor";
 import RevealOnScroll from "@/components/RevealOnScroll";
 
-const SevenSegmentDisplay = dynamic(
-  () => import("@/components/SevenSegmentDisplay"),
-  { ssr: false, loading: () => (
-    <div className="flex flex-col items-center gap-4 py-12">
-      <div className="w-32 h-40 bg-iron/50 border border-steel/20 rounded-xl animate-pulse" />
-      <p className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/25 tracking-widest">LOADING...</p>
-    </div>
-  )}
-);
+import DigitalDicePCB from "@/components/DigitalDicePCB";
 
 const TRUTH_TABLE = [
   { input: "001", dec: "1", a: 0, b: 1, c: 1, d: 0, e: 0, f: 0, g: 0 },
@@ -82,8 +74,8 @@ export default function DicePageClient() {
             </RevealOnScroll>
 
             <RevealOnScroll delay={0.1}>
-              <div className="bg-iron/30 border border-steel/15 rounded-xl p-6 sm:p-14 max-w-lg mx-auto w-full">
-                <SevenSegmentDisplay />
+              <div className="max-w-2xl mx-auto w-full h-full flex items-center justify-center bg-[#101722] rounded-lg overflow-hidden border border-steel/15 aspect-[480/380]">
+                <DigitalDicePCB className="!max-w-none w-full" />
               </div>
             </RevealOnScroll>
           </div>

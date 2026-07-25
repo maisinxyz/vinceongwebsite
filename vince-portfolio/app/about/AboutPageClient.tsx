@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/ui/footer";
 import CustomCursor from "@/components/CustomCursor";
+import WorkingOnStack from "@/components/WorkingOnStack";
 
 /* ═══════════════════════════════════════════════════
    ALBUM DATA
@@ -503,7 +504,7 @@ export default function AboutPageClient() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 lg:gap-32 w-full">
             
             {/* ── LEFT COLUMN: Bio + Projects (Wider side) ── */}
-            <div className="lg:col-span-6 lg:col-start-2 flex flex-col pl-0 lg:pl-48 xl:pl-64">
+            <div className="lg:col-span-6 lg:col-start-2 flex flex-col pl-0" style={{ paddingLeft: "var(--sidenav-gutter)", transition: "padding-left 0.4s cubic-bezier(0.25, 0, 0, 1)" }}>
 
               {/* Bio: Floating Textbox */}
               <motion.div
@@ -577,119 +578,7 @@ export default function AboutPageClient() {
                   </h2>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {[
-                    {
-                      title: "Engram",
-                      description: "B2B AI SaaS platform with LLM-powered persistent memory for enterprise workflows.",
-                      tags: ["NEXT.JS", "TYPESCRIPT", "AI/LLM"],
-                      status: "In Progress",
-                      href: "https://engram-pi-ruddy.vercel.app",
-                      period: "2024 —",
-                      coverGradient: "linear-gradient(145deg, #1a1f2e 0%, #0f1318 60%, #1c2230 100%)",
-                    },
-                    {
-                      title: "DAWNTRACE",
-                      description: "Autonomous robotic platform with custom PCB design and embedded firmware.",
-                      tags: ["C/C++", "PCB", "FIRMWARE"],
-                      status: "In Progress",
-                      href: "https://github.com/maisinxyz/DAWNTRACE",
-                      period: "2025 —",
-                      coverGradient: "linear-gradient(145deg, #1f1a1a 0%, #141010 60%, #231c1c 100%)",
-                    },
-                    {
-                      title: "Coming Soon",
-                      description: "Details to be announced.",
-                      tags: [],
-                      status: "Planned",
-                      href: null,
-                      period: "",
-                      coverGradient: "linear-gradient(145deg, #171717 0%, #0d0d0d 60%, #1a1a1a 100%)",
-                    },
-                    {
-                      title: "Coming Soon",
-                      description: "Details to be announced.",
-                      tags: [],
-                      status: "Planned",
-                      href: null,
-                      period: "",
-                      coverGradient: "linear-gradient(145deg, #171717 0%, #0d0d0d 60%, #1a1a1a 100%)",
-                    },
-                  ].map((project, i) => {
-                    const cardContent = (
-                      <div
-                        key={i}
-                        className={`group border border-steel/20 bg-iron/10 transition-all duration-200 ${
-                          project.href
-                            ? "hover:border-steel/40 hover:-translate-y-[2px] hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)]"
-                            : ""
-                        }`}
-                      >
-                        {/* Cover area */}
-                        <div
-                          className="w-full h-[120px]"
-                          style={{ background: project.coverGradient }}
-                        />
-
-                        {/* Card body */}
-                        <div className="p-5">
-                          <div className="flex items-center justify-between mb-3">
-                            <h3 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-[16px] tracking-tight">
-                              {project.title}
-                            </h3>
-                            <span
-                              className={`font-[family-name:var(--font-space-mono-family)] text-[8px] tracking-[0.15em] px-2 py-0.5 border ${
-                                project.status === "In Progress"
-                                  ? "text-silver/50 border-steel/25"
-                                  : "text-silver/30 border-steel/15"
-                              }`}
-                            >
-                              {project.status.toUpperCase()}
-                            </span>
-                          </div>
-
-                          <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/50 text-[12px] leading-[1.8] mb-4">
-                            {project.description}
-                          </p>
-
-                          {project.tags.length > 0 && (
-                            <div className="flex flex-wrap gap-x-4 gap-y-2">
-                              {project.tags.map((t) => (
-                                <span
-                                  key={t}
-                                  className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/35 tracking-[0.15em]"
-                                >
-                                  {t}
-                                </span>
-                              ))}
-                            </div>
-                          )}
-
-                          {project.period && (
-                            <p className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/25 tracking-[0.1em] mt-4">
-                              {project.period}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                    );
-
-                    if (project.href) {
-                      return (
-                        <a
-                          key={i}
-                          href={project.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="block"
-                        >
-                          {cardContent}
-                        </a>
-                      );
-                    }
-                    return cardContent;
-                  })}
-                </div>
+                <WorkingOnStack />
               </motion.div>
 
             </div>

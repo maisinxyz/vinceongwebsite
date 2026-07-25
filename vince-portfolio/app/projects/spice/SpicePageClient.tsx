@@ -10,17 +10,7 @@ import Footer from "@/components/ui/footer";
 import CustomCursor from "@/components/CustomCursor";
 import RevealOnScroll from "@/components/RevealOnScroll";
 
-const SpiceDispenser3D = dynamic(
-  () => import("@/components/SpiceDispenser3D"),
-  { ssr: false, loading: () => (
-    <div className="w-full aspect-[4/3] md:aspect-[16/10] bg-void border border-steel/15 rounded-xl flex items-center justify-center line-grid-bg">
-      <div className="text-center">
-        <div className="w-8 h-8 border border-silver/20 rounded-lg animate-spin mx-auto mb-3" style={{ animationDuration: "3s" }} />
-        <p className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/25 tracking-widest">LOADING 3D ENGINE...</p>
-      </div>
-    </div>
-  )}
-);
+import SpiceDispenser2D from "@/components/SpiceDispenser2D";
 
 const DETAILS = [
   { icon: Cog, title: "STEPPER MOTOR FIRMWARE", desc: "Precise C++ motor control with acceleration curves and micro-stepping for accurate spice dosing." },
@@ -72,7 +62,7 @@ export default function SpicePageClient() {
         <section className="py-12 sm:py-16 bg-void">
           <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12">
             <RevealOnScroll>
-              <SpiceDispenser3D />
+              <SpiceDispenser2D />
             </RevealOnScroll>
           </div>
         </section>

@@ -16,12 +16,14 @@ interface Project {
   slug: string;
   title: string;
   description: string;
+  shortDescription: string;
   skills: string[];
   status: "COMPLETED" | "ACTIVE" | "IN PROGRESS";
   year: string;
-  mediaType: "video" | "pcb" | "coming-soon" | "placeholder";
+  mediaType: "video" | "pcb" | "coming-soon" | "placeholder" | "image";
   mediaSrc?: string;
   detailPage?: boolean;
+  href?: string;
 }
 
 /* ═══════════════════════════════════════════════════
@@ -33,6 +35,7 @@ const HARDWARE_PROJECTS: Project[] = [
     title: "DAWNTRACE",
     description:
       "A bedside sleep companion that silently logs sleep data through the night, then wakes with a gradual sunrise light and rising alarm melody. Built on Arduino with sensor fusion and EEPROM data logging.",
+    shortDescription: "Sunrise-alarm sleep companion with sensor fusion and EEPROM logging.",
     skills: ["C++", "Arduino", "Sensor Fusion", "PCB Design", "EEPROM"],
     status: "IN PROGRESS",
     year: "2026",
@@ -44,6 +47,7 @@ const HARDWARE_PROJECTS: Project[] = [
     title: "AUTOMATIC SPICE DISPENSER",
     description:
       "A fully automated spice dispensing system using stepper motor firmware with sub-degree precision. Features 3D-printed mechanical assemblies and custom C++ Arduino firmware.",
+    shortDescription: "Automated spice dispenser with stepper motors and sub-degree precision.",
     skills: ["C++", "Arduino", "3D Printing", "Stepper Motors", "CAD"],
     status: "COMPLETED",
     year: "2025",
@@ -56,6 +60,7 @@ const HARDWARE_PROJECTS: Project[] = [
     title: "DIGITAL DICE",
     description:
       "A mixed-technology PCB using combinational boolean logic to decode binary counter states into 7-segment LED dice patterns. Hand-soldered SMD and through-hole components.",
+    shortDescription: "Mixed-technology PCB decoding binary states into 7-segment LED dice.",
     skills: ["Boolean Logic", "PCB", "SMD Soldering", "EAGLE"],
     status: "COMPLETED",
     year: "2025",
@@ -70,6 +75,7 @@ const SOFTWARE_PROJECTS: Project[] = [
     title: "ENGRAM",
     description:
       "A B2B AI SaaS platform leveraging LLM-powered persistent memory to unify fragmented workflow data across enterprise systems. Built with RAG pipelines and full-stack TypeScript.",
+    shortDescription: "B2B AI SaaS unifying workflow data using LLM persistent memory.",
     skills: ["TypeScript", "Python", "Supabase", "RAG", "LLM", "Next.js"],
     status: "ACTIVE",
     year: "2026",
@@ -78,15 +84,18 @@ const SOFTWARE_PROJECTS: Project[] = [
     detailPage: true,
   },
   {
-    slug: "tbd",
-    title: "COMING SOON",
+    slug: "cyberbug",
+    title: "CYBERBUG 2077",
     description:
-      "A new software project is currently in development. Details will be revealed soon.",
-    skills: [],
-    status: "IN PROGRESS",
-    year: "—",
-    mediaType: "placeholder",
+      "A fast-paced indie 2D platformer. You play as an anomaly running around in an infinite codeworld. Dodge debuggers, grab invisibility orbs, and cause as much dismay (Corruption) as possible.",
+    shortDescription: "Fast-paced indie 2D platformer set in an infinite glitchy codeworld.",
+    skills: ["Game Dev", "C#", "Unity", "Pixel Art"],
+    status: "COMPLETED",
+    year: "2024",
+    mediaType: "image",
+    mediaSrc: "/cyberbug2077.png",
     detailPage: false,
+    href: "https://github.com/maisinxyz/CyberBug2077"
   },
 ];
 
@@ -113,6 +122,19 @@ function ProjectMedia({ project }: { project: Project }) {
     return (
       <div className="w-full h-full flex items-center justify-center bg-[#101722] rounded-lg overflow-hidden">
         <DigitalDicePCB className="!max-w-none w-full" />
+      </div>
+    );
+  }
+
+  if (project.mediaType === "image" && project.mediaSrc) {
+    return (
+      <div className="relative w-full h-full rounded-lg overflow-hidden flex items-center justify-center">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={project.mediaSrc}
+          alt={project.title}
+          className="w-full h-full object-cover"
+        />
       </div>
     );
   }
@@ -152,17 +174,34 @@ function ProjectCard({ project }: { project: Project; index: number }) {
     <motion.div
       whileHover={{ y: -4 }}
       transition={{ duration: 0.25, ease: [0.25, 0, 0, 1] }}
-      className="group border border-steel/12 rounded-xl p-4 hover:border-silver/20 transition-colors duration-300"
+      className="group border border-steel/12 rounded-xl p-6 hover:border-silver/20 transition-colors duration-300"
     >
       {/* Media */}
-      <div
-        className={cn(
-          "relative rounded-lg overflow-hidden mb-6 bg-void/50",
-          project.mediaType === "pcb" ? "aspect-[480/380]" : "aspect-[3/2]"
-        )}
-      >
-        <ProjectMedia project={project} />
-      </div>
+      {project.detailPage || project.href ? (
+        <Link
+          href={project.detailPage ? `/projects/${project.slug}` : (project.href || "#")}
+          target={project.href ? "_blank" : undefined}
+          className="block"
+        >
+          <div
+            className={cn(
+              "relative rounded-lg overflow-hidden mb-8 bg-void/50",
+              project.mediaType === "pcb" ? "aspect-[480/380]" : "aspect-[3/2]"
+            )}
+          >
+            <ProjectMedia project={project} />
+          </div>
+        </Link>
+      ) : (
+        <div
+          className={cn(
+            "relative rounded-lg overflow-hidden mb-8 bg-void/50",
+            project.mediaType === "pcb" ? "aspect-[480/380]" : "aspect-[3/2]"
+          )}
+        >
+          <ProjectMedia project={project} />
+        </div>
+      )}
 
       {/* Content */}
       <div className="space-y-2.5">
@@ -173,13 +212,13 @@ function ProjectCard({ project }: { project: Project; index: number }) {
 
         {/* Description */}
         <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/45 text-[10px] leading-[1.8]">
-          {project.description}
+          {project.shortDescription}
         </p>
 
         {/* Skills */}
         {project.skills.length > 0 && (
           <div className="flex flex-wrap gap-1 pt-0.5">
-            {project.skills.map((skill) => (
+            {project.skills.slice(0, 3).map((skill) => (
               <span
                 key={skill}
                 className="font-[family-name:var(--font-ibm-plex-mono-family)] text-[7px] text-silver/30 tracking-wider bg-steel/8 rounded-full px-2 py-0.5"
@@ -187,16 +226,24 @@ function ProjectCard({ project }: { project: Project; index: number }) {
                 {skill}
               </span>
             ))}
+            {project.skills.length > 3 && (
+              <span
+                className="font-[family-name:var(--font-ibm-plex-mono-family)] text-[7px] text-silver/30 tracking-wider bg-steel/8 rounded-full px-2 py-0.5"
+              >
+                +{project.skills.length - 3}
+              </span>
+            )}
           </div>
         )}
 
-        {/* View details link */}
-        {project.detailPage && (
+        {/* View details / External link */}
+        {(project.detailPage || project.href) && (
           <Link
-            href={`/projects/${project.slug}`}
+            href={project.detailPage ? `/projects/${project.slug}` : (project.href || "#")}
+            target={project.href ? "_blank" : undefined}
             className="inline-flex items-center gap-1.5 font-[family-name:var(--font-ibm-plex-mono-family)] text-[9px] text-silver/35 hover:text-chalk transition-colors pt-1"
           >
-            VIEW DETAILS
+            {project.detailPage ? "VIEW DETAILS" : "VIEW PROJECT"}
             <ArrowRight
               size={9}
               className="group-hover:translate-x-0.5 transition-transform"
@@ -249,7 +296,7 @@ export default function ProjectsPageClient() {
       <CustomCursor />
       <Navbar />
 
-      <main className="relative max-lg:pt-[clamp(120px,15vw,224px)] lg:pt-48 xl:pt-56 pb-32 min-h-screen lg:pl-[80px] lg:pr-[80px]">
+      <main className="relative max-lg:pt-[clamp(120px,15vw,224px)] lg:pt-48 xl:pt-56 pb-32 min-h-screen lg:pr-[80px]" style={{ paddingLeft: "var(--sidenav-gutter)", transition: "padding-left 0.4s cubic-bezier(0.25, 0, 0, 1)" }}>
         {/* ── Page Header ── */}
         <div className="max-w-[1400px] mx-auto max-lg:px-[clamp(20px,5vw,96px)] lg:px-24">
           <motion.div
@@ -278,7 +325,7 @@ export default function ProjectsPageClient() {
                 count={HARDWARE_PROJECTS.length}
                 delay={0.1}
               />
-              <div className="flex flex-col gap-[100px]">
+              <div className="flex flex-col gap-[130px]">
                 {HARDWARE_PROJECTS.map((project, i) => (
                   <ProjectCard key={project.slug} project={project} index={i} />
                 ))}
@@ -292,7 +339,7 @@ export default function ProjectsPageClient() {
                 count={SOFTWARE_PROJECTS.length}
                 delay={0.15}
               />
-              <div className="flex flex-col gap-[100px]">
+              <div className="flex flex-col gap-[130px]">
                 {SOFTWARE_PROJECTS.map((project, i) => (
                   <ProjectCard key={project.slug} project={project} index={i} />
                 ))}

@@ -57,19 +57,16 @@ const CONTACT_INFO = [
 export default function ContactPageClient() {
 
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <CustomCursor />
       <Navbar />
 
-      <main className="relative pt-28 sm:pt-32">
+      <main 
+        className="relative pt-28 sm:pt-32 flex-grow"
+        style={{ paddingLeft: "var(--sidenav-gutter)", transition: "padding-left 0.4s cubic-bezier(0.25, 0, 0, 1)" }}
+      >
         {/* HERO */}
-        <section className="py-32 sm:py-44 overflow-hidden relative">
-          <div className="absolute inset-0 flex items-center justify-start pointer-events-none select-none overflow-hidden">
-            <span className="font-[family-name:var(--font-syne-family)] font-extrabold text-[18vw] text-silver/[0.03] leading-none ml-[-2vw]">
-              SAY HI
-            </span>
-          </div>
-
+        <section className="py-24 sm:py-32 relative">
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -98,50 +95,50 @@ export default function ContactPageClient() {
           </div>
         </section>
 
-        {/* INFO GRID */}
+        {/* INFO LIST */}
         <section className="pb-32 sm:pb-40">
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-10">
+            <div className="max-w-4xl flex flex-col">
               {CONTACT_INFO.map((info, idx) => {
+                const isLast = idx === CONTACT_INFO.length - 1;
+                
                 const Inner = (
-                  <div className="group h-full bg-iron/30 border border-steel/15 rounded-2xl p-8 sm:p-12 flex flex-col items-start gap-8 hover:border-silver/30 hover:bg-iron/50 hover:scale-[1.02] transition-all duration-300">
-                    <div className="w-16 h-16 border border-steel/20 rounded-xl flex items-center justify-center shrink-0 group-hover:border-silver/40 group-hover:bg-silver/5 transition-all duration-300">
-                      <info.icon size={24} className="text-silver/50 group-hover:text-chalk transition-colors duration-300" />
-                    </div>
-                    <div className="min-w-0 w-full mt-auto">
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="font-[family-name:var(--font-space-mono-family)] text-[10px] sm:text-xs text-silver/40 tracking-[0.25em] block">
-                          {info.label}
-                        </span>
-                        {info.href && (
-                          <ArrowUpRight size={18} className="text-silver/20 shrink-0 group-hover:text-chalk group-hover:-translate-y-1 group-hover:translate-x-1 transition-all duration-300" />
-                        )}
-                      </div>
-                      <span className="font-[family-name:var(--font-ibm-plex-mono-family)] text-chalk text-lg sm:text-xl lg:text-2xl truncate block group-hover:text-white transition-colors duration-300">
+                  <div className="group flex items-center justify-between py-6 hover:pl-2 transition-all duration-300">
+                    <div className="flex items-center gap-6">
+                      <info.icon size={20} className="text-silver/50 group-hover:text-chalk transition-colors duration-300 shrink-0" />
+                      <span className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/60 text-sm sm:text-base group-hover:text-chalk transition-colors duration-300">
                         {info.value}
                       </span>
                     </div>
+                    {info.href && (
+                      <ArrowUpRight 
+                        size={20} 
+                        className="text-silver/40 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 shrink-0" 
+                      />
+                    )}
                   </div>
                 );
 
-                if (info.href) {
-                  return (
-                    <RevealOnScroll key={info.label} delay={idx * 0.1}>
+                const renderContent = () => {
+                  if (info.href) {
+                    return (
                       <a
                         href={info.href}
                         target={info.label !== "EMAIL" ? "_blank" : undefined}
                         rel={info.label !== "EMAIL" ? "noopener noreferrer" : undefined}
-                        className="block h-full outline-none"
+                        className="block outline-none"
                       >
                         {Inner}
                       </a>
-                    </RevealOnScroll>
-                  );
-                }
+                    );
+                  }
+                  return <div>{Inner}</div>;
+                };
 
                 return (
                   <RevealOnScroll key={info.label} delay={idx * 0.1}>
-                    <div className="h-full">{Inner}</div>
+                    {renderContent()}
+                    {!isLast && <div className="h-px bg-steel/15 w-full" />}
                   </RevealOnScroll>
                 );
               })}
@@ -151,6 +148,6 @@ export default function ContactPageClient() {
       </main>
 
       <Footer />
-    </>
+    </div>
   );
 }

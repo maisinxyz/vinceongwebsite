@@ -73,7 +73,7 @@ export default function Home() {
 
 
           {/* Hero text content */}
-          <div className="relative flex flex-col items-center justify-center pointer-events-none w-full px-4" style={{ zIndex: 10 }}>
+          <div className="relative flex flex-col items-center justify-center pointer-events-none w-full px-4" style={{ zIndex: 10, paddingLeft: "calc(1rem + var(--sidenav-gutter))", transition: "padding-left 0.4s cubic-bezier(0.25, 0, 0, 1)" }}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -220,48 +220,48 @@ export default function Home() {
                 </div>
 
                 <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
-                  {/* MECH */}
+                  {/* Resilient Privacy */}
                   <RevealOnScroll delay={0.15}>
                     <div>
                       <div className="flex items-start justify-between gap-4 mb-1.5">
                         <h4 className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/90 font-semibold text-base">
-                          Finance & Development Lead
+                          Software Engineer Intern
                         </h4>
                         <span className="font-[family-name:var(--font-space-mono-family)] text-silver/30 text-xs tracking-wider whitespace-nowrap pt-1">
-                          AUG 2023 – JUL 2025
+                          JUL 2026 – PRESENT
                         </span>
                       </div>
                       <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/50 text-sm mb-4">
-                        MECH (Medical Envoys for Community Health) · Langley, B.C.
+                        Resilient Privacy · Dallas, TX (Remote)
                       </p>
                       <ul className="space-y-3">
                         <li className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/55 text-sm leading-[1.8] pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-silver/30">
-                          Drove revenue growth through coordinated digital and door-to-door marketing campaigns, scaling organizational net assets by over 250% across 2 years.
+                          Architected secure, asynchronous threat intelligence pipelines in Python and Rust for the KANSHI cybersecurity platform.
                         </li>
                         <li className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/55 text-sm leading-[1.8] pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-silver/30">
-                          Architected and maintained a custom expenditure tracking database, reducing reporting discrepancies and improving financial visibility.
+                          Engineered scalable backend APIs and optimized relational SQL database schemas for high-performance querying.
                         </li>
                       </ul>
                     </div>
                   </RevealOnScroll>
 
-                  {/* PNE */}
+                  {/* TELUS Digital AI */}
                   <RevealOnScroll delay={0.2}>
                     <div>
                       <div className="flex items-start justify-between gap-4 mb-1.5">
                         <h4 className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/90 font-semibold text-base">
-                          Games Attendant
+                          Online Data Analyst
                         </h4>
                         <span className="font-[family-name:var(--font-space-mono-family)] text-silver/30 text-xs tracking-wider whitespace-nowrap pt-1">
-                          AUG 2025 – SEP 2025
+                          JUN 2026 – PRESENT
                         </span>
                       </div>
                       <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/50 text-sm mb-4">
-                        Pacific National Exhibition · Vancouver, B.C.
+                        TELUS Digital AI · Remote
                       </p>
                       <ul className="space-y-3">
                         <li className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/55 text-sm leading-[1.8] pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-silver/30">
-                          Consistently exceeded daily revenue targets through high-volume customer engagement across a high-traffic 3-week event.
+                          Contributed to the training data integrity of real-world AI/ML mapping systems through labeling and evaluation of geographical datasets.
                         </li>
                       </ul>
                     </div>

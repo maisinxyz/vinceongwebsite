@@ -37,14 +37,20 @@ export default function SideNav() {
     return () => unsubscribe();
   }, [scrollY]);
 
+  // Hero landing page: ~1.5cm ≈ 57px protrusion. Scrolled or Other pages: ~0.8cm ≈ 30px
+  const isHomePage = pathname === "/";
+  const baseWidth = (isHomePage && !hasScrolled) ? 57 : 30;
+
+  useEffect(() => {
+    if (!mounted) return;
+    const gutter = isMobileOrTablet ? 0 : baseWidth + 14;
+    document.documentElement.style.setProperty("--sidenav-gutter", `${gutter}px`);
+  }, [mounted, isMobileOrTablet, baseWidth]);
+
   if (!mounted || isMobileOrTablet) return null;
 
   const validPaths = ["/", "/about", "/projects", "/experience", "/education"];
   if (!validPaths.includes(pathname)) return null;
-
-  // Hero landing page: ~1.5cm ≈ 57px protrusion. Scrolled or Other pages: ~0.8cm ≈ 30px
-  const isHomePage = pathname === "/";
-  const baseWidth = (isHomePage && !hasScrolled) ? 57 : 30;
 
   return (
     <nav

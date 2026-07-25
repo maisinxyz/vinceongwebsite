@@ -3,6 +3,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/ui/footer";
 import CustomCursor from "@/components/CustomCursor";
+import LaptopScrollReveal from "@/components/LaptopScrollReveal";
 import { Activity, PenTool, Database } from "lucide-react";
 
 /* ═══════════════════════════════════════════════════
@@ -99,13 +100,6 @@ export default function EducationPageClient() {
       <Navbar />
 
       <main className="min-h-screen text-chalk selection:bg-silver/30 selection:text-white pb-40 relative max-lg:pt-[clamp(100px,14vw,160px)] lg:pt-40">
-        {/* Background image */}
-        <div
-          className="fixed inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: "url('/stickerpage.png')" }}
-        />
-        {/* Dark overlay — lets colours bleed through while keeping text readable */}
-        <div className="fixed inset-0 w-full h-full bg-black/65" />
 
         {/* All page content sits above the background */}
         <div className="relative z-10">
@@ -125,9 +119,11 @@ export default function EducationPageClient() {
           </header>
         </div>
 
+        <LaptopScrollReveal />
+
         <div className="max-w-[1400px] mx-auto h-full flex flex-col max-lg:px-[clamp(20px,5vw,96px)] lg:px-24">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 lg:gap-32 w-full">
-            <div className="lg:col-span-11 lg:col-start-2 flex flex-col gap-24 max-lg:pl-0 lg:pl-48 xl:pl-64">
+            <div className="lg:col-span-11 lg:col-start-2 flex flex-col gap-24 max-lg:pl-0" style={{ paddingLeft: "var(--sidenav-gutter)", transition: "padding-left 0.4s cubic-bezier(0.25, 0, 0, 1)" }}>
             
             {/* ── DEGREES SECTION ── */}
             <section className="relative">

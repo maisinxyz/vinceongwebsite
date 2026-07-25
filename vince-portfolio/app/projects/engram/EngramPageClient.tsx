@@ -136,8 +136,34 @@ export default function EngramPageClient() {
           </div>
         </section>
 
-        {/* MY ROLE */}
+        {/* PRODUCT GALLERY */}
         <section className="py-28 sm:py-36">
+          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+            <RevealOnScroll>
+              <h2 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-3xl sm:text-4xl tracking-tight mb-14">
+                PRODUCT GALLERY
+              </h2>
+            </RevealOnScroll>
+
+            <RevealOnScroll delay={0.1}>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                {[1, 2, 3].map((num) => (
+                  <div
+                    key={num}
+                    className="aspect-video rounded-lg border border-steel/15 bg-iron/20 flex items-center justify-center"
+                  >
+                    <span className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/20 tracking-[0.3em] text-center">
+                      SCREENSHOT PLACEHOLDER<br />—<br />IMG {num} OF 3
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </RevealOnScroll>
+          </div>
+        </section>
+
+        {/* MY ROLE */}
+        <section className="py-28 sm:py-36 border-t border-steel/10">
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
             <RevealOnScroll>
               <h2 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-3xl sm:text-4xl tracking-tight mb-14">

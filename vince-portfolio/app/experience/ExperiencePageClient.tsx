@@ -11,6 +11,25 @@ import RevealOnScroll from "@/components/RevealOnScroll";
    ═══════════════════════════════════════════════════ */
 const EXPERIENCES = [
   {
+    company: "Ernst & Young",
+    subtitle: "Microsoft Technology Consulting · Incoming",
+    role: "Technology Consulting Intern",
+    dateRange: "MAY 2027 – AUG 2027",
+    location: "",
+    logo: "/logos/ey.svg",
+    logoBg: "#000000",
+    logoInitials: "EY",
+    image: undefined,
+    // Expected scope based on EY's Microsoft practice; the placement has not started.
+    // https://careers.ey.com/ey/job/Toronto-Business-Systems-Analyst-Microsoft-D365-Customer-Engagement-ON-M5H-0B3/1444507833/
+    // https://www.ey.com/en_us/alliances/microsoft/business-applications-services
+    bullets: [
+      "Will support client requirements gathering and business process mapping, translating operational needs into user stories and functional specifications for Microsoft Dynamics 365 solutions.",
+      "Will assist with configuring business applications and automating workflows using Microsoft Power Platform, including Power Apps and Power Automate.",
+      "Will contribute to solution testing, user acceptance testing, and implementation documentation to support deployment and client adoption.",
+    ],
+  },
+  {
     company: "Resilient Privacy",
     role: "Software Engineer Intern",
     dateRange: "JUL 2026 – PRESENT",

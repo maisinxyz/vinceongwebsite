@@ -16,11 +16,11 @@ export default function ResumePageClient() {
     if (!document.fullscreenElement) {
       if (containerRef.current?.requestFullscreen) {
         containerRef.current.requestFullscreen().catch(() => {
-          window.open("/ResumeNew.pdf", "_blank");
+          window.open("/resume.pdf", "_blank");
         });
       } else {
         // Fullscreen API not supported (iOS Safari)
-        window.open("/ResumeNew.pdf", "_blank");
+        window.open("/resume.pdf", "_blank");
       }
     } else {
       document.exitFullscreen();
@@ -95,7 +95,7 @@ export default function ResumePageClient() {
               )}
 
               <iframe 
-                src={isZoomedInFullscreen ? "/ResumeNew.pdf#view=FitH" : "/ResumeNew.pdf#toolbar=0&navpanes=0&scrollbar=0&view=Fit"} 
+                src={isZoomedInFullscreen ? "/resume.pdf#view=FitH" : "/resume.pdf#toolbar=0&navpanes=0&scrollbar=0&view=Fit"}
                 className={`w-full h-full border-none bg-black ${isZoomedInFullscreen ? "" : "pointer-events-none"}`} 
                 title="Resume PDF Viewer"
               />

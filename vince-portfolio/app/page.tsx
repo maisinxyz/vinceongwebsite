@@ -220,6 +220,31 @@ export default function Home() {
                 </div>
 
                 <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+                  {/* Ernst & Young */}
+                  <RevealOnScroll delay={0.1}>
+                    <div>
+                      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1.5 sm:gap-4 mb-1.5">
+                        <h4 className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/90 font-semibold text-base">
+                          Technology Consulting Intern
+                        </h4>
+                        <span className="font-[family-name:var(--font-space-mono-family)] text-silver/30 text-xs tracking-wider whitespace-nowrap pt-1">
+                          MAY 2027 – AUG 2027
+                        </span>
+                      </div>
+                      <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/50 text-sm mb-4">
+                        Ernst &amp; Young · Microsoft Technology Consulting · Incoming
+                      </p>
+                      <ul className="space-y-3">
+                        <li className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/55 text-sm leading-[1.8] pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-silver/30">
+                          Will support requirements gathering and business process mapping for Microsoft Dynamics 365 solutions.
+                        </li>
+                        <li className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/55 text-sm leading-[1.8] pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-silver/30">
+                          Will assist with Power Platform workflow automation, solution testing, and implementation documentation.
+                        </li>
+                      </ul>
+                    </div>
+                  </RevealOnScroll>
+
                   {/* Resilient Privacy */}
                   <RevealOnScroll delay={0.15}>
                     <div>

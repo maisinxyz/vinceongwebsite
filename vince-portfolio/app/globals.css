@@ -188,9 +188,12 @@ body {
    Hide default cursor on desktop when custom cursor active
    ═══════════════════════════════════════════════════ */
 @media (pointer: fine) {
-  .custom-cursor-active,
-  .custom-cursor-active * {
+  .custom-cursor-active:not(:has(.force-system-cursor:hover)),
+  .custom-cursor-active *:not(.force-system-cursor, .force-system-cursor *) {
     cursor: none !important;
+  }
+  .force-system-cursor, .force-system-cursor * {
+    cursor: pointer !important;
   }
 }
 
@@ -372,6 +375,26 @@ html.tour-active nav {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+/* ═══════════════════════════════════════════════════
+   PRINT STYLES — Force Landscape for PDF Download
+   ═══════════════════════════════════════════════════ */
+@media print {
+  @page {
+    size: landscape;
+    margin: 0;
+  }
+  
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    background: black !important;
+  }
 }
 
 

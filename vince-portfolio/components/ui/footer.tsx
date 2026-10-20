@@ -57,6 +57,8 @@ export default function Footer() {
             <Link href="/privacy" className="hover:text-chalk transition-colors">Privacy</Link>
             <span className="text-steel/40">•</span>
             <Link href="/terms" className="hover:text-chalk transition-colors">Terms</Link>
+            <span className="text-steel/40">•</span>
+            <Link href="/portfolio-view" target="_blank" rel="noopener noreferrer" className="hover:text-chalk transition-colors">Portfolio</Link>
           </div>
         </div>
 

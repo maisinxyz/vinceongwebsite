@@ -11,12 +11,20 @@ import { cn } from "@/lib/utils";
    ↓/↑/Enter/Space open it.
    Listbox (focused, aria-activedescendant): ↑/↓, Home/End, typeahead,
    Enter/Space select, Esc closes, focus returns to the trigger.
-   `name` renders <input type="hidden"> so it posts with a <form>.
+   `name` renders <input type="hidden"> so it posts with a <form> (not when
+   disabled). Controlled with `value`, or uncontrolled with `defaultValue`.
+   `required` sets aria-required only: a hidden input takes no part in native
+   constraint validation, so the form validates it itself.
+   `triggerClassName` is merged after the defaults (border, radius, height…).
    ═══════════════════════════════════════════════════ */
 export type SelectOption<V extends string> = { value: V; label: string; description?: string; disabled?: boolean };
 export type SelectProps<V extends string> = {
-  value: V | null;
-  onValueChange: (v: V) => void;
+  /** Controlled value; leave undefined (not null) to use `defaultValue` instead. */
+  value?: V | null;
+  /** Uncontrolled initial value (fix round: contact finding 5). */
+  defaultValue?: V | null;
+  /** Optional when uncontrolled (fix round). */
+  onValueChange?: (v: V) => void;
   options: readonly SelectOption<V>[];
   label: string;
   hideLabel?: boolean;
@@ -27,6 +35,10 @@ export type SelectProps<V extends string> = {
   disabled?: boolean;
   id?: string;
   className?: string;
+  /** Merged after the trigger's defaults, so it can replace the boxed look (contact finding 2). */
+  triggerClassName?: string;
+  /** aria-required on the combobox (contact finding 5). */
+  required?: boolean;
   /** Departure (BOARD CONCERN 18:34): React 19 ref-as-prop, the trigger button. */
   ref?: React.Ref<HTMLButtonElement>;
 };
@@ -34,7 +46,8 @@ export type SelectProps<V extends string> = {
 const TYPEAHEAD_RESET_MS = 500;
 
 export function Select<V extends string>({
-  value,
+  value: controlled,
+  defaultValue = null,
   onValueChange,
   options,
   label,
@@ -46,8 +59,12 @@ export function Select<V extends string>({
   disabled = false,
   id,
   className,
+  triggerClassName,
+  required = false,
   ref,
 }: SelectProps<V>) {
+  const [uncontrolled, setUncontrolled] = useState<V | null>(defaultValue);
+  const value = controlled !== undefined ? controlled : uncontrolled;
   const autoId = useId();
   const baseId = id ?? `select-${autoId.replace(/[^a-zA-Z0-9_-]/g, "")}`;
   const labelId = `${baseId}-label`;
@@ -91,7 +108,8 @@ export function Select<V extends string>({
 
   const choose = (i: number) => {
     if (!enabled(i)) return;
-    onValueChange(options[i].value);
+    if (controlled === undefined) setUncontrolled(options[i].value);
+    onValueChange?.(options[i].value);
     setOpen(false); // Popover returns focus to the trigger
   };
 
@@ -189,6 +207,7 @@ export function Select<V extends string>({
         aria-labelledby={labelId}
         aria-describedby={describedBy}
         aria-invalid={invalid || undefined}
+        aria-required={required || undefined}
         onClick={() => (open ? setOpen(false) : openList("selected"))}
         onKeyDown={onTriggerKeyDown}
         className={cn(
@@ -196,6 +215,7 @@ export function Select<V extends string>({
           "font-[family-name:var(--font-ibm-plex-mono-family)] hover:bg-iron",
           "disabled:cursor-not-allowed disabled:border-steel disabled:text-subtle",
           invalid ? "border-danger" : "border-line-strong",
+          triggerClassName,
         )}
       >
         <span id={valueId} className={cn("truncate", selected ? "text-chalk" : "text-subtle")}>
@@ -209,7 +229,7 @@ export function Select<V extends string>({
           )}
         />
       </button>
-      {name !== undefined && <input type="hidden" name={name} value={value ?? ""} />}
+      {name !== undefined && <input type="hidden" name={name} value={value ?? ""} disabled={disabled} />}
 
       <Popover
         open={open}

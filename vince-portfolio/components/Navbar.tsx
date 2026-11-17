@@ -192,7 +192,8 @@ export default function Navbar() {
                 className="lg:hidden text-chalk [&_svg]:h-6 [&_svg]:w-6 focus-visible:outline-offset-[-2px]"
                 label={mobileMenuOpen ? "Close menu" : "Open menu"}
                 aria-expanded={mobileMenuOpen}
-                aria-controls="mobile-menu"
+                aria-controls={mobileMenuOpen ? "mobile-menu" : undefined} // the menu is only in the DOM while open
+                data-menu-button=""
                 icon={<MenuIcon />}
                 swapIcon={<CloseIcon />}
                 swapped={mobileMenuOpen}

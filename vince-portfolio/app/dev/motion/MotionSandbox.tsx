@@ -112,10 +112,20 @@ function DropdownDemo() {
       className="flex w-full max-w-sm flex-col gap-3"
       onSubmit={(e) => {
         e.preventDefault();
-        setSubmitted(String(new FormData(e.currentTarget).get("topic") ?? ""));
+        const fd = new FormData(e.currentTarget);
+        setSubmitted(`${fd.get("topic") ?? ""}|${fd.get("topic2") ?? ""}|${fd.has("topic3") ? "posted" : "absent"}`);
       }}
     >
-      <Select id="demo-topic" label="Topic" name="topic" placeholder="Choose a topic" value={topic} onValueChange={setTopic} options={TOPICS} />
+      <Select id="demo-topic" label="Topic" name="topic" placeholder="Choose a topic" value={topic} onValueChange={setTopic} options={TOPICS} required />
+      <Select
+        id="demo-topic-min"
+        label="Uncontrolled, minimal trigger"
+        name="topic2"
+        defaultValue="general"
+        options={TOPICS}
+        triggerClassName="h-10 rounded-none border-0 border-b px-0 hover:bg-transparent"
+      />
+      <Select id="demo-topic-off" label="Disabled" name="topic3" defaultValue="collab" options={TOPICS} disabled />
       <div className="flex items-center gap-3">
         <Button type="submit" size="sm">Submit form</Button>
         <output data-submitted className={`${DATA} text-xs text-silver`}>{submitted === null ? "not submitted" : `topic=${submitted || "(empty)"}`}</output>
@@ -143,7 +153,21 @@ function ExitDemo() {
       </div>
       <Button size="sm" variant="ghost" leadingIcon={<Bell />} onClick={() => toast.show({ title: "Saved draft", description: "Neutral toast, 4 s" })}>Toast</Button>
       <Button size="sm" variant="ghost" onClick={() => toast.show({ title: "Message sent", tone: "success" })}>Success toast</Button>
-      <Button size="sm" variant="ghost" onClick={() => toast.show({ title: "Could not send", description: "Error toasts are role=alert", tone: "error" })}>Error toast</Button>
+      <Button
+        size="sm"
+        variant="ghost"
+        onClick={() =>
+          toast.show({
+            title: "Could not send",
+            description: <>Error toasts are <code>role=alert</code>, outside the polite region.</>,
+            tone: "error",
+            durationMs: 0,
+            action: { label: "Use the contact page", href: "/contact" },
+          })
+        }
+      >
+        Error toast
+      </Button>
     </>
   );
 }

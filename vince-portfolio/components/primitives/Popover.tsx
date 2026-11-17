@@ -171,6 +171,10 @@ export function Popover({
       if (!closeOnOutside) return;
       const t = e.target as Node;
       if (contentRef.current?.contains(t) || anchorRef.current?.contains(t)) return;
+      // A <label for=anchor> click is forwarded to the anchor as a click, which toggles it itself;
+      // closing here too would make that click reopen it.
+      const anchorId = anchorRef.current?.id;
+      if (anchorId && t instanceof Element && t.closest(`label[for="${CSS.escape(anchorId)}"]`)) return;
       onOpenChangeRef.current(false);
       // After the browser has moved focus for this click: if it fell to <body>, return it to the anchor.
       setTimeout(() => {

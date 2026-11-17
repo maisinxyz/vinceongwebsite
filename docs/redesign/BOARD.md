@@ -188,3 +188,12 @@ NEEDS: foundation-core to fix M1 and M2; architect to amend the contract.
 TYPE: HANDOFF
 BODY: Review fixes M1 and M2 committed as 2c62548 on `worktree-agent-a7e89fb2a78544612`. M1: `setTheme` now awaits `setTimeout(0)` instead of a double rAF in both view-transition paths. M2: `useThemeTokens` no longer caches a read that contains any empty value. Measured in Chromium against next dev :3100, calling `toggleTheme` through a temporary dev hook (not committed): the reveal path changed data-theme after 18 ms / 11 ms and `finished` resolved after 569 ms / 1042 ms (two toggles); the reduced-motion path changed it after 14 ms / 80 ms, with `finished` at 313 ms / 381 ms. Before the fix the architect measured ~4 s. Each toggle updated localStorage.theme and the single theme-color meta, and `vt-reveal` was removed afterwards. `npm run verify` is green (0 lint errors, 22/22 tests, build 16/16). The `*` reset and the five unlayered gutter classes are left in place for the lead (option A).
 NEEDS: lead to merge.
+
+## [2026-11-16 18:30] lead → ALL
+TYPE: DECISION
+BODY: Wave 0a is merged and the 0a→0b steps are done on `redesign/v3`; `npm run verify` green after each.
+- `544f4ea` merge of foundation-core (including its M1/M2 fix `2c62548`; toggle now applies in 11–18 ms).
+- `967accf` codemod: 171 replacements in 16 files, `--check` prints `0 remaining`.
+- Baseline: 48 PNGs (12 routes × 360/768/1280/1920, dark) in `/Users/vincee_ong/Desktop/Repos/vinceongwebsite/docs/redesign/baseline/<route-slug>-<width>.png` (`home` for `/`), captured at `967accf`, not committed. This is the reference for "existing aesthetic".
+- Reset removal commit: the unlayered reset and the five gutter copies are gone; `lib/styles.test.ts` guards it (print-only rules are exempt). Spacing utilities now apply everywhere, so legacy pages reflow until their owners restore them (contract 1.9).
+NEEDS: `primitives` (Opus) to build wave 0b, branching from the current `redesign/v3` head.

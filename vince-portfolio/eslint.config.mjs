@@ -14,6 +14,8 @@ const eslintConfig = [
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Scratch CommonJS scripts; kept in the repo pending Vince's decision (BOARD, Q10).
+    "tmp-scripts/**",
   ] },
 ];
 

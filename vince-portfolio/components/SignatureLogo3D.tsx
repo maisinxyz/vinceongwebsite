@@ -5,8 +5,9 @@ import { useGLTF, Bounds, Environment } from "@react-three/drei";
 import { useRef, Suspense, useEffect } from "react";
 import * as THREE from "three";
 import { usePathname } from "next/navigation";
+import { useThemeTokens } from "@/hooks/useTheme";
 
-function Model({ shouldSpin }: { shouldSpin: boolean }) {
+function Model({ shouldSpin, metal }: { shouldSpin: boolean; metal: string }) {
   const { scene } = useGLTF("/vinceonglogo.glb");
   const groupRef = useRef<THREE.Group>(null);
   const scrollRef = useRef(0);
@@ -43,7 +44,7 @@ function Model({ shouldSpin }: { shouldSpin: boolean }) {
         child.geometry.computeVertexNormals();
         
         child.material = new THREE.MeshStandardMaterial({
-          color: 0xe0e5ec, // Bright silver
+          // Colour comes from --logo-metal (effect below)
           metalness: 1.0, // 100% metal
           roughness: 0.35, // High enough to catch the procedural texture
           roughnessMap: brushedTexture, // Creates anisotropic shine
@@ -57,6 +58,16 @@ function Model({ shouldSpin }: { shouldSpin: boolean }) {
       }
     });
   }, [scene]);
+
+  // Re-tint on theme change: bright silver in dark, darker steel in light
+  useEffect(() => {
+    if (!metal) return;
+    scene.traverse((child) => {
+      if (child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial) {
+        child.material.color.set(metal);
+      }
+    });
+  }, [scene, metal]);
 
   useEffect(() => {
     if (!shouldSpin) return;
@@ -106,6 +117,7 @@ export default function SignatureLogo3D() {
   const isResumePage = pathname === "/resume" || pathname.startsWith("/resume/");
   const isProjectsPage = pathname === "/projects" || pathname.startsWith("/projects/");
   const shouldSpin = !(isAboutPage || isExperiencePage || isEducationPage || isResumePage || isProjectsPage);
+  const tok = useThemeTokens(["logo-metal"] as const);
 
   return (
     <div className="w-48 h-28 flex items-center justify-center pointer-events-none drop-shadow-[0_8px_24px_rgba(255,255,255,0.4)]">
@@ -129,7 +141,7 @@ export default function SignatureLogo3D() {
         
         <Suspense fallback={null}>
           <Bounds fit clip observe margin={0.8}>
-            <Model shouldSpin={shouldSpin} />
+            <Model shouldSpin={shouldSpin} metal={tok["logo-metal"]} />
           </Bounds>
         </Suspense>
       </Canvas>

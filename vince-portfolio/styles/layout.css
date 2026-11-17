@@ -1,0 +1,67 @@
+/* ═══════════════════════════════════════════════════
+   NAV GUTTER (CONTRACT 3.2)
+   The rail is SSR-rendered with data-rail, so the gutter resolves in CSS
+   before any JS runs. Values: wide 57 + 14 = 71px, narrow 30 + 14 = 44px
+   (RAIL in lib/site.ts; data.test.ts keeps them in sync).
+   Motion vars come from motion.css, so each use carries a literal fallback.
+   ═══════════════════════════════════════════════════ */
+:root {
+  --nav-gutter: 0px;
+  --nav-bar-bottom: 0px;
+  --nav-top: 4rem;
+  /* Legacy alias for the inline consumers; qa removes it once unused */
+  --sidenav-gutter: var(--nav-gutter);
+}
+
+@media (min-width: 40rem) {
+  :root { --nav-top: 5rem; }
+}
+
+@media (min-width: 64rem) {
+  :root:has(#side-rail[data-rail="wide"]) { --nav-gutter: 71px; }
+  :root:has(#side-rail[data-rail="narrow"]) { --nav-gutter: 44px; }
+}
+
+@media (max-width: 63.999rem) {
+  :root:has(#section-bar) { --nav-bar-bottom: calc(3.5rem + env(safe-area-inset-bottom)); }
+}
+
+@theme inline {
+  --spacing-gutter: var(--nav-gutter);
+  --spacing-navbar: var(--nav-bar-bottom);
+  --spacing-nav-top: var(--nav-top);
+}
+
+body {
+  padding-bottom: var(--nav-bar-bottom);
+}
+
+/* Unlayered copies of the padding/margin gutter utilities. The legacy unlayered
+   `* { margin:0; padding:0 }` reset in app/globals.css outranks @layer utilities,
+   so without these pl-gutter etc. would compute to 0. Remove once that reset goes. */
+.pl-gutter { padding-left: var(--nav-gutter); }
+.ml-gutter { margin-left: var(--nav-gutter); }
+.-ml-gutter { margin-left: calc(var(--nav-gutter) * -1); }
+.pt-nav-top { padding-top: var(--nav-top); }
+.pb-navbar { padding-bottom: var(--nav-bar-bottom); }
+
+@utility fixed-center-x {
+  left: calc(var(--nav-gutter) + (100vw - var(--nav-gutter)) / 2);
+  translate: -50% 0;
+}
+
+@utility gutter-anim {
+  transition:
+    padding-left var(--dur-move, 320ms) var(--ease-in-out, cubic-bezier(0.65, 0, 0.35, 1)),
+    margin-left var(--dur-move, 320ms) var(--ease-in-out, cubic-bezier(0.65, 0, 0.35, 1)),
+    left var(--dur-move, 320ms) var(--ease-in-out, cubic-bezier(0.65, 0, 0.35, 1));
+}
+
+@utility band-bleed {
+  position: absolute;
+  inset-block: 0;
+  left: calc(var(--nav-gutter) * -1);
+  right: 0;
+  z-index: -1;
+  pointer-events: none;
+}

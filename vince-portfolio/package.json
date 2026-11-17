@@ -6,7 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "check:dice": "tsx scripts/check-dice-layout.ts",
+    "prebuild": "npm run check:dice",
+    "verify": "npm run lint && npm run typecheck && npm run test && npm run build"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",
@@ -15,19 +22,21 @@
     "clsx": "^2.1.1",
     "framer-motion": "^12.38.0",
     "lucide-react": "^1.16.0",
-    "motion": "^12.40.0",
     "next": "15.5.28",
-    "next-themes": "^0.4.6",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-use-measure": "^2.1.7",
+    "resend": "^6.38.1",
     "semver": "^7.6.3",
     "simplex-noise": "^4.0.3",
     "tailwind-merge": "^3.6.0",
-    "three": "0.169.0"
+    "three": "0.169.0",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
     "@eslint/eslintrc": "^3.3.7",
+    "@playwright/test": "^1.65.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -36,6 +45,8 @@
     "eslint": "^9",
     "eslint-config-next": "15.5.28",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "tsx": "^4.23.15",
+    "typescript": "^5",
+    "vitest": "^4.1.12"
   }
 }

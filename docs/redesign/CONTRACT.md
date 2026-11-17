@@ -1,6 +1,6 @@
 # CONTRACT: engineering contract for redesign/v3
 
-Author: `architect`, 2026-11-16. Status: **FROZEN** (round 2, after the lead's critique). Changes go through a BOARD `PROPOSAL` and a lead `DECISION`. `CONTRACT-DRAFT.md` is kept for the record only and is not binding.
+Author: `architect`, 2026-11-16. Status: **FROZEN** (round 2, after the lead's critique), **amended 2026-11-16 after the foundation-core review** (changelog at the end). Changes go through a BOARD `PROPOSAL` and a lead `DECISION`. `CONTRACT-DRAFT.md` is kept for the record only and is not binding.
 Paths are relative to `vince-portfolio/` unless they start with `docs/`. "Must" is binding. Where a choice was made, the reason is one sentence.
 
 **Stream names.** Wave 0 is split into **`foundation-core`** and **`primitives`** (section 8). In the sections below, "foundation" means `foundation-core` unless the file is listed under `primitives` in section 7.
@@ -15,7 +15,7 @@ Paths are relative to `vince-portfolio/` unless they start with `docs/`. "Must" 
 - Q7: "STARDEW EARTH" with subtitle "FieldTwin". This is a `TODO(vince)` to confirm.
 - Q8: rail on project detail pages.
 - Q9: remove the `/privacy` and `/terms` links.
-- Q10: the lead removes `tmp-scripts/` and `next.log`.
+- Q10: left to Vince. `tmp-scripts/` and `next.log` are not deleted by any stream and are listed in the final report. eslint ignores `tmp-scripts/**` meanwhile.
 
 ---
 
@@ -145,7 +145,7 @@ export const THEME_INIT_SCRIPT =
 ```tsx
 <html lang="en" data-theme="dark" suppressHydrationWarning className="h-full antialiased">
   <head>
-    <meta name="theme-color" content="#0D0D0D" suppressHydrationWarning />
+    <meta name="theme-color" content="#0D0D0D" itemProp="theme-color" suppressHydrationWarning />
     <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
     {/* existing font <link>s */}
   </head>
@@ -154,6 +154,8 @@ export const THEME_INIT_SCRIPT =
   </body>
 </html>
 ```
+- `itemProp` is required (accepted departure). Without it React 19 treats the meta as a hoistable keyed by `content`, which the script has already changed, so hydration appends a second, stale theme-color meta. HTML validators flag `itemprop` alongside `name`; that is accepted. A later cleanup may have the script create the meta itself.
+- `<html>` also carries `data-scroll-behavior="smooth"` (accepted departure; Next 15.5's signal to suspend smooth scrolling during route changes).
 - The meta is placed **before** the script, so the script can find it. `viewport.themeColor` is **not** used, because Next would emit a second meta in an order we don't control. The default is dark, and system preference is ignored, as SPEC H says.
 - **Before first paint (checked by reasoning, not yet by running it):**
   - The root layout is a server component, so the `<script>` is in the streamed HTML `<head>`.
@@ -204,9 +206,10 @@ export function readToken(name: TokenName): string;     // getComputedStyle(docu
 `setTheme` algorithm:
 1. `apply = () => { html.dataset.theme = next; localStorage.setItem("theme", next); meta.content = THEME_COLOR[next]; }`, with storage wrapped in try/catch.
 2. If there is no `document.startViewTransition`, call `apply()` immediately with no animation. This is the fallback (Firefox < VT support, old Safari).
-3. If reduced motion is set, run `document.startViewTransition(async () => { apply(); await nextFrame(); })` with no clip animation. CSS limits `::view-transition-group(root)` to `animation-duration: var(--dur-reduced)` (a 120 ms crossfade).
-4. Otherwise: add `html.classList.add("vt-reveal")`, then `const vt = document.startViewTransition(async () => { apply(); await nextFrame(); })`. `nextFrame` is a double rAF, so that subscribed canvases and R3F scenes redraw before the "new" snapshot. Then `vt.ready.then(() => html.animate({ clipPath: [\`circle(0px at ${x}px ${y}px)\`, \`circle(${r}px at ${x}px ${y}px)\`] }, { duration: DUR.theme, easing: EASE_CSS.inOut, pseudoElement: "::view-transition-new(root)" }))`, where `r = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y))`. `vt.finished.finally(() => html.classList.remove("vt-reveal"))`.
-5. CSS: `html.vt-reveal::view-transition-old(root), html.vt-reveal::view-transition-new(root){animation:none;mix-blend-mode:normal}`.
+3. If reduced motion is set, run `document.startViewTransition(async () => { apply(); await yieldTask(); })` with no clip animation. CSS limits `::view-transition-group(root)` to `animation-duration: var(--dur-reduced)` (a 120 ms crossfade).
+4. Otherwise: add `html.classList.add("vt-reveal")`, then `const vt = document.startViewTransition(async () => { apply(); await yieldTask(); })`. `yieldTask = () => new Promise<void>(r => setTimeout(r, 0))` is one macrotask: it lets the MutationObserver → `useSyncExternalStore` commit (and layout effects) flush before the "new" snapshot. Canvases then redraw in the capture frame's rAF. **Never await `requestAnimationFrame` inside the update callback.** Rendering is suppressed there, so rAF does not fire, and Chromium stalls about 4 s before giving up (measured: double rAF 4041 ms, `setTimeout(0)` 2 ms). The 400 ms duration and ease-in-out curve are inlined in `lib/theme.ts` (it ships before `lib/motion.ts`), and `lib/motion.test.ts` asserts they equal `DUR.theme` and `EASE_CSS.inOut`. Then `vt.ready.then(() => html.animate({ clipPath: [\`circle(0px at ${x}px ${y}px)\`, \`circle(${r}px at ${x}px ${y}px)\`] }, { duration: DUR.theme, easing: EASE_CSS.inOut, pseudoElement: "::view-transition-new(root)" }))`, where `r = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y))`. `vt.finished.finally(() => html.classList.remove("vt-reveal"))`.
+5. CSS, in `app/globals.css` (theme section; accepted departure, because `motion.css` was a stub in 0a): `html.vt-reveal::view-transition-old(root), html.vt-reveal::view-transition-new(root){animation:none;mix-blend-mode:normal}`.
+6. `useThemeTokens` must not cache a snapshot in which any value is `""` (stylesheet not yet applied). It re-reads instead.
 
 `hooks/useTheme.ts` (foundation-core):
 ```ts
@@ -219,7 +222,8 @@ Canvas and R3F usage pattern (binding):
 ```ts
 const tok = useThemeTokens(["scene-ground", "scene-accent"] as const);
 const tokRef = useRef(tok); tokRef.current = tok;      // canvas loops read tokRef.current, never getComputedStyle per frame
-// R3F: <color attach="background" args={[tok["scene-ground"]]} />; materials: useEffect(() => { mat.color.set(tok["scene-accent"]); }, [tok]);
+// R3F: <color attach="background" args={[tok["scene-ground"]]} />; materials: useLayoutEffect(() => { mat.color.set(tok["scene-accent"]); }, [tok]);
+// useLayoutEffect, not useEffect: the colour must be committed before the View Transition takes its "new" snapshot.
 ```
 `components/theme/ThemeToggle.tsx` is an `IconButton` with an `IconSwap` Sun/Moon, `label="Switch to light theme" | "Switch to dark theme"`, and origin = button centre. `primitives` owns it and mounts it in `Navbar` (right side, before the desktop links on `lg+`, before the hamburger below `lg`).
 
@@ -253,6 +257,40 @@ Each rule keeps any variant prefix chain (`hover:`, `group-hover:`, `before:`, `
 cd vince-portfolio && rg -nP '(?<![\w/-])(?:[\w-]+:)*(?:text-(?:silver/(?:[2-6][05])|silver/[7-9]0|steel/\d+|chalk/\d+|white(?![\w/-]))|bg-black(?![\w/-])|selection:(?:bg-silver/30|text-white))' app components
 ```
 `qa` re-runs `--check` in wave 3 to catch reintroductions.
+
+### 1.9 Spacing reset removal (wave 0, lead; lead DECISION: option A)
+**Why.** `app/globals.css` carried an **unlayered** `* { margin:0; padding:0 }`. Unlayered CSS outranks Tailwind v4's `@layer utilities`, so no `p-*`, `m-*`, `space-*` or `mx-auto` utility has ever applied on this site, and the current look was tuned in that state. Tailwind's preflight already performs the same reset inside `@layer base`, where utilities can override it.
+
+**Sequence, on `redesign/v3`, after the codemod commit (1.8) and before `primitives` branches:**
+1. **Baseline (lead).** Build and start `redesign/v3` at the codemod commit.
+   - Capture full-page PNGs of the 12 existing routes (`/`, `/about`, `/projects`, `/projects/spice`, `/projects/dice`, `/projects/engram`, `/experience`, `/education`, `/resume`, `/contact`, `/card`, `/portfolio-view`).
+   - Widths 360/768/1280/1920, dark theme, `animations: "disabled"`, after `document.fonts.ready`.
+   - Save to `/Users/vincee_ong/Desktop/Repos/vinceongwebsite/docs/redesign/baseline/<route-slug>-<width>.png`: in the main checkout, read by absolute path from every worktree, listed in `.git/info/exclude`, never committed.
+   - This set is **the reference for "existing aesthetic"** in every later review.
+2. **Removal commit (lead)**, `fix(css): drop unlayered universal reset`:
+   - delete `margin: 0; padding: 0;` from the unlayered `*` rule in `app/globals.css` (`box-sizing` may stay or go; preflight sets it);
+   - delete the five unlayered gutter copies (`.pl-gutter`, `.ml-gutter`, `.-ml-gutter`, `.pt-nav-top`, `.pb-navbar`) and their comment from `styles/layout.css`. The `--spacing-*` keys (3.2) generate layered equivalents, and unlayered copies would block responsive overrides such as `lg:pl-0`;
+   - add `lib/styles.test.ts` (proof (a) below).
+   `npm run verify` must be green. The visual reflow is expected and does not count as a red build.
+3. **Restoration duty.** Each owner brings its routes back to the baseline at all four widths in its own wave. It does this either by deleting spacing classes that never applied, or by keeping those that measurably improve on the baseline. Its report says which, with before/after screenshots.
+
+   | Owner | Wave | Routes / components |
+   |---|---|---|
+   | primitives | 0b | Navbar, footer |
+   | landing | 1 | `/`, `/projects` |
+   | laptop | 1 | `/education` |
+   | contact | 1 | `/contact` |
+   | dice | 1 | `/projects/dice` |
+   | spice3d | 1 | `/projects/spice` |
+   | proj-engram | 1 | `/projects/engram` |
+   | theme-audit-1 | 2 | `/about`, `/experience` |
+   | theme-audit-2 | 2 | `/resume`, `/card`, `/portfolio-view` |
+
+   New routes have no baseline. They follow the site's existing spacing rhythm. `gutter` (wave 1) is geometric only and does not restore spacing; it files legacy-page findings to the wave-2 owners.
+4. **Proof (qa, wave 3).**
+   - (a) `lib/styles.test.ts` (created by the lead in step 2, owned by qa in wave 3) reads `app/globals.css` and `styles/*.css` and removes every `@layer … { … }` block. It fails if any remaining rule whose selector list contains `*` or a bare type selector (`html`, `body`, `h1`–`h6`, `p`, `ul`, `ol`, `li`, `a`, `button`, `input`, `section`, `main`, `div`) declares `margin` or `padding`. The single allowed exception is `body { padding-bottom: var(--nav-bar-bottom) }`. It also fails if `.pl-gutter`, `.ml-gutter`, `.-ml-gutter`, `.pt-nav-top` or `.pb-navbar` appears as an unlayered rule.
+   - (b) `e2e/css.spec.ts` (qa): on every route in `ROUTES`, inject `<div id="probe" class="p-4 mx-2 mt-3">` into `<main>` and assert computed `padding-top` = 16px, `margin-left` = 8px and `margin-top` = 12px. This proves utilities apply site-wide.
+   - (c) qa compares each of the 12 legacy routes against its baseline PNGs and files any unexplained spacing deviation to the owner.
 
 ## 2. Motion contract
 
@@ -546,6 +584,7 @@ export type BandProps = { tone?: BandTone /*"void"*/; bgClassName?: string /* re
 //   {children}
 // </Tag>
 ```
+  - **A Band must be a direct child of `<main>`** (or of a full-width wrapper with no horizontal padding, margin or max-width). Width-constrained content (`max-w-*`, `mx-auto`, `px-*`) goes *inside* the Band, never around it. Otherwise `band-bleed`'s `-gutter` offset no longer reaches x=0.
   - The band's own box starts at the gutter edge, because it sits inside `<main class="pl-gutter">`.
   - The `band-bleed` backdrop extends left by `--nav-gutter` to x=0 and sits behind the band's content (`isolate` plus `z-index:-1`), so the band's colour shows through the translucent rail. There is no body-colour strip.
   - Content inside the band needs nothing extra. It already starts at the gutter.
@@ -557,7 +596,7 @@ export type BandProps = { tone?: BandTone /*"void"*/; bgClassName?: string /* re
 2. Everything inside `<main>` already starts at the gutter. Page titles and sections need nothing extra. Do not add `pl-gutter` twice.
 3. **A section with its own background colour is a `<Band>`.** A hand-rolled `bg-*` section inside `<main>` is not allowed, because it would leave a body-colour strip behind the rail. A non-colour decorative layer that must reach x=0 (the home waves canvas, a laptop-stage gradient) goes inside a Band as a child with `band-bleed` plus `aria-hidden data-gutter-exempt` (Band's own backdrop is one such layer).
 4. `position: fixed/absolute` elements positioned against the viewport use `left-gutter` (never `left-0`), `fixed-center-x` for centring, and `bottom-navbar` (or `bottom-[calc(var(--nav-bar-bottom)+1rem)]`) for bottom anchoring. Negative-offset decorations (for example the education year labels at `left-[-100px]`) are not allowed unless they are `data-gutter-exempt` and `aria-hidden`.
-5. Full-screen modal overlays (mobile menu, lightbox) cover everything and are exempt. They must sit at `z-[70]` or higher so they cover the rail.
+5. Full-screen modal overlays (mobile menu, lightbox) cover everything and are exempt. They must sit at `z-[70]` or higher so they cover the rail and section bar. The Navbar mobile menu overlay is `z-[70]`, and the Navbar itself rises from `z-50` to `z-[80]` only while the menu is open, so its close button stays on top (accepted departure).
 
 ### 3.5 Test (`e2e/gutter.spec.ts`, gutter stream)
 For each route in `e2e/routes.ts` × viewports `[360, 768, 1280, 1920]` × theme dark:
@@ -566,7 +605,8 @@ For each route in `e2e/routes.ts` × viewports `[360, 768, 1280, 1920]` × theme
 - **Bands, at every viewport:** for every `[data-band]`:
   - its `[data-band-bg]` child must have `rect.left <= 0.5` and `rect.right >= viewportWidth - 0.5`;
   - its background colour must equal the band's computed background (not `transparent`);
-  - its first non-exempt content child must have `rect.left >= gutter`.
+  - its first non-exempt content child must have `rect.left >= gutter`;
+  - its parent must be `main#main`, or a block whose computed `padding-inline`, `margin-inline` and `max-width` leave it the full width of `main`'s content box. Otherwise the test fails.
   
   Separately, at ≥1024, with `#side-rail` temporarily set to `visibility:hidden` (otherwise the rail itself is always what gets hit), sample `document.elementFromPoint(gutter / 2, y)` at the vertical centre of each band. It must be that band's `[data-band-bg]`, never `<body>` or `<main>`, which proves there is no strip behind the translucent rail.
 - **No rail and no bar on non-rail routes.**
@@ -603,11 +643,15 @@ export interface Project {
   description: string[];      // detail page paragraphs
   tags: string[];             // list shows first 3
   media: ProjectMedia;        // "component" only for dice (renders <DigitalDicePCB compact/>)
-  detail: boolean;            // true ⇔ app/projects/<slug>/page.tsx exists (data.test.ts asserts)
+  detail: boolean;            // true ⇔ app/projects/<slug>/page.tsx exists (data.test.ts asserts both ways). Seeds set true only for
+                              // spice, dice, engram; each proj stream flips its own flag in the same commit that adds page.tsx.
   links: ProjectLink[];
   relatedExperience?: ExperienceId[];
   unverified?: string[];      // shown as a "Reconstruction — unverified" note by ProjectShell
   todo?: string[];            // TODO(vince) items, rendered only in development
+// No card or page may print a literal "TODO(vince)". Seeds use `year: "TODO(vince)"` where the year is unknown, and any
+// field whose value starts with "TODO(vince)" renders as a muted placeholder (e.g. "—"), or is omitted.
+// landing (cards) and ProjectShell (primitives) implement this. qa greps the built HTML of every route for "TODO(vince)" and fails on any hit.
 }
 // lib/data/experience.ts: keep every current field so ExperiencePageClient compiles unchanged, and add:
 export type ExperienceId = "ey" | "resilient-privacy" | "sfu-racerbot" | "telus-digital-ai" | "mech";
@@ -618,6 +662,8 @@ export interface Program { id: "sfu" | "ib"; institution: string; credential: st
 export interface Course { code: CourseCode; title?: string /* only if in repo */; topics: string[]; relatedProjects?: ProjectSlug[] }
 export interface Recognition { name: string; date: string; logo?: string /* local file or omit → monogram */ }
 ```
+**Email allowlist (accepted departure).** In wave 0 the email check carries a named allowlist (`PENDING_REMOVAL`) of the 4 files that still hold the address: `app/contact/ContactPageClient.tsx` (contact), `app/card/CardPageClient.tsx` and `app/portfolio-view/DynamicPortfolio.tsx` (theme-audit-2), and `app/page.tsx` (landing). **Each owning stream removes its file's entry from the allowlist in the same commit that removes the address.** That one-line edit to `lib/data/data.test.ts` is explicitly granted to those three streams. qa deletes the allowlist in wave 3.
+
 `lib/data/data.test.ts` (foundation-core) checks: unique slugs; `detail` matches the filesystem; every `relatedProjects`/`relatedExperience` id resolves; no file under `app/ components/ lib/` matches `/[A-Za-z0-9._%+-]+@(gmail|outlook|hotmail|yahoo|sfu)\./`.
 
 ### 4.2 Email (hard rule 4)
@@ -654,7 +700,7 @@ export type ProjectShellProps = { slug: ProjectSlug; screen: React.ReactNode; sc
 ### 6.1 Dependencies and scripts (foundation-core does every install; afterwards only the lead edits `package.json` or `package-lock.json`)
 - `npm uninstall next-themes motion`
 - `npm install zod resend`
-- `npm install -D vitest @playwright/test @axe-core/playwright tsx`, then `npx playwright install chromium`
+- `npm install -D vitest @playwright/test @axe-core/playwright tsx`, then `npx playwright install chromium`. Installed: **vitest ^4** (accepted departure), zod ^4, resend ^6, @playwright/test ^1.65, tsx ^4. `eslint.config.mjs` ignores `tmp-scripts/**` (Q10).
 - scripts:
 ```json
 "typecheck": "tsc --noEmit",
@@ -673,7 +719,7 @@ export default defineConfig({ testDir: "e2e", projects: [{ name: "chromium", use
   use: { baseURL: `http://localhost:${PORT}` },
   webServer: { command: `npm run start -- -p ${PORT}`, url: `http://localhost:${PORT}`, reuseExistingServer: false, timeout: 120_000 } });
 ```
-  It requires a prior `npm run build` (done by `verify`). `reuseExistingServer: false` means a stream can never silently test another worktree's server. A busy port is a hard error. `e2e/routes.ts` (foundation-core) exports `ROUTES` (the 15 public routes: `/`, `/about`, `/projects`, the 8 detail pages, `/experience`, `/education`, `/resume`, `/contact`, `/card`, `/portfolio-view`) and `VIEWPORTS = [360, 768, 1280, 1920]`.
+  It requires a prior `npm run build` (done by `verify`). `reuseExistingServer: false` means a stream can never silently test another worktree's server. A busy port is a hard error. `e2e/routes.ts` (foundation-core) exports `ROUTES` (the 17 public routes: `/`, `/about`, `/projects`, the 8 detail pages, `/experience`, `/education`, `/resume`, `/contact`, `/card`, `/portfolio-view`) and `VIEWPORTS = [360, 768, 1280, 1920]`.
 - Dice check: `scripts/check-dice-layout.ts` imports the component table from `components/dice/layout.ts` and exits 1 on any overlap of bounding boxes (body ∪ label ∪ trace segments, inflated by 1 viewBox unit). Wave 0 ships a **stub** that prints `dice layout: not yet defined` and exits 0. Ownership then passes to `dice`. `prebuild` runs it on every `npm run build`, including on Vercel.
 - Merge gate (hard rule 8): `npm run verify` must be green on the merge result. Streams that own e2e specs also run theirs.
 
@@ -730,7 +776,7 @@ One owner per file per wave. "→ X" means ownership transfers to X after the cu
 | Stream | Owns (C = create, M = modify, D = delete) |
 |---|---|
 | **foundation-core** (wave 0a) | M `app/globals.css`, `app/layout.tsx` (final: head script, meta, `<Providers>` stub mount), `lib/utils.ts` (keep `cn`, `formatDate`; drop dead exports), `components/SideNav.tsx` (3.2 hydration-safe implementation), `components/Navbar.tsx` (lazy `SignatureLogo3D` via `next/dynamic` ssr:false with a fixed-size placeholder; `lg` breakpoint; tokens; `pl-gutter`) → primitives, `components/ui/footer.tsx` (gutter; email → `/contact`; remove `/privacy` `/terms`) → primitives, `components/SignatureLogo3D.tsx` (`--logo-metal` via `useThemeTokens`), `components/ThemeTransition.tsx` (shim on `lib/theme`), `app/experience/data.ts` (re-export) → theme-audit-1 · C `styles/tokens.css`, `styles/layout.css`, `components/SideNav.module.css`, `lib/theme.ts`, `lib/theme.test.ts`, `hooks/useTheme.ts`, `components/nav/SectionBar.tsx`, `components/layout/{PageShell,Band}.tsx`, `lib/site.ts`, `lib/data/projects/{types,index}.ts`, `lib/data/data.test.ts`, `scripts/codemods/text-tokens.mjs` (not run by core), `vitest.config.ts`, `playwright.config.ts`, `e2e/routes.ts`, `package.json`, `package-lock.json` · **stubs → primitives:** `styles/motion.css` (comment only), `components/Providers.tsx` (pass-through) · **seeds → other owners:** `lib/data/projects/<slug>.ts` ×9 → slug owner, `lib/data/experience.ts` → landing, `lib/data/education.ts` → edu-content, `components/education/types.ts` (`export type LaptopStep = { id: string; title: string; render: (p: { active: boolean }) => React.ReactNode }`) → laptop, `components/education/screens/index.tsx` (`export const EDUCATION_SCREENS: LaptopStep[]` built from current data) → edu-content, `scripts/check-dice-layout.ts` (stub, exits 0) → dice · D the dead files listed in section 0 (re-grep before deleting) |
-| **lead** (between 0a and 0b) | runs `scripts/codemods/text-tokens.mjs --write` on `redesign/v3` and commits (1.8). The codemod touches page files owned by nobody at that moment |
+| **lead** (between 0a and 0b) | in order: runs `scripts/codemods/text-tokens.mjs --write` and commits (1.8); captures the baseline (1.9 step 1); commits the reset removal: M `app/globals.css`, M `styles/layout.css`, C `lib/styles.test.ts` (1.9 step 2). These touch files whose owners are between streams at that moment |
 | **primitives** (wave 0b) | C `lib/motion.ts`, `lib/motion.test.ts`, `components/primitives/{Button,IconButton,Toggle,Select,Popover,Tabs,Toast,IconSwap,SuccessMark,index}.tsx`, `components/theme/ThemeToggle.tsx`, `components/projects/ProjectShell.tsx`, `app/dev/motion/{page,MotionSandbox}.tsx` · M (from stubs or transfers) `styles/motion.css`, `components/Providers.tsx`, `components/RevealOnScroll.tsx`, `components/Navbar.tsx` (mount `ThemeToggle`; hamburger → `IconButton`), `components/ui/footer.tsx` (scroll-to-top → `IconButton`). After merge, Navbar and footer → lead (hot), then qa |
 | **contact** | C/M `app/contact/**` (page passes `publicEmail`), `app/api/contact/route.ts`, `app/api/contact/route.test.ts`, `lib/contact/{schema,schema.test,rate-limit,send}.ts`, `e2e/contact.spec.ts`, `.env.example` (`RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`, `CONTACT_PUBLIC_EMAIL`), `.gitignore` (`!.env.example`), `README.md` |
 | **laptop** | M `app/education/EducationPageClient.tsx` (also fixes the year-label overlap), `components/education/types.ts` · C `components/education/{Laptop,LaptopScroll}.tsx`, `components/education/laptop.module.css`, `hooks/useScrollProgress.ts` · D `components/LaptopScrollReveal.tsx` |
@@ -746,7 +792,7 @@ One owner per file per wave. "→ X" means ownership transfers to X after the cu
 | **landing** | `app/page.tsx`, `app/projects/ProjectsPageClient.tsx`, `app/projects/page.tsx`, `components/cards/{ProjectCard,ExperienceCard}.tsx` (C), `components/PlayingCards.tsx`, `components/ui/{ParticleBackground,Waves}.tsx`, `components/LogosSlider.tsx`, `components/AutoTour.tsx`, `hooks/useDeviceType.ts`, `lib/data/experience.ts` |
 | **theme-audit-1** (wave 2) | `app/about/**`, `components/WorkingOnStack.tsx` (DAWNTRACE text from `getProject("dawntrace")`), `app/experience/**` (incl. `data.ts`), `components/CustomCursor.tsx`, `components/AsciiEasterEgg.tsx` |
 | **theme-audit-2** (wave 2) | `app/resume/**`, `app/card/**`, `app/portfolio-view/**` (incl. `DynamicPortfolio`, `StaticPortfolio`), `components/ViewToggle.tsx` |
-| **qa** (wave 3) | C `e2e/theme.spec.ts` (both themes × 3 viewports screenshots, reload persistence), `e2e/a11y.spec.ts` (axe `color-contrast`, `button-name`, `link-name` on every route × theme) · in wave 3 **all foundation-core and primitives files transfer to qa** for cleanup: D `components/ThemeTransition.tsx`, remove the `--sidenav-gutter` alias, delete `app/experience/data.ts` if unused |
+| **qa** (wave 3) | C `e2e/css.spec.ts` (1.9 proof b), owns `lib/styles.test.ts` (1.9 proof a), runs the baseline comparison (1.9 proof c), greps built HTML for `TODO(vince)` (4.1), deletes the `data.test.ts` email allowlist (4.1) · C `e2e/theme.spec.ts` (both themes × 3 viewports screenshots, reload persistence), `e2e/a11y.spec.ts` (axe `color-contrast`, `button-name`, `link-name` on every route × theme) · in wave 3 **all foundation-core and primitives files transfer to qa** for cleanup: D `components/ThemeTransition.tsx`, remove the `--sidenav-gutter` alias, delete `app/experience/data.ts` if unused |
 | **lead** only | `public/logos/**`, `docs/redesign/CONTRACT.md`, merges, any post-merge hot-file edit |
 
 Hot files: `globals.css`, `styles/tokens.css`, `styles/layout.css`, `layout.tsx` and `package.json` are foundation-core's. `styles/motion.css`, `Providers.tsx`, `Navbar.tsx` and `footer.tsx` are primitives' at the end of wave 0. All of them then pass to the lead (waves 1-2) and to qa (wave 3). `ProjectsPageClient.tsx` is landing's, and it reads data only, so other streams reach it through their `lib/data/projects/<slug>.ts`. Per-stream CSS goes in **co-located CSS modules**; there are no stream files in `styles/`.
@@ -760,8 +806,8 @@ Hot files: `globals.css`, `styles/tokens.css`, `styles/layout.css`, `layout.tsx`
 | Step | Streams | Merge order inside the step, and why |
 |---|---|---|
 | 0a | **foundation-core** (alone) | Tokens, theme, gutter, shells, data seeds, tooling and installs: everything else imports these. It ships the stubs `styles/motion.css` and `Providers.tsx`, so `globals.css` and `layout.tsx` are final in 0a and never touched again in wave 0. |
-| 0a→0b | **lead runs the codemod** (1.8) on `redesign/v3` | Runs after core merges (dead files are gone, tokens exist) and before anything else branches, so no worktree holds a pre-codemod page. |
-| 0b | **primitives** (alone, branched after the codemod commit) | Sequential, not parallel with core. Every primitive needs core's tokens, `lib/theme`, `cn`, vitest and the `package.json` scripts. `ThemeToggle` needs `IconButton` and `lib/theme`, Navbar has to mount `ThemeToggle`, and `globals.css` imports `motion.css`. Running them in parallel would need stubs in both directions (core → `motion.css`/`Providers`/ThemeToggle slot; primitives → tokens/theme/PageShell) plus a codemod race on Navbar and footer. Running them in sequence needs two one-way stubs. The cost is one primitives run of wall-clock time, which is cheaper than one cross-stub mismatch found in wave 1. |
+| 0a→0b | **lead, in this order: (1) codemod** (1.8), **(2) baseline capture, (3) reset removal** (1.9), all on `redesign/v3` | The codemod runs after core merges (dead files are gone, tokens exist). The baseline is captured after the codemod, so it shows token colours with the old spacing. The reset is removed last, so primitives and every wave-1 stream branch with working spacing utilities. Nothing else branches before step 3. |
+| 0b | **primitives** (alone, branched after the reset-removal commit) | Sequential, not parallel with core. Every primitive needs core's tokens, `lib/theme`, `cn`, vitest and the `package.json` scripts. `ThemeToggle` needs `IconButton` and `lib/theme`, Navbar has to mount `ThemeToggle`, and `globals.css` imports `motion.css`. Running them in parallel would need stubs in both directions (core → `motion.css`/`Providers`/ThemeToggle slot; primitives → tokens/theme/PageShell) plus a codemod race on Navbar and footer. Running them in sequence needs two one-way stubs. The cost is one primitives run of wall-clock time, which is cheaper than one cross-stub mismatch found in wave 1. |
 | 1 | contact, dice, spice3d, proj-dawntrace, proj-racerbot, proj-mse112, proj-engram, proj-stardew, edu-content, laptop, landing, gutter (all branched from `redesign/v3` after 0b) | 1. **contact** (self-contained; proves the test tooling early). 2. **dice** (replaces the prebuild stub; every later build runs its check). 3. **edu-content**, then 4. **laptop** (laptop renders edu's screens, so it rebases onto real content and checks fit and overflow). 5. **proj-\*** and **spice3d** in any order (disjoint folders). 6. **landing** (the list and home cards consume every project's final `summary`/`media`). 7. **gutter** last (its spec has to run against every page in final form; failures go back to owners). |
 | 2 | theme-audit-1, theme-audit-2 | They take over the legacy page files gutter edited, so they start after gutter merges. Disjoint files, so they run in parallel. Each also does a read-only review of half the wave-1 routes (8.2). |
 | 3 | qa | Deletes shims and aliases, runs the full screenshot and axe matrix, re-runs the codemod `--check`, and greps the 1.4/2.1 bans. Needs everything else merged. |
@@ -815,7 +861,7 @@ Note: I recommend **Opus for primitives**, against the "Sonnet unless there is a
 | Q7 | Stardew Earth naming | "STARDEW EARTH", subtitle "FieldTwin · NASA Space Apps", slug `stardew-earth`. Carries a `TODO(vince)` to confirm, and the final report lists it. |
 | Q8 | Rail on project detail pages | Yes. |
 | Q9 | `/privacy`, `/terms` links | Removed by foundation-core. No placeholder pages. |
-| Q10 | Tracked `tmp-scripts/`, `next.log` | The lead removes them in a housekeeping commit. |
+| Q10 | Tracked `tmp-scripts/`, `next.log` | Left to Vince (lead DECISION). Nobody deletes them; the final report lists them. `eslint.config.mjs` ignores `tmp-scripts/**`. |
 | R1 | About 12 parallel worktrees, each with `npm ci` (about 1 GB) and `next build` | Cap at about 6 concurrent (8.1 split). Ports in 6.3. |
 | R2 | Reload mid-page on `/` shifts the gutter 71 → 44 once after hydration | Accepted. The hydration-safe implementation is in 3.2. |
 | R3 | No View Transitions in some browsers | Instant swap (1.7). |
@@ -824,3 +870,19 @@ Note: I recommend **Opus for primitives**, against the "Sonnet unless there is a
 | R6 | Remote Wikimedia recognition logos | Monograms unless the lead adds local files. |
 | R7 | The codemod is run by hand by the lead | Its `--check` mode is part of every stream's DONE (6.4) and of qa, so a missed or partial run cannot pass silently. |
 | R8 | Inline head-script warning or flash not yet observed in a running app | foundation-core verifies it and reports (1.5). The fallback is to keep the script and log it on the BOARD, never `next/script`. |
+
+---
+
+## Changelog
+- **2026-11-16, round 2 (freeze):** wave 0 split into foundation-core and primitives; token codemod (1.8); pcb tokens moved to dice; Band; reduced-motion escape hatch; theme-audit review split (8.2); models and review pairs (8.3); worktree bootstrap, ports and DONE commands (6.2–6.4); lead answers Q1–Q10 recorded.
+- **2026-11-16, amended after the foundation-core review (lead DECISION):**
+  - **1.9 new:** removal of the unlayered `*` reset (option A), baseline screenshots, per-route restoration owners, three qa proofs. Unlayered gutter-class copies deleted.
+  - **1.7:** a macrotask (`setTimeout(0)`) replaces the double rAF inside the View Transition callback (the rAF version stalled about 4 s). `useLayoutEffect` for syncing tokens to materials. No caching of empty token snapshots. Theme duration and easing literals inlined in `lib/theme.ts`, checked by `lib/motion.test.ts`. `vt-reveal` CSS lives in `app/globals.css`.
+  - **1.5:** `itemProp` on the theme-color meta and `data-scroll-behavior="smooth"` on `<html>` accepted.
+  - **3.3 / 3.5:** a Band must be a direct child of `<main>` (or of a full-width wrapper); the gutter test checks the Band's parent.
+  - **3.4:** mobile menu overlay `z-[70]`; Navbar `z-[80]` while the menu is open.
+  - **4.1:** email allowlist in `data.test.ts`, each owner removes its own entry, qa deletes the list; no card or page prints a literal `TODO(vince)` (qa greps the built HTML); `detail` flags are flipped by each proj stream.
+  - **6.1:** 17 public routes, not 15. vitest ^4 accepted. `tmp-scripts/**` ignored by eslint.
+  - **8.1:** the steps between 0a and 0b are codemod → baseline → reset removal; primitives branches after the removal commit.
+  - **Q10:** left to Vince; nobody deletes `tmp-scripts/` or `next.log`.
+  - **Section 7:** lead and qa rows updated for 1.9.

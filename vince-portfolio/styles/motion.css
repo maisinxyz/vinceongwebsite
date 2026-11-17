@@ -1,5 +1,71 @@
 /* ═══════════════════════════════════════════════════
-   MOTION TOKENS (CONTRACT 2.2)
-   Stub from foundation-core so the import in globals.css resolves.
-   Owned by `primitives` from wave 0b, which fills it in.
+   MOTION TOKENS (CONTRACT 2.2, 1.4)
+   Mirrors lib/motion.ts. lib/motion.test.ts parses this file and fails if a
+   --dur-* value drifts from its DUR / exitMs constant.
+   Use: duration-(--dur-enter) ease-out, duration-(--dur-move) ease-in-out.
    ═══════════════════════════════════════════════════ */
+
+/* Overrides Tailwind's ease-out / ease-in-out utilities site-wide and emits the vars on :root */
+@theme {
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+:root {
+  --dur-enter: 240ms;
+  --dur-exit: 192ms;
+  --dur-move: 320ms;
+  --dur-dropdown: 220ms;
+  --dur-dropdown-exit: 176ms;
+  --dur-press-in: 80ms;
+  --dur-press-out: 160ms;
+  --dur-icon: 180ms;
+  --dur-pulse: 450ms;
+  --dur-release: 300ms;
+  --dur-theme: 400ms;
+  --dur-reduced: 120ms;
+  --stagger: 40ms;
+  --press-scale: 0.97;
+  --popover-from: 0.95;
+  --knob-stretch: 1.12;
+}
+
+/* Press: 80 ms in while held, 160 ms ease-out back on release */
+@utility press-scale {
+  transition: transform var(--dur-press-out) var(--ease-out);
+  &:active:not(:disabled, [aria-disabled="true"]) {
+    transform: scale(var(--press-scale));
+    transition-duration: var(--dur-press-in);
+  }
+}
+
+/* Global focus ring (1.4). In @layer base so a component can refine it with
+   focus-visible: utilities; outline-none is allowed only with a replacement. */
+@layer base {
+  :where(a, button, input, select, textarea, summary, [role="button"], [role="switch"], [role="tab"], [role="option"], [tabindex]):focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+}
+
+/* Reduced motion: every CSS animation and transition becomes a 120 ms opacity
+   fade with no delay. Transform-only changes pop to their end state.
+   data-motion-essential (on the element itself, not inherited) keeps the
+   authored motion for small state indicators only (Button loading spinner). */
+@media (prefers-reduced-motion: reduce) {
+  :where(*:not([data-motion-essential])),
+  :where(*:not([data-motion-essential]))::before,
+  :where(*:not([data-motion-essential]))::after {
+    animation-duration: var(--dur-reduced) !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: var(--dur-reduced) !important;
+    transition-delay: 0s !important;
+    transition-property: opacity !important;
+    scroll-behavior: auto !important;
+  }
+
+  ::view-transition-group(root) {
+    animation-duration: var(--dur-reduced);
+  }
+}

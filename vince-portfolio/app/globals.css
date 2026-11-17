@@ -1,96 +1,37 @@
 @import "tailwindcss";
+@import "../styles/tokens.css";
+@import "../styles/motion.css";
+@import "../styles/layout.css";
 
 /* ═══════════════════════════════════════════════════
-   THEME TOKENS — Tailwind v4 inline theme
-   ═══════════════════════════════════════════════════ */
-@theme inline {
-  /* Colors */
-  --color-void: #000000;
-  --color-carbon: #0D0D0D;
-  --color-iron: #1A1A1A;
-  --color-steel: #2E2E2E;
-  --color-silver: #A8A8A8;
-  --color-chalk: #F2F2F0;
-  --color-accent: #3A6B8A;
-
-  /* Fonts */
-  --font-syne: var(--font-syne-family), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-ibm-plex-mono-family), ui-monospace, monospace;
-  --font-data: var(--font-space-mono-family), ui-monospace, monospace;
-}
-
-/* ═══════════════════════════════════════════════════
-   CSS CUSTOM PROPERTIES
+   FONT FAMILIES (loaded via Google Fonts in layout.tsx)
+   Colour tokens live in styles/tokens.css.
    ═══════════════════════════════════════════════════ */
 :root {
-  --void: #000000;
-  --carbon: #0D0D0D;
-  --iron: #1A1A1A;
-  --steel: #2E2E2E;
-  --silver: #A8A8A8;
-  --chalk: #F2F2F0;
-  --accent: #3A6B8A;
-
   --font-syne-family: 'Syne', sans-serif;
   --font-ibm-plex-mono-family: 'IBM Plex Mono', monospace;
   --font-space-mono-family: 'Space Mono', monospace;
   --font-outfit-family: 'Outfit', sans-serif;
   --font-space-grotesk-family: 'Space Grotesk', sans-serif;
-  --sidenav-gutter: 71px;
 }
 
 /* ═══════════════════════════════════════════════════
-   LIGHT THEME OVERRIDES
+   THEME SWITCH — circular reveal (lib/theme.ts setTheme)
+   The clip-path animation runs on ::view-transition-new(root) from JS.
    ═══════════════════════════════════════════════════ */
-html.theme-light {
-  --void: #FFFFFF;
-  --carbon: #FAFAFA;
-  --iron: #F0F0F0;
-  --steel: #D0D0D0;
-  --silver: #666666;
-  --chalk: #111111;
-  --accent: #2A5A7A;
-}
-
-html.theme-light body {
-  background: var(--carbon);
-  color: var(--chalk);
-}
-
-html.theme-light body::after {
-  display: none;
-}
-
-html.theme-light body::before {
-  display: none;
-}
-
-html.theme-light ::selection {
-  background: var(--steel);
-  color: var(--void);
-}
-
-html.theme-light ::-webkit-scrollbar-track {
-  background: var(--carbon);
-}
-
-html.theme-light ::-webkit-scrollbar-thumb {
-  background: var(--silver);
-}
-
-/* Theme transition expanding circle overlay */
-@keyframes theme-circle-expand {
-  0% { clip-path: circle(0px at var(--cx) var(--cy)); }
-  100% { clip-path: circle(200vmax at var(--cx) var(--cy)); }
-}
-
-.theme-transition-overlay {
-  animation: theme-circle-expand 0.8s cubic-bezier(0.25, 0, 0, 1) forwards;
+html.vt-reveal::view-transition-old(root),
+html.vt-reveal::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }
 
 /* ═══════════════════════════════════════════════════
    BASE STYLES
    ═══════════════════════════════════════════════════ */
+/* NOTE: this reset is unlayered, so it outranks every Tailwind p-* / m-* utility
+   (those live in @layer utilities) and they never apply. The current look depends on
+   that, so it stays until the lead decides (BOARD CONCERN). The gutter spacing classes
+   are re-declared unlayered in styles/layout.css so they still work. */
 * {
   margin: 0;
   padding: 0;
@@ -99,15 +40,16 @@ html.theme-light ::-webkit-scrollbar-thumb {
 
 html {
   scroll-behavior: smooth;
-  background: var(--void);
-  color: var(--chalk);
+  background: var(--bg-deep);
+  color: var(--text);
 }
 
 body {
-  background: var(--carbon);
-  color: var(--chalk);
+  background: var(--bg);
+  color: var(--text);
   font-family: var(--font-ibm-plex-mono-family);
-  overflow-x: hidden;
+  /* clip (not hidden) so position: sticky keeps working on descendants */
+  overflow-x: clip;
   min-height: 100dvh;
   position: relative;
 }
@@ -123,35 +65,30 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--carbon);
+  background: var(--bg);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--silver);
+  background: var(--muted);
   border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--chalk);
+  background: var(--text);
 }
 
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--silver) var(--carbon);
+  scrollbar-color: var(--muted) var(--bg);
 }
 
 /* ═══════════════════════════════════════════════════
-   TEXT SELECTION
+   TEXT SELECTION — ::selection lives in styles/tokens.css
    ═══════════════════════════════════════════════════ */
-::selection {
-  background: var(--silver);
-  color: var(--void);
-}
-
 ::-moz-selection {
-  background: var(--silver);
-  color: var(--void);
+  background: var(--selection-bg);
+  color: var(--selection-fg);
 }
 
 /* ═══════════════════════════════════════════════════

@@ -1,0 +1,138 @@
+/* ═══════════════════════════════════════════════════
+   THEME TOKENS (CONTRACT 1.2)
+   Semantic vars on <html data-theme>. Dark is the default.
+   Values read by canvas or Three.js must stay 6-digit hex.
+   ═══════════════════════════════════════════════════ */
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg-deep: #000000;
+  --bg: #0D0D0D;
+  --surface: #1A1A1A;
+  --line: #2E2E2E;
+  --line-strong: #707070;
+  --muted: #A8A8A8;
+  --subtle: #8A8A8A;
+  --text: #F2F2F0;
+  --accent: #3A6B8A;
+  --accent-fg: #7FAACB;
+  --on-accent: #F2F2F0;
+  --focus: #7FAACB;
+  --danger: #FF8A80;
+  --success: #7FC8A0;
+  --selection-bg: #A8A8A8;
+  --selection-fg: #000000;
+  --scrim: rgb(0 0 0 / 0.65);
+  --nav-bg: rgb(13 13 13 / 0.92);
+  --glass-bg: rgb(255 255 255 / 0.07);
+  --glass-bg-hover: rgb(255 255 255 / 0.14);
+  --glass-border: rgb(255 255 255 / 0.10);
+  --glass-border-hover: rgb(255 255 255 / 0.22);
+  --elev-1: 0 0 0 1px rgb(255 255 255 / 0.04);
+  --elev-2: 0 0 24px rgb(242 242 240 / 0.06);
+  --elev-3: 0 0 48px rgb(242 242 240 / 0.08);
+
+  /* Illustration palettes (hex only) */
+  --device-shell: #2A2B2E;
+  --device-shell-hi: #3A3B3F;
+  --device-shell-lo: #141517;
+  --device-bezel: #0A0A0B;
+  --device-screen: #0B0C0E;
+  --device-screen-text: #F2F2F0;
+  --device-screen-muted: #A8A8A8;
+  --device-screen-accent: #7FAACB;
+  --scene-ground: #0D0D0D;
+  --scene-ambient: #9AA3AD;
+  --scene-key: #FFFFFF;
+  --scene-outline: #2E2E2E;
+  --scene-accent: #7FAACB;
+  --logo-metal: #E0E5EC;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --bg-deep: #FFFFFF;
+  --bg: #FAFAFA;
+  --surface: #F0F0F0;
+  --line: #D0D0D0;
+  --line-strong: #858585;
+  --muted: #555555;
+  --subtle: #6B6B6B;
+  --text: #111111;
+  --accent: #2A5A7A;
+  --accent-fg: #2A5A7A;
+  --on-accent: #FFFFFF;
+  --focus: #2A5A7A;
+  --danger: #B3261E;
+  --success: #1E6B45;
+  --selection-bg: #D0D0D0;
+  --selection-fg: #111111;
+  --scrim: rgb(250 250 250 / 0.80);
+  --nav-bg: rgb(250 250 250 / 0.92);
+  --glass-bg: rgb(17 17 17 / 0.04);
+  --glass-bg-hover: rgb(17 17 17 / 0.08);
+  --glass-border: rgb(17 17 17 / 0.10);
+  --glass-border-hover: rgb(17 17 17 / 0.20);
+  --elev-1: 0 1px 2px rgb(17 17 17 / 0.06);
+  --elev-2: 0 2px 4px rgb(17 17 17 / 0.06), 0 8px 24px rgb(17 17 17 / 0.08);
+  --elev-3: 0 4px 8px rgb(17 17 17 / 0.06), 0 16px 48px rgb(17 17 17 / 0.12);
+
+  --device-shell: #C9CACD;
+  --device-shell-hi: #E4E5E7;
+  --device-shell-lo: #9C9DA1;
+  --device-bezel: #0A0A0B;
+  --device-screen: #F5F5F2;
+  --device-screen-text: #111111;
+  --device-screen-muted: #555555;
+  --device-screen-accent: #2A5A7A;
+  --scene-ground: #ECECEA;
+  --scene-ambient: #FFFFFF;
+  --scene-key: #FFFFFF;
+  --scene-outline: #D0D0D0;
+  --scene-accent: #2A5A7A;
+  --logo-metal: #5A6068;
+}
+
+/* Legacy aliases for CSS modules and inline styles */
+:root {
+  --void: var(--bg-deep);
+  --carbon: var(--bg);
+  --iron: var(--surface);
+  --steel: var(--line);
+  --silver: var(--muted);
+  --chalk: var(--text);
+}
+
+/* Utilities point at the semantic vars, so `text-silver/40` etc. follow data-theme */
+@theme inline {
+  --color-void: var(--bg-deep);
+  --color-carbon: var(--bg);
+  --color-iron: var(--surface);
+  --color-steel: var(--line);
+  --color-silver: var(--muted);
+  --color-chalk: var(--text);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-on-accent: var(--on-accent);
+  --color-subtle: var(--subtle);
+  --color-line-strong: var(--line-strong);
+  --color-focus: var(--focus);
+  --color-danger: var(--danger);
+  --color-success: var(--success);
+  --color-scrim: var(--scrim);
+  --shadow-elev-1: var(--elev-1);
+  --shadow-elev-2: var(--elev-2);
+  --shadow-elev-3: var(--elev-3);
+
+  /* Fonts */
+  --font-syne: var(--font-syne-family), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-ibm-plex-mono-family), ui-monospace, monospace;
+  --font-data: var(--font-space-mono-family), ui-monospace, monospace;
+}
+
+::selection {
+  background: var(--selection-bg);
+  color: var(--selection-fg);
+}

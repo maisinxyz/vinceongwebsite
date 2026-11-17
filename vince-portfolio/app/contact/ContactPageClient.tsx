@@ -75,7 +75,7 @@ export default function ContactPageClient() {
               className="space-y-5"
             >
               <div className="inline-block bg-iron/60 border border-steel/20 rounded-full px-4 py-1.5">
-                <p className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/50 tracking-[0.25em]">
+                <p className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-subtle tracking-[0.25em]">
                   004 — CONTACT
                 </p>
               </div>
@@ -88,7 +88,7 @@ export default function ContactPageClient() {
                 transition={{ delay: 0.4, duration: 0.8, ease: [0.25, 0, 0, 1] }}
                 className="h-px bg-silver/30 w-24 origin-left"
               />
-              <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/50 text-base max-w-lg">
+              <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-base max-w-lg">
                 Open to internships, co-ops, and collaborative projects.
               </p>
             </motion.div>
@@ -105,15 +105,15 @@ export default function ContactPageClient() {
                 const Inner = (
                   <div className="group flex items-center justify-between py-6 hover:pl-2 transition-all duration-300">
                     <div className="flex items-center gap-6">
-                      <info.icon size={20} className="text-silver/50 group-hover:text-chalk transition-colors duration-300 shrink-0" />
-                      <span className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/60 text-sm sm:text-base group-hover:text-chalk transition-colors duration-300">
+                      <info.icon size={20} className="text-subtle group-hover:text-chalk transition-colors duration-300 shrink-0" />
+                      <span className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-sm sm:text-base group-hover:text-chalk transition-colors duration-300">
                         {info.value}
                       </span>
                     </div>
                     {info.href && (
                       <ArrowUpRight 
                         size={20} 
-                        className="text-silver/40 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 shrink-0" 
+                        className="text-subtle opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 shrink-0" 
                       />
                     )}
                   </div>

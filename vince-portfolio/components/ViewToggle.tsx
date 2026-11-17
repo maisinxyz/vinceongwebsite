@@ -39,7 +39,7 @@ export default function ViewToggle({ viewMode, onToggle }: ViewToggleProps) {
         >
           <span
             className={`font-[family-name:var(--font-ibm-plex-mono-family)] text-[10px] tracking-[0.12em] ${
-              viewMode === "dynamic" ? "text-chalk" : "text-silver/40"
+              viewMode === "dynamic" ? "text-chalk" : "text-subtle"
             }`}
           >
             DYNAMIC
@@ -63,7 +63,7 @@ export default function ViewToggle({ viewMode, onToggle }: ViewToggleProps) {
         >
           <span
             className={`font-[family-name:var(--font-ibm-plex-mono-family)] text-[10px] tracking-[0.12em] ${
-              viewMode === "static" ? "text-chalk" : "text-silver/40"
+              viewMode === "static" ? "text-chalk" : "text-subtle"
             }`}
           >
             STATIC

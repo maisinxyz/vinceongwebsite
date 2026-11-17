@@ -57,18 +57,18 @@ export default function WorkingOnStack() {
                   <h3 className="font-[family-name:var(--font-ibm-plex-mono-family)] font-bold text-chalk text-lg sm:text-xl tracking-tight leading-none">
                     {project.title}
                   </h3>
-                  <span className="font-[family-name:var(--font-space-mono-family)] text-[10px] tracking-[0.15em] text-silver/40 leading-none">
+                  <span className="font-[family-name:var(--font-space-mono-family)] text-[10px] tracking-[0.15em] text-subtle leading-none">
                     DATE: {project.period}
                   </span>
                 </div>
                 
                 {/* Description Body */}
                 <div className="flex-1 mt-[40px]">
-                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/70 text-[13px] sm:text-[14px] leading-[40px]">
+                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver text-[13px] sm:text-[14px] leading-[40px]">
                     {project.description}
                   </p>
                   {project.notes && (
-                    <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/50 text-[13px] sm:text-[14px] leading-[40px]">
+                    <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-[13px] sm:text-[14px] leading-[40px]">
                       {project.notes}
                     </p>
                   )}
@@ -80,7 +80,7 @@ export default function WorkingOnStack() {
                     {project.tags.map((t) => (
                       <span
                         key={t}
-                        className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/50 tracking-[0.15em] leading-none"
+                        className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-subtle tracking-[0.15em] leading-none"
                       >
                         #{t}
                       </span>

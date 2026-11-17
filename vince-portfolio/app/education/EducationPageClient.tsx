@@ -33,14 +33,14 @@ const COURSEWORK = [
     code: "ENSC 120",
     title: "Electronics Laboratory Instruments Operation and Measurement Techniques",
     logo: null,
-    icon: <Activity className="w-6 h-6 text-silver/60" />,
+    icon: <Activity className="w-6 h-6 text-subtle" />,
   },
   {
     code: "ENSC 151",
     title: "C++ Programming for Engineers",
     logo: null,
     icon: (
-      <svg viewBox="0 0 24 24" className="w-6 h-6 text-silver/60" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <svg viewBox="0 0 24 24" className="w-6 h-6 text-subtle" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M10 15A3.5 3.5 0 1 1 10 9" />
         <path d="M14 12h3" />
         <path d="M15.5 10.5v3" />
@@ -53,13 +53,13 @@ const COURSEWORK = [
     code: "ENSC 100",
     title: "Design Process & Design Lab",
     logo: null,
-    icon: <PenTool className="w-6 h-6 text-silver/60" />,
+    icon: <PenTool className="w-6 h-6 text-subtle" />,
   },
   {
     code: "MSE 112",
     title: "Python, Sensors, Actuators, and Data Acquisition Techniques",
     logo: null,
-    icon: <Database className="w-6 h-6 text-silver/60" />,
+    icon: <Database className="w-6 h-6 text-subtle" />,
   },
 ];
 
@@ -99,7 +99,7 @@ export default function EducationPageClient() {
       <CustomCursor />
       <Navbar />
 
-      <main className="min-h-screen text-chalk selection:bg-silver/30 selection:text-white pb-40 relative max-lg:pt-[clamp(100px,14vw,160px)] lg:pt-40">
+      <main className="min-h-screen text-chalk pb-40 relative max-lg:pt-[clamp(100px,14vw,160px)] lg:pt-40">
 
         {/* All page content sits above the background */}
         <div className="relative z-10">
@@ -112,7 +112,7 @@ export default function EducationPageClient() {
                 EDUCATION
               </h1>
               <div className="h-px bg-silver/15 w-24 mt-8 mb-8" />
-              <p className="text-silver/60 font-[family-name:var(--font-ibm-plex-mono-family)] text-sm max-w-xl leading-[1.8] uppercase tracking-widest">
+              <p className="text-subtle font-[family-name:var(--font-ibm-plex-mono-family)] text-sm max-w-xl leading-[1.8] uppercase tracking-widest">
                 Academic history, coursework & recognitions.
               </p>
             </div>
@@ -128,7 +128,7 @@ export default function EducationPageClient() {
             {/* ── DEGREES SECTION ── */}
             <section className="relative">
               {/* Technical Marker */}
-              <div className="hidden sm:block absolute left-[-60px] md:left-[-100px] top-1 font-[family-name:var(--font-space-mono-family)] text-[10px] text-silver/20 rotate-180" style={{ writingMode: 'vertical-rl' }}>
+              <div className="hidden sm:block absolute left-[-60px] md:left-[-100px] top-1 font-[family-name:var(--font-space-mono-family)] text-[10px] text-subtle rotate-180" style={{ writingMode: 'vertical-rl' }}>
                 SECT. 01 — DEGREES
               </div>
 
@@ -155,17 +155,17 @@ export default function EducationPageClient() {
                       </div>
                       
                       <div className="flex-1">
-                        <h3 className="font-[family-name:var(--font-syne-family)] font-bold text-white text-2xl tracking-tight mb-2">
+                        <h3 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-2xl tracking-tight mb-2">
                           {edu.institution}
                         </h3>
-                        <div className="font-[family-name:var(--font-space-mono-family)] text-[11px] text-silver/40 tracking-[0.2em] mb-6">
+                        <div className="font-[family-name:var(--font-space-mono-family)] text-[11px] text-subtle tracking-[0.2em] mb-6">
                           {edu.dateRange}
                         </div>
                         <div className="flex flex-col gap-1">
-                          <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-sm text-silver/80">
+                          <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-sm text-silver">
                             {edu.program}
                           </p>
-                          <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-xs text-silver/50">
+                          <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-xs text-subtle">
                             {edu.major}
                           </p>
                         </div>
@@ -180,7 +180,7 @@ export default function EducationPageClient() {
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-12 lg:gap-16 items-stretch mt-12 relative">
               
               {/* Technical Marker */}
-              <div className="hidden sm:block absolute left-[-60px] md:left-[-100px] top-1 font-[family-name:var(--font-space-mono-family)] text-[10px] text-silver/20 rotate-180" style={{ writingMode: 'vertical-rl' }}>
+              <div className="hidden sm:block absolute left-[-60px] md:left-[-100px] top-1 font-[family-name:var(--font-space-mono-family)] text-[10px] text-subtle rotate-180" style={{ writingMode: 'vertical-rl' }}>
                 SECT. 02 — HIGHLIGHTS
               </div>
 
@@ -203,10 +203,10 @@ export default function EducationPageClient() {
                         )}
                       </div>
                       <div className="flex-1 mt-1">
-                        <div className="font-[family-name:var(--font-syne-family)] font-bold text-white text-[16px] leading-snug mb-1">
+                        <div className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-[16px] leading-snug mb-1">
                           {course.code}
                         </div>
-                        <h4 className="font-[family-name:var(--font-ibm-plex-mono-family)] text-[12px] text-silver/50 leading-[1.8] uppercase">
+                        <h4 className="font-[family-name:var(--font-ibm-plex-mono-family)] text-[12px] text-subtle leading-[1.8] uppercase">
                           {course.title}
                         </h4>
                       </div>
@@ -244,14 +244,14 @@ export default function EducationPageClient() {
                       </div>
                       <div className="flex-1 mt-0.5">
                         <div className="flex items-start justify-between gap-4 mb-2.5">
-                          <h3 className="font-[family-name:var(--font-syne-family)] font-bold text-white text-[16px] leading-snug">
+                          <h3 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-[16px] leading-snug">
                             {award.title}
                           </h3>
-                          <span className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-silver/40 tracking-[0.2em] whitespace-nowrap pt-1">
+                          <span className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-subtle tracking-[0.2em] whitespace-nowrap pt-1">
                             {award.date}
                           </span>
                         </div>
-                        <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-[12px] text-silver/50 leading-[1.8]">
+                        <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-[12px] text-subtle leading-[1.8]">
                           {award.description}
                         </p>
                       </div>

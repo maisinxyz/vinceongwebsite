@@ -67,7 +67,7 @@ export default function Home() {
               }} 
             />
           ) : (
-            <div className="absolute inset-0 bg-black" style={{ zIndex: 0 }} />
+            <div className="absolute inset-0 bg-void" style={{ zIndex: 0 }} />
           )}
 
 
@@ -107,7 +107,7 @@ export default function Home() {
               {/* Theme Toggle */}
               <button
                 onClick={handleLightClick}
-                className="group flex items-center gap-2.5 sm:gap-3 font-[family-name:var(--font-ibm-plex-mono-family)] text-[11px] sm:text-sm tracking-[0.15em] text-silver/60 border border-silver/15 rounded-full px-5 py-2.5 sm:px-8 sm:py-3.5 hover:bg-iron/60 hover:text-chalk hover:border-silver/30 transition-all duration-300"
+                className="group flex items-center gap-2.5 sm:gap-3 font-[family-name:var(--font-ibm-plex-mono-family)] text-[11px] sm:text-sm tracking-[0.15em] text-subtle border border-silver/15 rounded-full px-5 py-2.5 sm:px-8 sm:py-3.5 hover:bg-iron/60 hover:text-chalk hover:border-silver/30 transition-all duration-300"
               >
                 {isLight ? (
                   <Moon className="w-3.5 h-3.5 sm:w-5 sm:h-5 group-hover:rotate-[-15deg] transition-transform" strokeWidth={1.5} />
@@ -120,7 +120,7 @@ export default function Home() {
               {/* Auto Tour */}
               <button
                 onClick={isTouring ? stopTour : startTour}
-                className="group flex items-center gap-2.5 sm:gap-3 font-[family-name:var(--font-ibm-plex-mono-family)] text-[11px] sm:text-sm tracking-[0.15em] text-silver/60 border border-silver/15 rounded-full px-5 py-2.5 sm:px-8 sm:py-3.5 hover:bg-iron/60 hover:text-chalk hover:border-silver/30 transition-all duration-300"
+                className="group flex items-center gap-2.5 sm:gap-3 font-[family-name:var(--font-ibm-plex-mono-family)] text-[11px] sm:text-sm tracking-[0.15em] text-subtle border border-silver/15 rounded-full px-5 py-2.5 sm:px-8 sm:py-3.5 hover:bg-iron/60 hover:text-chalk hover:border-silver/30 transition-all duration-300"
               >
                 {isTouring ? (
                   <Square className="w-3 h-3 sm:w-4 sm:h-4 fill-current" strokeWidth={1.5} />
@@ -133,7 +133,7 @@ export default function Home() {
               {/* Resume Button */}
               <a
                 href="/resume"
-                className="group flex items-center gap-2.5 sm:gap-3 font-[family-name:var(--font-ibm-plex-mono-family)] text-[11px] sm:text-sm tracking-[0.15em] text-silver/60 border border-silver/15 rounded-full px-5 py-2.5 sm:px-8 sm:py-3.5 hover:bg-iron/60 hover:text-chalk hover:border-silver/30 transition-all duration-300"
+                className="group flex items-center gap-2.5 sm:gap-3 font-[family-name:var(--font-ibm-plex-mono-family)] text-[11px] sm:text-sm tracking-[0.15em] text-subtle border border-silver/15 rounded-full px-5 py-2.5 sm:px-8 sm:py-3.5 hover:bg-iron/60 hover:text-chalk hover:border-silver/30 transition-all duration-300"
               >
                 RESUME
               </a>
@@ -154,13 +154,13 @@ export default function Home() {
             <div className="relative">
               <div className="flex flex-col items-center gap-3">
                 <span
-                  className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/30 tracking-[0.3em]"
+                  className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-subtle tracking-[0.3em]"
                   style={{ writingMode: "vertical-rl" }}
                 >
                   SCROLL
                 </span>
                 <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}>
-                  <ChevronDown size={14} className="text-silver/30" />
+                  <ChevronDown size={14} className="text-subtle" />
                 </motion.div>
               </div>
             </div>
@@ -177,7 +177,7 @@ export default function Home() {
         ═══════════════════════════════════════════ */}
         <section 
           data-tour-section="resume" 
-          className="relative bg-black flex items-start max-lg:pt-[clamp(80px,10vw,160px)] max-lg:pb-[clamp(80px,10vw,160px)] lg:py-32 xl:py-40"
+          className="relative bg-void flex items-start max-lg:pt-[clamp(80px,10vw,160px)] max-lg:pb-[clamp(80px,10vw,160px)] lg:py-32 xl:py-40"
           style={{ zIndex: 20 }}
         >
           {/* Horizontal padding to push content inwards */}
@@ -196,7 +196,7 @@ export default function Home() {
                   <h2 data-tour-section="meet-vince" className="font-[family-name:var(--font-syne-family)] font-extrabold text-chalk tracking-tight leading-none max-lg:text-3xl max-lg:sm:text-5xl lg:text-7xl mb-6 lg:mb-8">
                     Meet Vince
                   </h2>
-                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/60 text-base sm:text-lg leading-[2] max-w-xl">
+                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-base sm:text-lg leading-[2] max-w-xl">
                     Mechatronic Systems Engineering student at SFU, based in Vancouver. 
                     I specialize in bridging hardware and software—from custom PCB design and embedded firmware to deploying full-stack SaaS platforms.
                   </p>
@@ -213,7 +213,7 @@ export default function Home() {
               ═══════════════════════════════════════ */}
               <div data-tour-section="experience" className="border-t border-steel/15" style={{ paddingTop: "40px", paddingBottom: "12px" }}>
                 <div className="flex items-center gap-3 mb-10">
-                  <Briefcase className="w-5 h-5 text-silver/50" strokeWidth={1.5} />
+                  <Briefcase className="w-5 h-5 text-subtle" strokeWidth={1.5} />
                   <h3 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-xl tracking-tight">
                     Work Experience
                   </h3>
@@ -224,21 +224,21 @@ export default function Home() {
                   <RevealOnScroll delay={0.1}>
                     <div>
                       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1.5 sm:gap-4 mb-1.5">
-                        <h4 className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/90 font-semibold text-base">
+                        <h4 className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver font-semibold text-base">
                           Technology Consulting Intern
                         </h4>
-                        <span className="font-[family-name:var(--font-space-mono-family)] text-silver/30 text-xs tracking-wider whitespace-nowrap pt-1">
+                        <span className="font-[family-name:var(--font-space-mono-family)] text-subtle text-xs tracking-wider whitespace-nowrap pt-1">
                           MAY 2027 – AUG 2027
                         </span>
                       </div>
-                      <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/50 text-sm mb-4">
+                      <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-sm mb-4">
                         Ernst &amp; Young · Microsoft Technology Consulting · Incoming
                       </p>
                       <ul className="space-y-3">
-                        <li className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/55 text-sm leading-[1.8] pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-silver/30">
+                        <li className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-sm leading-[1.8] pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-subtle">
                           Will support requirements gathering and business process mapping for Microsoft Dynamics 365 solutions.
                         </li>
-                        <li className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/55 text-sm leading-[1.8] pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-silver/30">
+                        <li className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-sm leading-[1.8] pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-subtle">
                           Will assist with Power Platform workflow automation, solution testing, and implementation documentation.
                         </li>
                       </ul>
@@ -249,21 +249,21 @@ export default function Home() {
                   <RevealOnScroll delay={0.15}>
                     <div>
                       <div className="flex items-start justify-between gap-4 mb-1.5">
-                        <h4 className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/90 font-semibold text-base">
+                        <h4 className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver font-semibold text-base">
                           Software Engineer Intern
                         </h4>
-                        <span className="font-[family-name:var(--font-space-mono-family)] text-silver/30 text-xs tracking-wider whitespace-nowrap pt-1">
+                        <span className="font-[family-name:var(--font-space-mono-family)] text-subtle text-xs tracking-wider whitespace-nowrap pt-1">
                           JUL 2026 – PRESENT
                         </span>
                       </div>
-                      <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/50 text-sm mb-4">
+                      <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-sm mb-4">
                         Resilient Privacy · Dallas, TX (Remote)
                       </p>
                       <ul className="space-y-3">
-                        <li className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/55 text-sm leading-[1.8] pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-silver/30">
+                        <li className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-sm leading-[1.8] pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-subtle">
                           Architected secure, asynchronous threat intelligence pipelines in Python and Rust for the KANSHI cybersecurity platform.
                         </li>
-                        <li className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/55 text-sm leading-[1.8] pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-silver/30">
+                        <li className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-sm leading-[1.8] pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-subtle">
                           Engineered scalable backend APIs and optimized relational SQL database schemas for high-performance querying.
                         </li>
                       </ul>
@@ -274,18 +274,18 @@ export default function Home() {
                   <RevealOnScroll delay={0.2}>
                     <div>
                       <div className="flex items-start justify-between gap-4 mb-1.5">
-                        <h4 className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/90 font-semibold text-base">
+                        <h4 className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver font-semibold text-base">
                           Online Data Analyst
                         </h4>
-                        <span className="font-[family-name:var(--font-space-mono-family)] text-silver/30 text-xs tracking-wider whitespace-nowrap pt-1">
+                        <span className="font-[family-name:var(--font-space-mono-family)] text-subtle text-xs tracking-wider whitespace-nowrap pt-1">
                           JUN 2026 – PRESENT
                         </span>
                       </div>
-                      <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/50 text-sm mb-4">
+                      <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-sm mb-4">
                         TELUS Digital AI · Remote
                       </p>
                       <ul className="space-y-3">
-                        <li className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/55 text-sm leading-[1.8] pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-silver/30">
+                        <li className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-sm leading-[1.8] pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-subtle">
                           Contributed to the training data integrity of real-world AI/ML mapping systems through labeling and evaluation of geographical datasets.
                         </li>
                       </ul>
@@ -299,7 +299,7 @@ export default function Home() {
               ═══════════════════════════════════════ */}
               <div data-tour-section="projects" className="border-t border-steel/15" style={{ paddingTop: "40px", paddingBottom: "12px" }}>
                 <div className="flex items-center gap-3 mb-10">
-                  <FolderCode className="w-5 h-5 text-silver/50" strokeWidth={1.5} />
+                  <FolderCode className="w-5 h-5 text-subtle" strokeWidth={1.5} />
                   <h3 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-xl tracking-tight">
                     Projects
                   </h3>
@@ -310,17 +310,17 @@ export default function Home() {
                   <RevealOnScroll delay={0.15}>
                     <div>
                       <div className="flex items-start justify-between gap-4 mb-1.5">
-                        <h4 className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/90 font-semibold text-base">
+                        <h4 className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver font-semibold text-base">
                           Engram
                         </h4>
-                        <span className="font-[family-name:var(--font-space-mono-family)] text-silver/30 text-xs tracking-wider whitespace-nowrap pt-1">
+                        <span className="font-[family-name:var(--font-space-mono-family)] text-subtle text-xs tracking-wider whitespace-nowrap pt-1">
                           APR 2026 – PRESENT
                         </span>
                       </div>
-                      <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/50 text-sm leading-[1.8]">
+                      <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-sm leading-[1.8]">
                         B2B AI SaaS leveraging LLM-powered persistent memory to unify workflow data across enterprise systems.
                       </p>
-                      <p className="font-[family-name:var(--font-space-mono-family)] text-silver/30 text-xs tracking-wider mt-2">
+                      <p className="font-[family-name:var(--font-space-mono-family)] text-subtle text-xs tracking-wider mt-2">
                         TYPESCRIPT · PYTHON · SUPABASE · RAG
                       </p>
                     </div>
@@ -330,17 +330,17 @@ export default function Home() {
                   <RevealOnScroll delay={0.2}>
                     <div>
                       <div className="flex items-start justify-between gap-4 mb-1.5">
-                        <h4 className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/90 font-semibold text-base">
+                        <h4 className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver font-semibold text-base">
                           Automatic Spice Dispenser
                         </h4>
-                        <span className="font-[family-name:var(--font-space-mono-family)] text-silver/30 text-xs tracking-wider whitespace-nowrap pt-1">
+                        <span className="font-[family-name:var(--font-space-mono-family)] text-subtle text-xs tracking-wider whitespace-nowrap pt-1">
                           SEP 2025 – DEC 2025
                         </span>
                       </div>
-                      <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/50 text-sm leading-[1.8]">
+                      <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-sm leading-[1.8]">
                         Embedded dispensing system with sub-degree stepper motor precision and CAD-driven 3D-printed assemblies.
                       </p>
-                      <p className="font-[family-name:var(--font-space-mono-family)] text-silver/30 text-xs tracking-wider mt-2">
+                      <p className="font-[family-name:var(--font-space-mono-family)] text-subtle text-xs tracking-wider mt-2">
                         C++ · ARDUINO · CAD · 3D PRINTING
                       </p>
                     </div>
@@ -350,17 +350,17 @@ export default function Home() {
                   <RevealOnScroll delay={0.25}>
                     <div>
                       <div className="flex items-start justify-between gap-4 mb-1.5">
-                        <h4 className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/90 font-semibold text-base">
+                        <h4 className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver font-semibold text-base">
                           Digital Dice
                         </h4>
-                        <span className="font-[family-name:var(--font-space-mono-family)] text-silver/30 text-xs tracking-wider whitespace-nowrap pt-1">
+                        <span className="font-[family-name:var(--font-space-mono-family)] text-subtle text-xs tracking-wider whitespace-nowrap pt-1">
                           SEP 2025 – DEC 2025
                         </span>
                       </div>
-                      <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/50 text-sm leading-[1.8]">
+                      <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-sm leading-[1.8]">
                         Mixed-technology PCB with combinational logic decoding binary states into 7-segment LED patterns.
                       </p>
-                      <p className="font-[family-name:var(--font-space-mono-family)] text-silver/30 text-xs tracking-wider mt-2">
+                      <p className="font-[family-name:var(--font-space-mono-family)] text-subtle text-xs tracking-wider mt-2">
                         BOOLEAN LOGIC · PCB ASSEMBLY · SMD SOLDERING
                       </p>
                     </div>
@@ -373,7 +373,7 @@ export default function Home() {
               ═══════════════════════════════════════ */}
               <div data-tour-section="education" className="border-t border-steel/15" style={{ paddingTop: "40px", paddingBottom: "12px" }}>
                 <div className="flex items-center gap-3 mb-10">
-                  <GraduationCap className="w-5 h-5 text-silver/50" strokeWidth={1.5} />
+                  <GraduationCap className="w-5 h-5 text-subtle" strokeWidth={1.5} />
                   <h3 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-xl tracking-tight">
                     Education
                   </h3>
@@ -382,19 +382,19 @@ export default function Home() {
                 <RevealOnScroll delay={0.15}>
                   <div>
                     <div className="flex items-start justify-between gap-4 mb-1.5">
-                      <h4 className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/90 font-semibold text-base">
+                      <h4 className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver font-semibold text-base">
                         Simon Fraser University
                       </h4>
-                      <span className="font-[family-name:var(--font-space-mono-family)] text-silver/30 text-xs tracking-wider whitespace-nowrap pt-1">
+                      <span className="font-[family-name:var(--font-space-mono-family)] text-subtle text-xs tracking-wider whitespace-nowrap pt-1">
                         SEP 2025 – PRESENT
                       </span>
                     </div>
-                    <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/50 text-sm mb-6">
+                    <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-sm mb-6">
                       B.A.Sc. Mechatronic Systems Engineering
                     </p>
                     <a
                       href="/resume"
-                      className="inline-flex items-center gap-2.5 font-[family-name:var(--font-ibm-plex-mono-family)] text-[11px] tracking-[0.15em] text-silver/60 border border-silver/15 rounded-full px-5 py-2.5 hover:bg-iron/60 hover:text-chalk hover:border-silver/30 transition-all duration-300"
+                      className="inline-flex items-center gap-2.5 font-[family-name:var(--font-ibm-plex-mono-family)] text-[11px] tracking-[0.15em] text-subtle border border-silver/15 rounded-full px-5 py-2.5 hover:bg-iron/60 hover:text-chalk hover:border-silver/30 transition-all duration-300"
                     >
                       RESUME
                     </a>
@@ -417,30 +417,30 @@ export default function Home() {
                 <div className="space-y-6">
                   {/* Location & Availability */}
                   <div className="flex items-center gap-2">
-                    <MapPin className="w-3.5 h-3.5 text-silver/40" strokeWidth={1.5} />
-                    <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/40 text-xs tracking-wide">
+                    <MapPin className="w-3.5 h-3.5 text-subtle" strokeWidth={1.5} />
+                    <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-xs tracking-wide">
                       Vancouver, B.C. · Open to opportunities
                     </p>
                   </div>
 
                   {/* Social links */}
                   <div className="flex items-center gap-5">
-                    <a href="https://www.linkedin.com/in/vince-ong-9a96a3371/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-silver/35 hover:text-chalk transition-colors duration-200 group">
+                    <a href="https://www.linkedin.com/in/vince-ong-9a96a3371/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-subtle hover:text-chalk transition-colors duration-200 group">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" /></svg>
                       <span className="font-[family-name:var(--font-ibm-plex-mono-family)] text-xs tracking-wide group-hover:text-chalk transition-colors">LinkedIn</span>
                     </a>
-                    <a href="https://github.com/maisinxyz" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-silver/35 hover:text-chalk transition-colors duration-200 group">
+                    <a href="https://github.com/maisinxyz" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-subtle hover:text-chalk transition-colors duration-200 group">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
                       <span className="font-[family-name:var(--font-ibm-plex-mono-family)] text-xs tracking-wide group-hover:text-chalk transition-colors">GitHub</span>
                     </a>
-                    <a href="mailto:vinceong2020@gmail.com" className="flex items-center gap-2 text-silver/35 hover:text-chalk transition-colors duration-200 group">
+                    <a href="mailto:vinceong2020@gmail.com" className="flex items-center gap-2 text-subtle hover:text-chalk transition-colors duration-200 group">
                       <Mail className="w-4 h-4" strokeWidth={1.5} />
                       <span className="font-[family-name:var(--font-ibm-plex-mono-family)] text-xs tracking-wide group-hover:text-chalk transition-colors">Email</span>
                     </a>
                   </div>
 
                   {/* Tagline */}
-                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/25 text-[11px] leading-relaxed italic">
+                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-[11px] leading-relaxed italic">
                     Firmware · Systems · Products
                   </p>
                 </div>

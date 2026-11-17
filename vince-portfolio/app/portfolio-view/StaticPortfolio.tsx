@@ -44,7 +44,7 @@ export default function StaticPortfolio() {
         <a
           href="/ResumeNew.pdf"
           download="Vince_Ong_Engineering_Portfolio.pdf"
-          className="group inline-flex items-center gap-2.5 font-[family-name:var(--font-ibm-plex-mono-family)] text-[11px] tracking-[0.15em] text-silver/60 border border-silver/15 rounded-full px-6 py-3 hover:bg-iron/60 hover:text-chalk hover:border-silver/30 transition-all duration-300"
+          className="group inline-flex items-center gap-2.5 font-[family-name:var(--font-ibm-plex-mono-family)] text-[11px] tracking-[0.15em] text-subtle border border-silver/15 rounded-full px-6 py-3 hover:bg-iron/60 hover:text-chalk hover:border-silver/30 transition-all duration-300"
         >
           <Download className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform" strokeWidth={1.5} />
           DOWNLOAD PDF
@@ -94,7 +94,7 @@ export default function StaticPortfolio() {
                 ? "/ResumeNew.pdf#view=FitH"
                 : "/ResumeNew.pdf#toolbar=0&navpanes=0&scrollbar=0&view=Fit"
             }
-            className={`w-full h-full border-none bg-black ${
+            className={`w-full h-full border-none bg-void ${
               isZoomedInFullscreen ? "" : "pointer-events-none"
             }`}
             title="Engineering Portfolio PDF Viewer"

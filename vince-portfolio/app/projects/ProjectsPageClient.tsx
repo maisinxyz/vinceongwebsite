@@ -155,7 +155,7 @@ function ProjectMedia({ project }: { project: Project }) {
           <div className="w-10 h-10 mx-auto mb-3 border border-silver/10 rounded-full flex items-center justify-center">
             <div className="w-3.5 h-3.5 border border-silver/15 rounded-sm" />
           </div>
-          <p className="font-[family-name:var(--font-space-mono-family)] text-[8px] text-silver/20 tracking-[0.3em]">
+          <p className="font-[family-name:var(--font-space-mono-family)] text-[8px] text-subtle tracking-[0.3em]">
             COMING SOON
           </p>
         </div>
@@ -211,7 +211,7 @@ function ProjectCard({ project }: { project: Project; index: number }) {
         </h3>
 
         {/* Description */}
-        <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/45 text-[10px] leading-[1.8]">
+        <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-[10px] leading-[1.8]">
           {project.shortDescription}
         </p>
 
@@ -221,14 +221,14 @@ function ProjectCard({ project }: { project: Project; index: number }) {
             {project.skills.slice(0, 3).map((skill) => (
               <span
                 key={skill}
-                className="font-[family-name:var(--font-ibm-plex-mono-family)] text-[7px] text-silver/30 tracking-wider bg-steel/8 rounded-full px-2 py-0.5"
+                className="font-[family-name:var(--font-ibm-plex-mono-family)] text-[7px] text-subtle tracking-wider bg-steel/8 rounded-full px-2 py-0.5"
               >
                 {skill}
               </span>
             ))}
             {project.skills.length > 3 && (
               <span
-                className="font-[family-name:var(--font-ibm-plex-mono-family)] text-[7px] text-silver/30 tracking-wider bg-steel/8 rounded-full px-2 py-0.5"
+                className="font-[family-name:var(--font-ibm-plex-mono-family)] text-[7px] text-subtle tracking-wider bg-steel/8 rounded-full px-2 py-0.5"
               >
                 +{project.skills.length - 3}
               </span>
@@ -241,7 +241,7 @@ function ProjectCard({ project }: { project: Project; index: number }) {
           <Link
             href={project.detailPage ? `/projects/${project.slug}` : (project.href || "#")}
             target={project.href ? "_blank" : undefined}
-            className="inline-flex items-center gap-1.5 font-[family-name:var(--font-ibm-plex-mono-family)] text-[9px] text-silver/35 hover:text-chalk transition-colors pt-1"
+            className="inline-flex items-center gap-1.5 font-[family-name:var(--font-ibm-plex-mono-family)] text-[9px] text-subtle hover:text-chalk transition-colors pt-1"
           >
             {project.detailPage ? "VIEW DETAILS" : "VIEW PROJECT"}
             <ArrowRight
@@ -278,7 +278,7 @@ function ColumnHeader({
         <h2 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-2xl sm:text-3xl tracking-tight">
           {label}
         </h2>
-        <span className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-silver/25 tracking-widest self-end mb-1">
+        <span className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-subtle tracking-widest self-end mb-1">
           ({String(count).padStart(2, "0")})
         </span>
       </div>

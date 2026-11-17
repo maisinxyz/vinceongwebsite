@@ -402,7 +402,7 @@ function RecordPlayer() {
         {/* Swap Album Button */}
         <button 
           onClick={changeAlbum}
-          className="mb-8 group flex items-center gap-3 px-5 py-2.5 rounded-full border border-steel/20 text-silver/60 hover:text-chalk hover:border-steel/40 hover:bg-iron/30 transition-all shadow-sm"
+          className="mb-8 group flex items-center gap-3 px-5 py-2.5 rounded-full border border-steel/20 text-subtle hover:text-chalk hover:border-steel/40 hover:bg-iron/30 transition-all shadow-sm"
           aria-label="Change Album"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -424,7 +424,7 @@ function RecordPlayer() {
               transition={{ duration: 0.2 }}
             >
               <p className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-base tracking-tight mb-1">{track.name}</p>
-              <p className="font-[family-name:var(--font-space-mono-family)] text-silver/50 text-[11px] tracking-wider">
+              <p className="font-[family-name:var(--font-space-mono-family)] text-subtle text-[11px] tracking-wider">
                 {album.artist} — {album.title}
               </p>
             </motion.div>
@@ -436,7 +436,7 @@ function RecordPlayer() {
           
           <button onClick={togglePlay}
             disabled={!audioUrl}
-            className={`flex flex-col items-center gap-2.5 transition-colors group ${!audioUrl ? 'text-steel/20 cursor-not-allowed' : 'text-silver/40 hover:text-chalk'}`}
+            className={`flex flex-col items-center gap-2.5 transition-colors group ${!audioUrl ? 'text-subtle cursor-not-allowed' : 'text-subtle hover:text-chalk'}`}
             aria-label={isPlaying ? "Pause" : "Play"}>
             {isPlaying ? (
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" /></svg>
@@ -449,7 +449,7 @@ function RecordPlayer() {
           </button>
 
           <button onClick={skipTrack}
-            className="flex flex-col items-center gap-2.5 text-silver/40 hover:text-chalk transition-colors group"
+            className="flex flex-col items-center gap-2.5 text-subtle hover:text-chalk transition-colors group"
             aria-label="Skip track">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" /></svg>
             <span className="font-[family-name:var(--font-space-mono-family)] text-[9px] tracking-[0.2em] touch-show opacity-0 group-hover:opacity-100 transition-opacity">
@@ -465,8 +465,8 @@ function RecordPlayer() {
             <div className="h-full rounded-full" style={{ width: `${progress * 100}%`, backgroundColor: album.accent, transition: "width 0.1s linear" }} />
           </div>
           <div className="flex justify-between mt-3">
-            <span className="font-[family-name:var(--font-space-mono-family)] text-silver/30 text-[10px]">{formatTime(progress * (duration || 30))}</span>
-            <span className="font-[family-name:var(--font-space-mono-family)] text-silver/30 text-[10px]">{formatTime(duration || 30)}</span>
+            <span className="font-[family-name:var(--font-space-mono-family)] text-subtle text-[10px]">{formatTime(progress * (duration || 30))}</span>
+            <span className="font-[family-name:var(--font-space-mono-family)] text-subtle text-[10px]">{formatTime(duration || 30)}</span>
           </div>
         </div>
         
@@ -519,24 +519,24 @@ export default function AboutPageClient() {
                   <h2 className="font-[family-name:var(--font-syne-family)] font-extrabold text-chalk text-3xl sm:text-4xl tracking-tight mb-8">
                     Vince Ong
                   </h2>
-                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/70 text-[12px] leading-[2.2] mb-6">
+                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver text-[12px] leading-[2.2] mb-6">
                     Mechatronic Systems Engineering student at Simon Fraser University.
                   </p>
-                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/70 text-[12px] leading-[2.2] mb-6">
+                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver text-[12px] leading-[2.2] mb-6">
                     I am passionate about building end-to-end systems which integrate hardware and software.
                   </p>
-                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/70 text-[12px] leading-[2.2] mb-10">
+                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver text-[12px] leading-[2.2] mb-10">
                     I have experience designing custom PCB&apos;s, developing firmware in C++ via raspberry pi and arduino systems, and using frameworks such as React and Next.js.
                   </p>
                   
-                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/70 text-[12px] leading-[2.2] mb-10">
+                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver text-[12px] leading-[2.2] mb-10">
                     Currently, I am focused on creating more technical projects, which integrate LLMs, specifically with DAWNTRACE, a project I am working on.
                   </p>
                   
-                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/70 text-[12px] leading-[2.2] mb-6">
+                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver text-[12px] leading-[2.2] mb-6">
                     On top of my projects, I maintain a 3.7 GPA while actively participating in hackathons.
                   </p>
-                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/70 text-[12px] leading-[2.2] mb-10">
+                  <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver text-[12px] leading-[2.2] mb-10">
                     Based in Vancouver, B.C., looking for experiences to connect and gain new experiences with people, feel free to message me on linkedin!
                   </p>
 
@@ -616,10 +616,10 @@ export default function AboutPageClient() {
                     { label: "LANGUAGES", value: "C/C++ · Python · TS" },
                   ].map((item) => (
                     <div key={item.label}>
-                      <p className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-silver/40 tracking-[0.25em] mb-3">
+                      <p className="font-[family-name:var(--font-space-mono-family)] text-[10px] text-subtle tracking-[0.25em] mb-3">
                         {item.label}
                       </p>
-                      <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-chalk/80 text-[14px] leading-snug">
+                      <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-chalk text-[14px] leading-snug">
                         {item.value}
                       </p>
                     </div>

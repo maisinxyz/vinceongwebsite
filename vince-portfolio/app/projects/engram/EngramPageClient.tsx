@@ -38,7 +38,7 @@ export default function EngramPageClient() {
         <section className="py-20 sm:py-28">
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
             <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4 }} className="mb-10">
-              <Link href="/projects" className="group inline-flex items-center gap-2 font-[family-name:var(--font-ibm-plex-mono-family)] text-xs text-silver/40 hover:text-silver transition-colors">
+              <Link href="/projects" className="group inline-flex items-center gap-2 font-[family-name:var(--font-ibm-plex-mono-family)] text-xs text-subtle hover:text-silver transition-colors">
                 <ArrowLeft size={12} className="group-hover:-translate-x-1 transition-transform" />
                 BACK TO PROJECTS
               </Link>
@@ -47,14 +47,14 @@ export default function EngramPageClient() {
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: [0.25, 0, 0, 1] }}>
               <div className="flex flex-wrap gap-2 mb-5">
                 {["TYPESCRIPT", "PYTHON", "SUPABASE", "RAG"].map((tag) => (
-                  <span key={tag} className="font-[family-name:var(--font-ibm-plex-mono-family)] text-[10px] text-silver/50 tracking-wider bg-steel/15 rounded-full px-4 py-1.5">{tag}</span>
+                  <span key={tag} className="font-[family-name:var(--font-ibm-plex-mono-family)] text-[10px] text-subtle tracking-wider bg-steel/15 rounded-full px-4 py-1.5">{tag}</span>
                 ))}
               </div>
 
               <h1 className="font-[family-name:var(--font-syne-family)] font-extrabold text-chalk text-4xl sm:text-5xl lg:text-6xl tracking-tight mb-5">
                 ENGRAM
               </h1>
-              <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/50 text-base max-w-lg">
+              <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-base max-w-lg">
                 B2B AI SaaS — LLM-powered enterprise memory.
               </p>
 
@@ -99,10 +99,10 @@ export default function EngramPageClient() {
                       className="text-center"
                     >
                       <div className="w-14 h-14 mx-auto mb-4 border border-steel/20 rounded-xl flex items-center justify-center bg-steel/10">
-                        <node.icon size={20} className="text-silver/50" />
+                        <node.icon size={20} className="text-subtle" />
                       </div>
                       <h4 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-sm mb-1">{node.label}</h4>
-                      <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/35 text-[10px]">{node.desc}</p>
+                      <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-[10px]">{node.desc}</p>
                       {i < 3 && (
                         <motion.div
                           initial={{ scaleX: 0 }}
@@ -152,7 +152,7 @@ export default function EngramPageClient() {
                     key={num}
                     className="aspect-video rounded-lg border border-steel/15 bg-iron/20 flex items-center justify-center"
                   >
-                    <span className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/20 tracking-[0.3em] text-center">
+                    <span className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-subtle tracking-[0.3em] text-center">
                       SCREENSHOT PLACEHOLDER<br />—<br />IMG {num} OF 3
                     </span>
                   </div>
@@ -178,7 +178,7 @@ export default function EngramPageClient() {
                     <h3 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-base mb-3">
                       {item.title}
                     </h3>
-                    <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/45 text-sm leading-relaxed">
+                    <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-sm leading-relaxed">
                       {item.desc}
                     </p>
                   </div>
@@ -205,12 +205,12 @@ export default function EngramPageClient() {
               ].map((col, i) => (
                 <RevealOnScroll key={i} delay={i * 0.1}>
                   <div className="bg-iron/30 border border-steel/15 rounded-xl p-7">
-                    <h3 className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/40 tracking-[0.25em] mb-5 pb-3 border-b border-steel/10">
+                    <h3 className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-subtle tracking-[0.25em] mb-5 pb-3 border-b border-steel/10">
                       {col.category}
                     </h3>
                     <ul className="space-y-3">
                       {col.items.map((item) => (
-                        <li key={item} className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/60 text-sm">{item}</li>
+                        <li key={item} className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-sm">{item}</li>
                       ))}
                     </ul>
                   </div>

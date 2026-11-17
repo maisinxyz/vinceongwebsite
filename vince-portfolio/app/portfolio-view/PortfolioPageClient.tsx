@@ -33,7 +33,7 @@ export default function PortfolioPageClient() {
         )}
       </AnimatePresence>
 
-      <main className="fixed inset-0 bg-black text-chalk selection:bg-silver/30 selection:text-white overflow-hidden flex flex-col">
+      <main className="fixed inset-0 bg-void text-chalk overflow-hidden flex flex-col">
         {/* Spacer for navbar (only in dynamic) */}
         {viewMode === "dynamic" && (
           <div className="h-16 sm:h-20 shrink-0" />
@@ -59,14 +59,14 @@ export default function PortfolioPageClient() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3, ease: [0.25, 0, 0, 1] }}
-                className="absolute inset-0 bg-black pt-8"
+                className="absolute inset-0 bg-void pt-8"
               >
                 <DynamicPortfolio animated={false} />
                 
                 {/* Download Button overlay for Static View */}
                 <button
                   onClick={handleDownload}
-                  className="absolute top-10 right-10 z-[100] flex items-center gap-2 bg-iron/90 backdrop-blur-md border border-steel/50 text-chalk px-5 py-3 rounded-full hover:bg-white hover:text-black transition-colors shadow-[0_4px_30px_rgba(0,0,0,0.5)] group force-system-cursor print:hidden"
+                  className="absolute top-10 right-10 z-[100] flex items-center gap-2 bg-iron/90 backdrop-blur-md border border-steel/50 text-chalk px-5 py-3 rounded-full hover:bg-chalk hover:text-void transition-colors shadow-[0_4px_30px_rgba(0,0,0,0.5)] group force-system-cursor print:hidden"
                 >
                   <Download className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform" strokeWidth={2} />
                   <span className="font-[family-name:var(--font-ibm-plex-mono-family)] text-xs font-bold tracking-wider">

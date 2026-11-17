@@ -181,7 +181,7 @@ export default function SpiceDispenser2D() {
             className={`font-[family-name:var(--font-ibm-plex-mono-family)] text-[11px] tracking-wider px-4 py-3 border transition-all duration-200 ${
               btn.active
                 ? "border-silver/60 text-chalk bg-steel/40"
-                : "border-steel/40 text-silver/60 hover:border-silver/40 hover:text-chalk"
+                : "border-steel/40 text-subtle hover:border-silver/40 hover:text-chalk"
             }`}
           >
             [ {btn.label} ]
@@ -191,7 +191,7 @@ export default function SpiceDispenser2D() {
 
       {/* Status LCD Display */}
       <div className="bg-void border border-steel/30 px-5 py-3 flex items-center gap-2">
-        <span className="font-[family-name:var(--font-space-mono-family)] text-[11px] text-silver/40 tracking-widest">
+        <span className="font-[family-name:var(--font-space-mono-family)] text-[11px] text-subtle tracking-widest">
           STATUS:
         </span>
         <span className="font-[family-name:var(--font-space-mono-family)] text-[11px] text-chalk tracking-widest">

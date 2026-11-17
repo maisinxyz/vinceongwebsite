@@ -31,7 +31,7 @@ export default function DicePageClient() {
         <section className="py-20 sm:py-28">
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
             <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4 }} className="mb-10">
-              <Link href="/projects" className="group inline-flex items-center gap-2 font-[family-name:var(--font-ibm-plex-mono-family)] text-xs text-silver/40 hover:text-silver transition-colors">
+              <Link href="/projects" className="group inline-flex items-center gap-2 font-[family-name:var(--font-ibm-plex-mono-family)] text-xs text-subtle hover:text-silver transition-colors">
                 <ArrowLeft size={12} className="group-hover:-translate-x-1 transition-transform" />
                 BACK TO PROJECTS
               </Link>
@@ -40,20 +40,20 @@ export default function DicePageClient() {
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: [0.25, 0, 0, 1] }}>
               <div className="flex flex-wrap gap-2 mb-5">
                 {["BOOLEAN LOGIC", "PCB", "SMD SOLDERING", "EAGLE"].map((tag) => (
-                  <span key={tag} className="font-[family-name:var(--font-ibm-plex-mono-family)] text-[10px] text-silver/50 tracking-wider bg-steel/15 rounded-full px-4 py-1.5">{tag}</span>
+                  <span key={tag} className="font-[family-name:var(--font-ibm-plex-mono-family)] text-[10px] text-subtle tracking-wider bg-steel/15 rounded-full px-4 py-1.5">{tag}</span>
                 ))}
               </div>
 
               <h1 className="font-[family-name:var(--font-syne-family)] font-extrabold text-chalk text-4xl sm:text-5xl lg:text-6xl tracking-tight mb-5">
                 DIGITAL DICE
               </h1>
-              <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/50 text-base max-w-lg">
+              <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-base max-w-lg">
                 Combinational logic circuit with 7-segment display output.
               </p>
 
               <div className="flex items-center gap-2 mt-8 bg-silver/5 border border-silver/10 rounded-full px-4 py-1.5 w-fit">
                 <div className="w-1.5 h-1.5 rounded-full bg-silver/30" />
-                <span className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/35 tracking-widest">COMPLETED · 2025</span>
+                <span className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-subtle tracking-widest">COMPLETED · 2025</span>
               </div>
             </motion.div>
           </div>
@@ -67,7 +67,7 @@ export default function DicePageClient() {
                 <h2 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-3xl sm:text-4xl tracking-tight mb-4">
                   INTERACTIVE DEMO
                 </h2>
-                <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/40 text-sm">
+                <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-sm">
                   Roll the dice — watch the 7-segment display decode the binary output.
                 </p>
               </div>
@@ -94,16 +94,16 @@ export default function DicePageClient() {
               <div className="bg-iron/30 border border-steel/15 rounded-xl overflow-hidden max-w-3xl">
                 {/* Scroll hint on mobile */}
                 <div className="sm:hidden flex items-center justify-end gap-2 px-4 pt-3 pb-1">
-                  <span className="font-[family-name:var(--font-space-mono-family)] text-[8px] text-silver/25 tracking-[0.2em]">SCROLL →</span>
+                  <span className="font-[family-name:var(--font-space-mono-family)] text-[8px] text-subtle tracking-[0.2em]">SCROLL →</span>
                 </div>
                 <div className="table-scroll-container">
                 <table className="w-full min-w-[520px]">
                   <thead>
                     <tr className="border-b border-steel/10">
-                      <th className="p-4 text-left font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/35 tracking-[0.2em]">BINARY</th>
-                      <th className="p-4 text-left font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/35 tracking-[0.2em]">DEC</th>
+                      <th className="p-4 text-left font-[family-name:var(--font-space-mono-family)] text-[9px] text-subtle tracking-[0.2em]">BINARY</th>
+                      <th className="p-4 text-left font-[family-name:var(--font-space-mono-family)] text-[9px] text-subtle tracking-[0.2em]">DEC</th>
                       {["a", "b", "c", "d", "e", "f", "g"].map((seg) => (
-                        <th key={seg} className="p-4 text-center font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/35 tracking-[0.2em]">{seg}</th>
+                        <th key={seg} className="p-4 text-center font-[family-name:var(--font-space-mono-family)] text-[9px] text-subtle tracking-[0.2em]">{seg}</th>
                       ))}
                     </tr>
                   </thead>
@@ -118,10 +118,10 @@ export default function DicePageClient() {
                         className="border-b border-steel/8 last:border-b-0"
                       >
                         <td className="p-4 font-[family-name:var(--font-space-mono-family)] text-chalk text-sm tracking-widest">{row.input}</td>
-                        <td className="p-4 font-[family-name:var(--font-space-mono-family)] text-silver/60 text-sm">{row.dec}</td>
+                        <td className="p-4 font-[family-name:var(--font-space-mono-family)] text-subtle text-sm">{row.dec}</td>
                         {[row.a, row.b, row.c, row.d, row.e, row.f, row.g].map((val, j) => (
                           <td key={j} className="p-4 text-center">
-                            <span className={`font-[family-name:var(--font-space-mono-family)] text-sm ${val ? "text-chalk" : "text-steel/40"}`}>{val}</span>
+                            <span className={`font-[family-name:var(--font-space-mono-family)] text-sm ${val ? "text-chalk" : "text-subtle"}`}>{val}</span>
                           </td>
                         ))}
                       </motion.tr>
@@ -151,9 +151,9 @@ export default function DicePageClient() {
               ].map((item, i) => (
                 <RevealOnScroll key={i} delay={i * 0.1}>
                   <div className="bg-iron/30 border border-steel/15 rounded-xl p-7 h-full">
-                    <item.icon size={20} className="text-silver/35 mb-5" />
+                    <item.icon size={20} className="text-subtle mb-5" />
                     <h3 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-base mb-3">{item.title}</h3>
-                    <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/45 text-sm leading-relaxed">{item.desc}</p>
+                    <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-sm leading-relaxed">{item.desc}</p>
                   </div>
                 </RevealOnScroll>
               ))}

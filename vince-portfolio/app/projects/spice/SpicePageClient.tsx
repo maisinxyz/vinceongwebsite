@@ -30,7 +30,7 @@ export default function SpicePageClient() {
         <section className="py-20 sm:py-28">
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
             <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4 }} className="mb-10">
-              <Link href="/projects" className="group inline-flex items-center gap-2 font-[family-name:var(--font-ibm-plex-mono-family)] text-xs text-silver/40 hover:text-silver transition-colors">
+              <Link href="/projects" className="group inline-flex items-center gap-2 font-[family-name:var(--font-ibm-plex-mono-family)] text-xs text-subtle hover:text-silver transition-colors">
                 <ArrowLeft size={12} className="group-hover:-translate-x-1 transition-transform" />
                 BACK TO PROJECTS
               </Link>
@@ -39,20 +39,20 @@ export default function SpicePageClient() {
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: [0.25, 0, 0, 1] }}>
               <div className="flex flex-wrap gap-2 mb-5">
                 {["EMBEDDED SYSTEMS", "C++", "ARDUINO", "3D PRINTING"].map((tag) => (
-                  <span key={tag} className="font-[family-name:var(--font-ibm-plex-mono-family)] text-[10px] text-silver/50 tracking-wider bg-steel/15 rounded-full px-4 py-1.5">{tag}</span>
+                  <span key={tag} className="font-[family-name:var(--font-ibm-plex-mono-family)] text-[10px] text-subtle tracking-wider bg-steel/15 rounded-full px-4 py-1.5">{tag}</span>
                 ))}
               </div>
 
               <h1 className="font-[family-name:var(--font-syne-family)] font-extrabold text-chalk text-4xl sm:text-5xl lg:text-6xl tracking-tight mb-5">
                 AUTOMATIC SPICE<br />DISPENSER
               </h1>
-              <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/50 text-base max-w-lg">
+              <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-base max-w-lg">
                 Precision dispensing system with stepper motor firmware and 3D-printed mechanical assemblies.
               </p>
 
               <div className="flex items-center gap-2 mt-8 bg-silver/5 border border-silver/10 rounded-full px-4 py-1.5 w-fit">
                 <div className="w-1.5 h-1.5 rounded-full bg-silver/30" />
-                <span className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/35 tracking-widest">COMPLETED · 2025</span>
+                <span className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-subtle tracking-widest">COMPLETED · 2025</span>
               </div>
             </motion.div>
           </div>
@@ -80,9 +80,9 @@ export default function SpicePageClient() {
               {DETAILS.map((item, i) => (
                 <RevealOnScroll key={i} delay={i * 0.1}>
                   <div className="bg-iron/30 border border-steel/15 rounded-xl p-7 sm:p-8 h-full">
-                    <item.icon size={20} className="text-silver/35 mb-5" />
+                    <item.icon size={20} className="text-subtle mb-5" />
                     <h3 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-base mb-3">{item.title}</h3>
-                    <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/45 text-sm leading-relaxed">{item.desc}</p>
+                    <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-sm leading-relaxed">{item.desc}</p>
                   </div>
                 </RevealOnScroll>
               ))}
@@ -107,7 +107,7 @@ export default function SpicePageClient() {
               ].map((col, i) => (
                 <RevealOnScroll key={i} delay={i * 0.1}>
                   <div className="bg-iron/30 border border-steel/15 rounded-xl p-7">
-                    <h3 className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-silver/40 tracking-[0.25em] mb-5 pb-3 border-b border-steel/10">
+                    <h3 className="font-[family-name:var(--font-space-mono-family)] text-[9px] text-subtle tracking-[0.25em] mb-5 pb-3 border-b border-steel/10">
                       {col.category}
                     </h3>
                     <ul className="space-y-3">
@@ -140,8 +140,8 @@ function TechItem({ label, delay }: { label: string; delay: number }) {
       transition={{ delay, duration: 0.4, ease: [0.25, 0, 0, 1] }}
       className="flex items-center gap-3"
     >
-      <Check size={13} className="text-silver/30 shrink-0" />
-      <span className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/55 text-sm">{label}</span>
+      <Check size={13} className="text-subtle shrink-0" />
+      <span className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-sm">{label}</span>
     </motion.li>
   );
 }

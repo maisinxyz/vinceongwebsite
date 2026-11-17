@@ -160,10 +160,10 @@ export default function DynamicPortfolio({ animated = true }: DynamicPortfolioPr
                 <h1 className="font-[family-name:var(--font-syne-family)] font-extrabold text-chalk text-3xl sm:text-4xl tracking-tight leading-none">
                   VINCE ONG
                 </h1>
-                <p className="font-[family-name:var(--font-space-mono-family)] text-silver/40 text-xs sm:text-sm tracking-[0.2em] mt-3 mb-4">
+                <p className="font-[family-name:var(--font-space-mono-family)] text-subtle text-xs sm:text-sm tracking-[0.2em] mt-3 mb-4">
                   ENGINEERING PORTFOLIO
                 </p>
-                <div className="flex items-center gap-3 text-xs sm:text-sm font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/40">
+                <div className="flex items-center gap-3 text-xs sm:text-sm font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle">
                   <span className="flex items-center gap-1.5">
                     <MapPin className="w-4 h-4" strokeWidth={1.5} /> Vancouver, B.C.
                   </span>
@@ -175,14 +175,14 @@ export default function DynamicPortfolio({ animated = true }: DynamicPortfolioPr
             <div className="h-px bg-steel/15 my-6" />
             <div className="grid grid-cols-2 gap-6">
               <div>
-                <p className="font-[family-name:var(--font-space-mono-family)] text-[9px] sm:text-[10px] text-silver/35 tracking-[0.2em] mb-2">FOCUS</p>
-                <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-chalk/80 text-xs sm:text-sm leading-snug">
+                <p className="font-[family-name:var(--font-space-mono-family)] text-[9px] sm:text-[10px] text-subtle tracking-[0.2em] mb-2">FOCUS</p>
+                <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-chalk text-xs sm:text-sm leading-snug">
                   Firmware · Robotics · Full-Stack
                 </p>
               </div>
               <div>
-                <p className="font-[family-name:var(--font-space-mono-family)] text-[9px] sm:text-[10px] text-silver/35 tracking-[0.2em] mb-2">EDUCATION</p>
-                <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-chalk/80 text-xs sm:text-sm leading-snug">
+                <p className="font-[family-name:var(--font-space-mono-family)] text-[9px] sm:text-[10px] text-subtle tracking-[0.2em] mb-2">EDUCATION</p>
+                <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-chalk text-xs sm:text-sm leading-snug">
                   SFU · MSE · 3.7 GPA
                 </p>
               </div>
@@ -192,7 +192,7 @@ export default function DynamicPortfolio({ animated = true }: DynamicPortfolioPr
 
         {/* ── About ── */}
         <Wrap {...wrapProps}>
-          <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/60 text-sm sm:text-base leading-[1.8] px-2">
+          <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-sm sm:text-base leading-[1.8] px-2">
             Mechatronic Systems Engineering student specializing in bridging hardware and software—from custom PCB design and embedded firmware to full-stack SaaS platforms.
           </p>
         </Wrap>
@@ -200,7 +200,7 @@ export default function DynamicPortfolio({ animated = true }: DynamicPortfolioPr
         {/* ── Experience ── */}
         <Wrap {...wrapProps}>
           <div className="flex items-center gap-3 mt-4 mb-2">
-            <Briefcase className="w-5 h-5 text-silver/40" strokeWidth={1.5} />
+            <Briefcase className="w-5 h-5 text-subtle" strokeWidth={1.5} />
             <h2 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-xl tracking-tight">
               Experience
             </h2>
@@ -231,7 +231,7 @@ export default function DynamicPortfolio({ animated = true }: DynamicPortfolioPr
       <div className={`flex-[1.4] min-w-0 flex flex-col py-10 gap-8 custom-scrollbar ${animated ? "overflow-y-auto" : "overflow-hidden"}`}>
         <Wrap {...wrapProps}>
           <div className="flex items-center gap-3 mb-2">
-            <FolderCode className="w-5 h-5 text-silver/40" strokeWidth={1.5} />
+            <FolderCode className="w-5 h-5 text-subtle" strokeWidth={1.5} />
             <h2 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-xl tracking-tight">Projects</h2>
           </div>
         </Wrap>
@@ -269,12 +269,12 @@ export default function DynamicPortfolio({ animated = true }: DynamicPortfolioPr
                 <motion.span
                   key={skill}
                   whileHover={{ scale: 1.05, borderColor: "rgba(168,168,168,0.4)" }}
-                  className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/60 text-xs bg-iron/20 border border-steel/15 rounded-full px-4 py-1.5 cursor-default transition-colors"
+                  className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-xs bg-iron/20 border border-steel/15 rounded-full px-4 py-1.5 cursor-default transition-colors"
                 >
                   {skill}
                 </motion.span>
               ) : (
-                <span key={skill} className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/60 text-xs bg-iron/20 border border-steel/15 rounded-full px-4 py-1.5">
+                <span key={skill} className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-xs bg-iron/20 border border-steel/15 rounded-full px-4 py-1.5">
                   {skill}
                 </span>
               )
@@ -308,7 +308,7 @@ export default function DynamicPortfolio({ animated = true }: DynamicPortfolioPr
                     rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
                     whileHover={{ y: -2, scale: 1.02 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    className="inline-flex items-center gap-3 font-[family-name:var(--font-ibm-plex-mono-family)] text-xs tracking-[0.1em] text-silver/60 border border-steel/15 rounded-full px-5 py-3 hover:bg-iron/40 hover:text-chalk hover:border-steel/30 transition-all duration-200 force-system-cursor"
+                    className="inline-flex items-center gap-3 font-[family-name:var(--font-ibm-plex-mono-family)] text-xs tracking-[0.1em] text-subtle border border-steel/15 rounded-full px-5 py-3 hover:bg-iron/40 hover:text-chalk hover:border-steel/30 transition-all duration-200 force-system-cursor"
                   >
                     {link.icon}
                     {link.label}
@@ -318,7 +318,7 @@ export default function DynamicPortfolio({ animated = true }: DynamicPortfolioPr
                     href={link.href}
                     target={link.href.startsWith("http") ? "_blank" : undefined}
                     rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    className="inline-flex items-center gap-3 font-[family-name:var(--font-ibm-plex-mono-family)] text-xs tracking-[0.1em] text-silver/60 border border-steel/15 rounded-full px-5 py-3 force-system-cursor"
+                    className="inline-flex items-center gap-3 font-[family-name:var(--font-ibm-plex-mono-family)] text-xs tracking-[0.1em] text-subtle border border-steel/15 rounded-full px-5 py-3 force-system-cursor"
                   >
                     {link.icon}
                     {link.label}
@@ -331,10 +331,10 @@ export default function DynamicPortfolio({ animated = true }: DynamicPortfolioPr
 
         {/* Tagline */}
         <div className="mt-auto pt-8">
-          <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/25 text-xs italic">
+          <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-xs italic">
             Firmware · Systems · Products
           </p>
-          <p className="font-[family-name:var(--font-space-mono-family)] text-silver/20 text-[10px] tracking-wider mt-2">
+          <p className="font-[family-name:var(--font-space-mono-family)] text-subtle text-[10px] tracking-wider mt-2">
             vinceong.dev
           </p>
         </div>
@@ -353,19 +353,19 @@ function ExpContent({ exp }: { exp: (typeof EXPERIENCES)[number] }) {
         <Badge exp={exp} />
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-3">
-            <h3 className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/90 font-medium text-sm truncate">
+            <h3 className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver font-medium text-sm truncate">
               {exp.role}
             </h3>
-            <span className="font-[family-name:var(--font-space-mono-family)] text-silver/30 text-[9px] sm:text-[10px] tracking-wider whitespace-nowrap">
+            <span className="font-[family-name:var(--font-space-mono-family)] text-subtle text-[9px] sm:text-[10px] tracking-wider whitespace-nowrap">
               {exp.date}
             </span>
           </div>
-          <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/45 text-xs mt-1">
+          <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-xs mt-1">
             {exp.company}
           </p>
         </div>
       </div>
-      <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/50 text-xs leading-[1.8] pl-[56px] sm:pl-[64px]">
+      <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-xs leading-[1.8] pl-[56px] sm:pl-[64px]">
         {exp.bullet}
       </p>
     </>
@@ -378,7 +378,7 @@ function ProjectContent({ project, animated }: { project: (typeof PROJECTS)[numb
       ? "text-emerald-400/80 border-emerald-400/20"
       : project.status === "IN PROGRESS"
       ? "text-amber-400/80 border-amber-400/20"
-      : "text-silver/40 border-steel/20";
+      : "text-subtle border-steel/20";
 
   const hasMedia = project.video || project.image;
 
@@ -429,15 +429,15 @@ function ProjectContent({ project, animated }: { project: (typeof PROJECTS)[numb
             {project.status}
           </span>
         </div>
-        <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/50 text-xs sm:text-sm leading-[1.7] mb-3 flex-1">
+        <p className="font-[family-name:var(--font-ibm-plex-mono-family)] text-subtle text-xs sm:text-sm leading-[1.7] mb-3 flex-1">
           {project.description}
         </p>
         <div className="flex items-center justify-between">
-          <span className="font-[family-name:var(--font-space-mono-family)] text-silver/30 text-[10px] sm:text-xs tracking-wider">
+          <span className="font-[family-name:var(--font-space-mono-family)] text-subtle text-[10px] sm:text-xs tracking-wider">
             {project.tech}
           </span>
           {project.href && !animated && (
-            <a href={project.href} target={project.href.startsWith("http") ? "_blank" : undefined} className="text-silver/40 hover:text-chalk transition-colors force-system-cursor">
+            <a href={project.href} target={project.href.startsWith("http") ? "_blank" : undefined} className="text-subtle hover:text-chalk transition-colors force-system-cursor">
               <ExternalLink className="w-4 h-4" strokeWidth={1.5} />
             </a>
           )}

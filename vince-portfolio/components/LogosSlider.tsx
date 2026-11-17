@@ -54,8 +54,8 @@ export function LogosSlider() {
             key={skill.id} 
             className='flex items-center gap-3 w-max'
           >
-            <skill.Icon className="w-5 h-5 text-silver/80" strokeWidth={1.5} />
-            <span className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver/70 text-sm whitespace-nowrap">
+            <skill.Icon className="w-5 h-5 text-silver" strokeWidth={1.5} />
+            <span className="font-[family-name:var(--font-ibm-plex-mono-family)] text-silver text-sm whitespace-nowrap">
               {skill.name}
             </span>
           </div>

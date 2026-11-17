@@ -47,7 +47,7 @@ export default function ResumePageClient() {
       <CustomCursor />
       <Navbar />
 
-      <main className="min-h-screen bg-black text-chalk selection:bg-silver/30 selection:text-white pt-[250px] relative flex flex-col">
+      <main className="min-h-screen bg-void text-chalk pt-[250px] relative flex flex-col">
         {/* Content */}
         <div className="relative z-10 flex-1 flex flex-col w-full max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16 pb-24">
           <header className="mb-8 group/header relative">
@@ -96,7 +96,7 @@ export default function ResumePageClient() {
 
               <iframe 
                 src={isZoomedInFullscreen ? "/resume.pdf#view=FitH" : "/resume.pdf#toolbar=0&navpanes=0&scrollbar=0&view=Fit"}
-                className={`w-full h-full border-none bg-black ${isZoomedInFullscreen ? "" : "pointer-events-none"}`} 
+                className={`w-full h-full border-none bg-void ${isZoomedInFullscreen ? "" : "pointer-events-none"}`} 
                 title="Resume PDF Viewer"
               />
               

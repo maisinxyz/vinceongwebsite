@@ -1,0 +1,70 @@
+/* Liquid-glass rail tabs. Widths mirror RAIL in lib/site.ts (57 wide, 30 narrow, +14 hover);
+   the reserved gutter in styles/layout.css always equals the hovered width. */
+.rail {
+  --tab-w: 30px;
+  --tab-grow: 14px;
+  --tab-ease: var(--ease-in-out, cubic-bezier(0.65, 0, 0.35, 1));
+  --tab-dur: var(--dur-move, 320ms);
+  --tab-inset: inset 0 0 16px rgb(255 255 255 / 0.03), inset 0 1px 0 rgb(255 255 255 / 0.06);
+  --tab-inset-hover: inset 0 0 24px rgb(255 255 255 / 0.06), inset 0 1px 0 rgb(255 255 255 / 0.10),
+    2px 0 16px rgb(0 0 0 / 0.12);
+}
+
+.rail[data-rail="wide"] {
+  --tab-w: 57px;
+}
+
+:global(:root[data-theme="light"]) .rail {
+  --tab-inset: inset 0 1px 0 rgb(255 255 255 / 0.60);
+  --tab-inset-hover: inset 0 1px 0 rgb(255 255 255 / 0.70), 2px 0 12px rgb(17 17 17 / 0.06);
+}
+
+.tab {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--tab-w);
+  overflow: visible;
+  text-decoration: none;
+  background: linear-gradient(
+    135deg,
+    var(--glass-bg) 0%,
+    color-mix(in srgb, var(--glass-bg) 70%, transparent) 100%
+  );
+  backdrop-filter: blur(28px) saturate(1.8) brightness(1.05);
+  -webkit-backdrop-filter: blur(28px) saturate(1.8) brightness(1.05);
+  border: 1px solid var(--glass-border);
+  border-left: none;
+  border-radius: 0 16px 16px 0;
+  box-shadow: var(--tab-inset);
+  transition:
+    width var(--tab-dur) var(--tab-ease),
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.tab:hover,
+.tab:focus-visible {
+  width: calc(var(--tab-w) + var(--tab-grow));
+  background: linear-gradient(
+    135deg,
+    var(--glass-bg-hover) 0%,
+    color-mix(in srgb, var(--glass-bg-hover) 70%, transparent) 100%
+  );
+  border-color: var(--glass-border-hover);
+  box-shadow: var(--tab-inset-hover);
+}
+
+.label {
+  transform: rotate(-90deg);
+  white-space: nowrap;
+  font-family: var(--font-ibm-plex-mono-family);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  user-select: none;
+  transition: color 0.3s ease;
+}

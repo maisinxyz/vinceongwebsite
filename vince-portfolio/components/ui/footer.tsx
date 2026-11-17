@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Mail, ArrowUp } from "lucide-react";
+import { SITE } from "@/lib/site";
 
 
 
@@ -41,23 +42,21 @@ const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 export default function Footer() {
   return (
-    <footer className="border-steel/15 mx-auto w-full border-t px-6 py-16 mt-24">
+    // The border spans the full width; the content starts at the nav gutter.
+    <footer className="border-steel/15 w-full border-t py-16 mt-24 pl-gutter gutter-anim">
+      <div className="px-6">
       <div className="mx-auto flex max-w-7xl flex-col md:flex-row justify-between items-center gap-8 font-[family-name:var(--font-ibm-plex-mono-family)]">
-        
-        {/* Left Side: Name & Terms */}
+
+        {/* Left Side: Name & Links */}
         <div className="flex flex-col items-center md:items-start gap-3">
           <Link href="/">
             <h2 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-2xl tracking-tight hover:opacity-80 transition-opacity">
-              Vince Ong
+              {SITE.name}
             </h2>
           </Link>
-          <div className="flex flex-wrap justify-center md:justify-start items-center gap-4 text-sm text-silver/60">
+          <div className="flex flex-wrap justify-center md:justify-start items-center gap-4 text-sm text-subtle">
             <span>© {new Date().getFullYear()}</span>
-            <span className="text-steel/40">•</span>
-            <Link href="/privacy" className="hover:text-chalk transition-colors">Privacy</Link>
-            <span className="text-steel/40">•</span>
-            <Link href="/terms" className="hover:text-chalk transition-colors">Terms</Link>
-            <span className="text-steel/40">•</span>
+            <span aria-hidden="true" className="text-subtle">•</span>
             <Link href="/portfolio-view" target="_blank" rel="noopener noreferrer" className="hover:text-chalk transition-colors">Portfolio</Link>
           </div>
         </div>
@@ -65,7 +64,7 @@ export default function Footer() {
         {/* Right Side: Resume, Socials, Theme */}
         <div className="flex flex-wrap justify-center items-center gap-5">
           <a
-            href="/resume.pdf"
+            href={SITE.resumePdf}
             target="_blank"
             rel="noreferrer"
             className="text-sm font-medium px-5 py-3 rounded-xl border border-steel/20 border-dotted text-silver hover:text-chalk hover:border-steel/40 hover:-translate-y-1 transition-transform flex items-center justify-center bg-transparent"
@@ -73,21 +72,23 @@ export default function Footer() {
             Resume
           </a>
           
-          <a aria-label="Email" href="mailto:vinceong2020@gmail.com" rel="noreferrer" target="_blank" className={Underline}>
+          {/* The address lives only in env vars; /contact is the one place it is shown */}
+          <Link aria-label="Contact" href="/contact" className={Underline}>
             <Mail strokeWidth={1.5} className="h-5 w-5" />
-          </a>
-          <a aria-label="GitHub" href="https://github.com/maisinxyz" rel="noreferrer" target="_blank" className={Underline}>
+          </Link>
+          <a aria-label="GitHub" href={SITE.github.url} rel="noreferrer" target="_blank" className={Underline}>
             <GithubIcon className="h-5 w-5" />
           </a>
-          <a aria-label="LinkedIn" href="https://www.linkedin.com/in/vince-ong-9a96a3371/" rel="noreferrer" target="_blank" className={Underline}>
+          <a aria-label="LinkedIn" href={SITE.linkedin.url} rel="noreferrer" target="_blank" className={Underline}>
             <LinkedinIcon className="h-5 w-5" />
           </a>
-          
+
           <div className="ml-2">
             <ScrollToTopButton />
           </div>
         </div>
 
+      </div>
       </div>
     </footer>
   );

@@ -360,7 +360,7 @@ export const V = {                                   // framer-motion variants
 } as const satisfies Record<string, Variants>;
 
 /** Returns V.reducedFade when the user prefers reduced motion, else V[name]. */
-export function useVariants(name: keyof typeof V): Variants;   // wraps framer's useReducedMotion()
+export function useVariants(name: keyof typeof V): Variants;   // wraps usePrefersReducedMotion() (amended: framer's useReducedMotion breaks hydration)
 ```
 Exits use ease-out as well, because an ease-in exit starts slowly and makes dismissals feel laggy. **Springs are not allowed**: no `type: "spring"`, `stiffness` or `damping` anywhere. Use `T.*`. This covers "no bounce".
 
@@ -488,6 +488,17 @@ export function SuccessMark(p: { active: boolean; size?: number /*20*/; onDone?:
 ```
 `components/Providers.tsx` = `<MotionConfig reducedMotion="user"><ToastProvider>{children}</ToastProvider></MotionConfig>`.
 `components/RevealOnScroll.tsx` (primitives) becomes a real reveal: same props (`children`, `delay?`, `className?`), `V.fadeUp` with `whileInView`, `viewport={{ once: true, margin: "-10% 0px" }}`.
+**Amended after the primitives review (lead DECISION, 2026-11-16).** These are binding over the types above:
+- every primitive accepts `ref` (button `HTMLButtonElement`, anchor `HTMLAnchorElement`, IconButton `HTMLElement`, Popover content and Tabs tablist `HTMLDivElement`);
+- Tabs panels use `AnimatePresence mode="popLayout"` (still simultaneous), and inactive panels stay in the DOM as `hidden`;
+- `PopoverProps.contentProps` passes attributes to the content element;
+- the Select trigger is `<button role="combobox">`, and Select adds `triggerClassName`, `required` and `defaultValue`;
+- Toast `description` is a `ReactNode`, with an optional `action`;
+- `lib/motion.ts` exports `usePrefersReducedMotion()`, which anything that renders on the server must use instead of framer's `useReducedMotion()`;
+- the global focus ring lives in `@layer base`;
+- RevealOnScroll has a no-JS fallback;
+- extra exports: `buttonClass`, `iconButtonClass`, `tabId`, `panelId`, `isKnown`.
+
 Sandbox: `app/dev/motion/page.tsx` (server; `if (process.env.NODE_ENV === "production") notFound();`) plus `MotionSandbox.tsx`, with one labelled demo per row of 2.3.
 
 ### 2.5 Migration of raw buttons

@@ -42,8 +42,11 @@ export function getTheme(): Theme {
   return isTheme(t) ? t : "dark";
 }
 
-const nextFrame = () =>
-  new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
+// A macrotask, not requestAnimationFrame: rendering is suppressed inside the
+// startViewTransition update callback, so rAF would not fire until Chromium's
+// ~4 s timeout and the page would freeze. A setTimeout(0) lets subscribers'
+// effects (canvas, R3F) run before the "new" snapshot is captured.
+const nextTick = () => new Promise<void>((resolve) => setTimeout(resolve, 0));
 
 export function setTheme(next: Theme, opts?: { origin?: Origin }): void {
   if (typeof document === "undefined") return;
@@ -70,7 +73,7 @@ export function setTheme(next: Theme, opts?: { origin?: Origin }): void {
     // Plain crossfade; motion.css limits ::view-transition-group(root) to --dur-reduced.
     document.startViewTransition(async () => {
       apply();
-      await nextFrame();
+      await nextTick();
     });
     return;
   }
@@ -82,7 +85,7 @@ export function setTheme(next: Theme, opts?: { origin?: Origin }): void {
   html.classList.add("vt-reveal");
   const vt = document.startViewTransition(async () => {
     apply();
-    await nextFrame(); // lets subscribed canvases and R3F scenes redraw before the "new" snapshot
+    await nextTick(); // lets subscribed canvases and R3F scenes update before the "new" snapshot
   });
   vt.ready
     .then(() => {

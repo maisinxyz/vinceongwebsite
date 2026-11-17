@@ -36,15 +36,6 @@ body {
   padding-bottom: var(--nav-bar-bottom);
 }
 
-/* Unlayered copies of the padding/margin gutter utilities. The legacy unlayered
-   `* { margin:0; padding:0 }` reset in app/globals.css outranks @layer utilities,
-   so without these pl-gutter etc. would compute to 0. Remove once that reset goes. */
-.pl-gutter { padding-left: var(--nav-gutter); }
-.ml-gutter { margin-left: var(--nav-gutter); }
-.-ml-gutter { margin-left: calc(var(--nav-gutter) * -1); }
-.pt-nav-top { padding-top: var(--nav-top); }
-.pb-navbar { padding-bottom: var(--nav-bar-bottom); }
-
 @utility fixed-center-x {
   left: calc(var(--nav-gutter) + (100vw - var(--nav-gutter)) / 2);
   translate: -50% 0;

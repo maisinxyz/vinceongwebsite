@@ -28,13 +28,7 @@ html.vt-reveal::view-transition-new(root) {
 /* ═══════════════════════════════════════════════════
    BASE STYLES
    ═══════════════════════════════════════════════════ */
-/* NOTE: this reset is unlayered, so it outranks every Tailwind p-* / m-* utility
-   (those live in @layer utilities) and they never apply. The current look depends on
-   that, so it stays until the lead decides (BOARD CONCERN). The gutter spacing classes
-   are re-declared unlayered in styles/layout.css so they still work. */
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 

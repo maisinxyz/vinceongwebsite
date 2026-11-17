@@ -3,30 +3,16 @@
 import Link from "next/link";
 import { Mail, ArrowUp } from "lucide-react";
 import { SITE } from "@/lib/site";
+import { IconButton } from "@/components/primitives/IconButton";
 
 
 
 function handleScrollTop() {
-  window.scroll({
-    top: 0,
-    behavior: "smooth",
-  });
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  window.scroll({ top: 0, behavior: reduced ? "auto" : "smooth" });
 }
 
-function ScrollToTopButton() {
-  return (
-    <div className="flex items-center justify-center">
-      <div className="flex items-center rounded-full border border-steel/20 border-dotted p-1">
-        <button type="button" onClick={handleScrollTop} className="hover:text-chalk text-silver transition-colors px-3 py-2">
-          <ArrowUp className="h-5 w-5" strokeWidth={1.5} />
-          <span className="sr-only">Scroll to Top</span>
-        </button>
-      </div>
-    </div>
-  );
-}
-
-const Underline = `hover:-translate-y-1 border border-steel/20 border-dotted rounded-xl p-2.5 transition-transform text-silver hover:text-chalk hover:border-steel/40 flex items-center justify-center`;
+const Underline = `hover:-translate-y-1 border border-steel/20 border-dotted rounded-xl p-3 transition-transform text-silver hover:text-chalk hover:border-steel/40 flex items-center justify-center`;
 
 const GithubIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
@@ -43,14 +29,16 @@ const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
 export default function Footer() {
   return (
     // The border spans the full width; the content starts at the nav gutter.
-    <footer className="border-steel/15 w-full border-t py-16 mt-24 pl-gutter gutter-anim">
+    // Spacing (CONTRACT 1.9): mx-auto deleted (never applied; the baseline is left-aligned at the gutter);
+    // px-6 kept (the reset had pinned the text to the viewport edge); py-16 mt-24 trimmed to py-10 mt-12.
+    <footer className="border-steel/15 w-full border-t py-10 mt-12 pl-gutter gutter-anim">
       <div className="px-6">
-      <div className="mx-auto flex max-w-7xl flex-col md:flex-row justify-between items-center gap-8 font-[family-name:var(--font-ibm-plex-mono-family)]">
+      <div className="flex max-w-7xl flex-col md:flex-row justify-between items-center gap-8 font-[family-name:var(--font-ibm-plex-mono-family)]">
 
         {/* Left Side: Name & Links */}
         <div className="flex flex-col items-center md:items-start gap-3">
           <Link href="/">
-            <h2 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-2xl tracking-tight hover:opacity-80 transition-opacity">
+            <h2 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-2xl tracking-tight hover:text-silver transition-colors">
               {SITE.name}
             </h2>
           </Link>
@@ -62,12 +50,12 @@ export default function Footer() {
         </div>
 
         {/* Right Side: Resume, Socials, Theme */}
-        <div className="flex flex-wrap justify-center items-center gap-5">
+        <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-5">
           <a
             href={SITE.resumePdf}
             target="_blank"
             rel="noreferrer"
-            className="text-sm font-medium px-5 py-3 rounded-xl border border-steel/20 border-dotted text-silver hover:text-chalk hover:border-steel/40 hover:-translate-y-1 transition-transform flex items-center justify-center bg-transparent"
+            className="text-sm font-medium px-4 sm:px-5 py-3 rounded-xl border border-steel/20 border-dotted text-silver hover:text-chalk hover:border-steel/40 hover:-translate-y-1 transition-transform flex items-center justify-center bg-transparent"
           >
             Resume
           </a>
@@ -83,9 +71,12 @@ export default function Footer() {
             <LinkedinIcon className="h-5 w-5" />
           </a>
 
-          <div className="ml-2">
-            <ScrollToTopButton />
-          </div>
+          <IconButton
+            label="Scroll to top"
+            icon={<ArrowUp strokeWidth={1.5} />}
+            onClick={handleScrollTop}
+            className="sm:ml-2 border border-dotted border-steel/40"
+          />
         </div>
 
       </div>

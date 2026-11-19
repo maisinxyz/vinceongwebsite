@@ -1,21 +1,24 @@
 import type { Project } from "./types";
 
-// Seed from NEW HARDWARE DOCS (AGV img1, AGV vid 1-4). Copy describes only what the media shows.
+// Seed from NEW HARDWARE DOCS (AGV img1, AGV vid 1-4) and Vince's answers (MSE 112 MasterPi, Summer 2026).
 const DIR = "/projects/agv";
 
 export const project: Project = {
   slug: "agv",
   title: "AUTONOMOUS GROUND VEHICLE",
-  subtitle: "Mecanum drive · Robotic arm · Line following",
+  subtitle: "MSE 112 · MasterPi · Mecanum drive and robotic arm",
   category: "hardware",
   status: "COMPLETED",
-  year: "TODO(vince)",
+  year: "2026",
+  dateRange: "SUMMER 2026",
+  course: "MSE 112",
   summary: "Mecanum-wheel ground vehicle that line-follows a taped track and picks up objects.",
   description: [
-    "An autonomous ground vehicle built on a mecanum-wheel chassis with an on-board robotic arm and camera. The robot follows a taped line course on its own and uses the arm to pick up objects along the route.",
+    "An autonomous ground vehicle built on a Raspberry Pi MasterPi: a mecanum-wheel chassis with an on-board robotic arm. The robot follows a taped line course on its own and uses the arm to pick up objects along the route.",
+    "Vince developed the code and hardware for the entire project: Python and C++ on the robot, MATLAB for testing, flashing and configuring the Raspberry Pi, and setting up the camera and ultrasonic sensors the vehicle uses to see the course and its surroundings.",
     "Mecanum wheels let the chassis strafe and rotate in place, so the vehicle can line up with a target without a three-point turn.",
   ],
-  tags: ["Robotics", "Mecanum Drive", "Robotic Arm", "Line Following", "Computer Vision"],
+  tags: ["Python", "C++", "Raspberry Pi", "MATLAB", "Mecanum Drive", "Robotic Arm", "Ultrasonic Sensors"],
   media: {
     kind: "video",
     src: `${DIR}/clip-2.mp4`,
@@ -30,10 +33,5 @@ export const project: Project = {
     { kind: "video", src: `${DIR}/clip-4.mp4`, poster: `${DIR}/clip-4-poster.jpg`, alt: "The AGV following a green line on the floor", caption: "Floor line run", orientation: "portrait" },
   ],
   detail: true,
-  links: [],
-  todo: [
-    "TODO(vince): year, date range and course (is this the MSE 112 MasterPi used for shape sorting / YOLOX?).",
-    "TODO(vince): your role, the controller and language (Raspberry Pi + Python?), and how line following and picking work (camera vs. IR sensors).",
-    "TODO(vince): any results (lap time, pick success rate) and a repo link.",
-  ],
+  links: [{ kind: "github", label: "GitHub", href: "https://github.com/hmarthens1/mse112-ws-student" }],
 };

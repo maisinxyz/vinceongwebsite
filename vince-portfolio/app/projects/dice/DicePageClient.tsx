@@ -8,6 +8,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/ui/footer";
 import CustomCursor from "@/components/CustomCursor";
 import RevealOnScroll from "@/components/RevealOnScroll";
+import { ProjectGallery } from "@/components/projects/ProjectGallery";
 
 import DigitalDicePCB from "@/components/DigitalDicePCB";
 
@@ -80,6 +81,9 @@ export default function DicePageClient() {
             </RevealOnScroll>
           </div>
         </section>
+
+        {/* GALLERY: photos and a clip of the real board */}
+        <ProjectGallery slug="dice" />
 
         {/* TRUTH TABLE */}
         <section className="py-28 sm:py-36">

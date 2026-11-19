@@ -9,6 +9,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/ui/footer";
 import CustomCursor from "@/components/CustomCursor";
 import RevealOnScroll from "@/components/RevealOnScroll";
+import { ProjectGallery } from "@/components/projects/ProjectGallery";
 
 import SpiceDispenser2D from "@/components/SpiceDispenser2D";
 
@@ -66,6 +67,9 @@ export default function SpicePageClient() {
             </RevealOnScroll>
           </div>
         </section>
+
+        {/* GALLERY: photos and clips of the built dispenser */}
+        <ProjectGallery slug="spice" />
 
         {/* DETAILS */}
         <section className="py-28 sm:py-36">

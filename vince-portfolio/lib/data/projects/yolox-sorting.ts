@@ -15,6 +15,8 @@ export const project: Project = {
   tags: ["YOLOX", "Computer Vision", "Python"],
   media: { kind: "placeholder", alt: "YOLOX detection demo (image coming soon)" },
   detail: false,
+  // Hidden from /projects until Vince confirms the details below.
+  unlisted: true,
   links: [],
   todo: [
     "TODO(vince): year, status and date range of the YOLOX sorting project.",

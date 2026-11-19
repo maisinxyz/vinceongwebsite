@@ -15,6 +15,8 @@ export const project: Project = {
   tags: ["Python", "Computer Vision", "Raspberry Pi"],
   media: { kind: "placeholder", alt: "Shape sorting demo (image coming soon)" },
   detail: false,
+  // Hidden from /projects until Vince confirms the details below.
+  unlisted: true,
   links: [],
   todo: [
     "TODO(vince): year, status and date range of the shape sorting project.",

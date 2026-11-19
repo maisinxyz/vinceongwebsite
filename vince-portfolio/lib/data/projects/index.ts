@@ -1,4 +1,5 @@
-import type { Project, ProjectSlug } from "./types";
+import type { Project, ProjectCategory, ProjectSlug } from "./types";
+import { project as agv } from "./agv";
 import { project as dawntrace } from "./dawntrace";
 import { project as spice } from "./spice";
 import { project as dice } from "./dice";
@@ -13,6 +14,7 @@ export type * from "./types";
 
 /** Fixed display order: hardware first, then software, newest first within each. */
 export const PROJECTS: readonly Project[] = [
+  agv,
   dawntrace,
   spice,
   dice,
@@ -26,6 +28,20 @@ export const PROJECTS: readonly Project[] = [
 
 export const HARDWARE: readonly Project[] = PROJECTS.filter((p) => p.category === "hardware");
 export const SOFTWARE: readonly Project[] = PROJECTS.filter((p) => p.category === "software");
+
+/** What the /projects lists show: everything not marked `unlisted`. */
+export const LISTED: readonly Project[] = PROJECTS.filter((p) => !p.unlisted);
+
+export const CATEGORIES: readonly ProjectCategory[] = ["hardware", "software"];
+
+export function listedIn(category: ProjectCategory): readonly Project[] {
+  return LISTED.filter((p) => p.category === category);
+}
+
+/** Route of the single-category list page. */
+export function categoryHref(category: ProjectCategory): string {
+  return `/projects/${category}`;
+}
 
 const BY_SLUG = new Map<ProjectSlug, Project>(PROJECTS.map((p) => [p.slug, p]));
 

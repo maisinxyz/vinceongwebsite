@@ -70,7 +70,8 @@ export function ProjectShell({ slug, screen, screenLabel, screenAspect = "16 / 1
           </ul>
         )}
 
-        <h1 className="font-[family-name:var(--font-syne-family)] text-4xl font-extrabold tracking-tight text-chalk sm:text-5xl lg:text-6xl">
+        {/* Scales down on narrow screens so a long word ("AUTONOMOUS") never overflows the column */}
+        <h1 className="font-[family-name:var(--font-syne-family)] text-[clamp(1.25rem,calc(8vw-4px),2.25rem)] font-extrabold tracking-tight text-chalk sm:text-[clamp(2.25rem,calc(8vw-8px),3rem)] lg:text-6xl">
           {title}
         </h1>
         {isKnown(p.subtitle) && <p className={`${MONO} mt-3 text-base text-silver`}>{p.subtitle}</p>}

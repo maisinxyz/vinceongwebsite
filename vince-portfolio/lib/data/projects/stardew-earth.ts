@@ -17,6 +17,8 @@ export const project: Project = {
   tags: ["NASA Space Apps", "3D"],
   media: { kind: "placeholder", alt: "Stardew Earth globe (image coming soon)" },
   detail: false,
+  // Hidden from /projects until Vince confirms the details below.
+  unlisted: true,
   links: [],
   todo: [
     "TODO(vince): confirm the name \"STARDEW EARTH\" with subtitle \"FieldTwin\" (CONTRACT Q7).",

@@ -2,7 +2,7 @@ import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join, relative, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { DETAIL_SLUGS, PROJECTS, getProject, projectHref } from "./projects";
+import { CATEGORIES, DETAIL_SLUGS, LISTED, PROJECTS, categoryHref, getProject, listedIn, projectHref } from "./projects";
 import { experiences } from "./experience";
 import { COURSES } from "./education";
 import { RAIL } from "@/lib/site";
@@ -31,6 +31,23 @@ describe("projects", () => {
 
   it("keeps list summaries to one line (≤ 90 chars)", () => {
     for (const p of PROJECTS) expect(p.summary.length, p.slug).toBeLessThanOrEqual(90);
+  });
+
+  it("splits listed projects into category pages that exist", () => {
+    expect(LISTED.every((p) => !p.unlisted)).toBe(true);
+    expect(CATEGORIES.flatMap((c) => listedIn(c)).length).toBe(LISTED.length);
+    for (const c of CATEGORIES) {
+      expect(categoryHref(c)).toBe(`/projects/${c}`);
+      expect(existsSync(join(ROOT, "app/projects", c, "page.tsx")), c).toBe(true);
+      expect(slugs.has(c as never), `category "${c}" collides with a project slug`).toBe(false);
+    }
+  });
+
+  it("points every local media file at something in public/", () => {
+    for (const p of PROJECTS)
+      for (const m of [p.media, ...(p.gallery ?? [])])
+        for (const src of [m.src, m.poster])
+          if (src?.startsWith("/")) expect(existsSync(join(ROOT, "public", src)), `${p.slug}: ${src}`).toBe(true);
   });
 
   it("marks every todo as TODO(vince)", () => {

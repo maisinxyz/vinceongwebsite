@@ -1,6 +1,7 @@
 import type { ExperienceId } from "@/lib/data/experience";
 
 export type ProjectSlug =
+  | "agv"
   | "dawntrace"
   | "spice"
   | "dice"
@@ -25,6 +26,10 @@ export interface ProjectMedia {
   src?: string;
   poster?: string;
   alt: string;
+  /** Shown under the item in a ProjectGallery. */
+  caption?: string;
+  /** "portrait" items span one gallery column, "landscape" items may span two. */
+  orientation?: "portrait" | "landscape";
 }
 
 export interface Project {
@@ -44,6 +49,10 @@ export interface Project {
   tags: string[];
   /** "component" only for dice (renders <DigitalDicePCB compact/>). */
   media: ProjectMedia;
+  /** Extra photos and clips, rendered by ProjectGallery on the detail page. */
+  gallery?: ProjectMedia[];
+  /** true hides the project from the /projects lists until it has real content. */
+  unlisted?: boolean;
   /** true ⇔ app/projects/<slug>/page.tsx exists (data.test.ts asserts). */
   detail: boolean;
   links: ProjectLink[];

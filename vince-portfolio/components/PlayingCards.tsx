@@ -72,7 +72,7 @@ function SuitCorners({ suit }: { suit: string }) {
 function CardBack({ suit }: { suit: string }) {
   return (
     <div className="absolute inset-0 rounded-xl overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] to-[#131313]" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] to-[#131313] light:from-white light:to-[#EFEFEF]" />
       <div className="absolute inset-[5px] rounded-lg border border-silver/15" />
       <div className="absolute inset-[11px] rounded-md border border-silver/8" />
 
@@ -113,7 +113,7 @@ function CardBack({ suit }: { suit: string }) {
    ═══════════════════════════════════════════════════ */
 function CardFront({ heading, body }: { heading: string; body: string }) {
   return (
-    <div className="absolute inset-0 rounded-xl bg-black p-[6px]">
+    <div className="absolute inset-0 rounded-xl bg-black light:bg-white p-[6px]">
       <div className="relative w-full h-full rounded-lg border border-silver/30 flex flex-col items-center text-center px-3 py-4 overflow-hidden">
         
         <h3 className="font-[family-name:var(--font-syne-family)] font-bold text-chalk text-base tracking-tight mb-2 shrink-0 mt-1">
@@ -158,7 +158,7 @@ function Card({
       style={{ perspective: "1200px", maxWidth: "280px" }}
       onClick={onClick}
     >
-      <div className="relative w-full h-full transition-all duration-300 group-hover:-translate-y-2 group-hover:drop-shadow-[0_20px_40px_rgba(0,0,0,0.8)]">
+      <div className="relative w-full h-full transition-all duration-300 group-hover:-translate-y-2 group-hover:drop-shadow-[0_20px_40px_rgba(0,0,0,0.8)] light:group-hover:drop-shadow-[0_20px_40px_rgba(0,0,0,0.15)]">
         <div
           className="relative w-full h-full"
           style={{
@@ -168,14 +168,14 @@ function Card({
           }}
         >
           <div
-            className="absolute inset-0 rounded-xl border border-silver/15"
+            className="absolute inset-0 rounded-xl border border-silver/15 light:border-silver/30 light:shadow-elev-2"
             style={{ backfaceVisibility: "hidden" }}
           >
             <CardBack suit={card.suit} />
           </div>
 
           <div
-            className="absolute inset-0 rounded-xl border border-silver/15"
+            className="absolute inset-0 rounded-xl border border-silver/15 light:border-silver/30 light:shadow-elev-2"
             style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
           >
             <CardFront heading={card.heading} body={card.body} />

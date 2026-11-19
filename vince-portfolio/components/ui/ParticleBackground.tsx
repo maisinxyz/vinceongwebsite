@@ -68,7 +68,8 @@ export function ParticleBackground() {
 
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "#fafafa";
+      // White motes screen-blend on dark; on light they become dark motes that multiply
+      ctx.fillStyle = document.documentElement.dataset.theme === "light" ? "#555555" : "#fafafa";
       particles.forEach((p) => {
         p.y -= p.speed;
         if (p.y < 0) reset(p);
@@ -111,12 +112,12 @@ export function ParticleBackground() {
         <div className="vline" />
       </div>
 
-      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none opacity-60 mix-blend-screen" />
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none opacity-60 mix-blend-screen light:mix-blend-multiply light:opacity-40" />
 
       <style>{`
         .hline, .vline {
           position: absolute;
-          background: #27272a;
+          background: var(--line);
           opacity: .75;
           will-change: transform, opacity;
         }

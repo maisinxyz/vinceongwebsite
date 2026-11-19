@@ -48,6 +48,10 @@
   --scene-outline: #2E2E2E;
   --scene-accent: #7FAACB;
   --logo-metal: #E0E5EC;
+
+  /* Base of the legacy `steel` utilities. Most uses add a low alpha (border-steel/15),
+     which reads on black but vanishes on white, so light mode uses a darker ink. */
+  --steel-ink: var(--line);
 }
 
 :root[data-theme="light"] {
@@ -56,7 +60,7 @@
   --bg-deep: #FFFFFF;
   --bg: #FAFAFA;
   --surface: #F0F0F0;
-  --line: #D0D0D0;
+  --line: #C8C8C8;
   --line-strong: #858585;
   --muted: #555555;
   --subtle: #6B6B6B;
@@ -71,10 +75,10 @@
   --selection-fg: #111111;
   --scrim: rgb(250 250 250 / 0.80);
   --nav-bg: rgb(250 250 250 / 0.92);
-  --glass-bg: rgb(17 17 17 / 0.04);
-  --glass-bg-hover: rgb(17 17 17 / 0.08);
-  --glass-border: rgb(17 17 17 / 0.10);
-  --glass-border-hover: rgb(17 17 17 / 0.20);
+  --glass-bg: rgb(17 17 17 / 0.05);
+  --glass-bg-hover: rgb(17 17 17 / 0.09);
+  --glass-border: rgb(17 17 17 / 0.18);
+  --glass-border-hover: rgb(17 17 17 / 0.32);
   --elev-1: 0 1px 2px rgb(17 17 17 / 0.06);
   --elev-2: 0 2px 4px rgb(17 17 17 / 0.06), 0 8px 24px rgb(17 17 17 / 0.08);
   --elev-3: 0 4px 8px rgb(17 17 17 / 0.06), 0 16px 48px rgb(17 17 17 / 0.12);
@@ -93,6 +97,8 @@
   --scene-outline: #D0D0D0;
   --scene-accent: #2A5A7A;
   --logo-metal: #5A6068;
+
+  --steel-ink: #6E6E6E;
 }
 
 /* Legacy aliases for CSS modules and inline styles */
@@ -105,12 +111,15 @@
   --chalk: var(--text);
 }
 
+/* `light:` variant for the few places that hardcode dark-only colours (light:bg-white) */
+@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
+
 /* Utilities point at the semantic vars, so `text-silver/40` etc. follow data-theme */
 @theme inline {
   --color-void: var(--bg-deep);
   --color-carbon: var(--bg);
   --color-iron: var(--surface);
-  --color-steel: var(--line);
+  --color-steel: var(--steel-ink);
   --color-silver: var(--muted);
   --color-chalk: var(--text);
   --color-accent: var(--accent);
@@ -130,6 +139,14 @@
   --font-syne: var(--font-syne-family), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-ibm-plex-mono-family), ui-monospace, monospace;
   --font-data: var(--font-space-mono-family), ui-monospace, monospace;
+}
+
+/* Full-strength steel keeps the tuned --line in light mode; only the alpha variants darken */
+:root[data-theme="light"] :is(.border-steel, .divide-steel > :not(:last-child)) {
+  border-color: var(--line);
+}
+:root[data-theme="light"] .bg-steel {
+  background-color: var(--line);
 }
 
 ::selection {

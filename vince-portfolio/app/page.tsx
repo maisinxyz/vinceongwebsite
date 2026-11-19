@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { ChevronDown, Briefcase, FolderCode, GraduationCap, Mail, MapPin, Sun, Moon, Play, Square } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/ui/footer";
@@ -22,18 +22,8 @@ export default function Home() {
   const { isLight, toggleTheme, overlayStyle } = useThemeTransition();
   const { isTouring, startTour, stopTour, cursorRef } = useAutoTour();
   const { device, isTouchDevice, mounted } = useDeviceType();
-  const [showInProgress, setShowInProgress] = useState(false);
-  const inProgressTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const isMobileOrTablet = mounted && (device === 'phone' || device === 'tablet' || isTouchDevice);
-
-  const handleLightClick = () => {
-    setShowInProgress(true);
-    if (inProgressTimeout.current) clearTimeout(inProgressTimeout.current);
-    inProgressTimeout.current = setTimeout(() => {
-      setShowInProgress(false);
-    }, 3000);
-  };
 
   return (
     <>
@@ -53,7 +43,7 @@ export default function Home() {
           {/* Animated wave background (Desktop only) */}
           {mounted && !isMobileOrTablet ? (
             <div className="absolute inset-0" style={{ zIndex: 0 }}>
-              <Waves strokeColor="#3a3a3a" backgroundColor="#000000" />
+              <Waves strokeColor={isLight ? "#C4C4C4" : "#3a3a3a"} backgroundColor={isLight ? "#FFFFFF" : "#000000"} />
             </div>
           ) : mounted && isMobileOrTablet ? (
             /* Regular moving gradient background for mobile/tablet */
@@ -61,7 +51,9 @@ export default function Home() {
               className="absolute inset-0" 
               style={{ 
                 zIndex: 0,
-                background: "linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%)",
+                background: isLight
+                  ? "linear-gradient(135deg, #FFFFFF 0%, #ECECEC 50%, #FFFFFF 100%)"
+                  : "linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%)",
                 backgroundSize: "400% 400%",
                 animation: "gradientFlow 15s ease infinite"
               }} 
@@ -106,7 +98,7 @@ export default function Home() {
             >
               {/* Theme Toggle */}
               <button
-                onClick={handleLightClick}
+                onClick={toggleTheme}
                 className="group flex items-center gap-2.5 sm:gap-3 font-[family-name:var(--font-ibm-plex-mono-family)] text-[11px] sm:text-sm tracking-[0.15em] text-subtle border border-silver/15 rounded-full px-5 py-2.5 sm:px-8 sm:py-3.5 hover:bg-iron/60 hover:text-chalk hover:border-silver/30 transition-all duration-300"
               >
                 {isLight ? (
@@ -143,7 +135,7 @@ export default function Home() {
           {/* Bottom gradient fade */}
           <div
             className="absolute bottom-0 left-0 w-full pointer-events-none"
-            style={{ zIndex: 15, height: "25vh", background: "linear-gradient(to bottom, transparent, #000000)" }}
+            style={{ zIndex: 15, height: "25vh", background: "linear-gradient(to bottom, transparent, var(--bg-deep))" }}
           />
 
           {/* Scroll indicator */}
@@ -461,28 +453,6 @@ export default function Home() {
 
       <Footer />
 
-      {/* In Progress Notice */}
-      <div
-        style={{
-          position: "fixed",
-          bottom: "40px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          pointerEvents: "none",
-          zIndex: 99995,
-          opacity: showInProgress ? 0.6 : 0,
-          transition: "opacity 0.6s ease",
-          mixBlendMode: "difference",
-          color: "#fff",
-          fontFamily: "var(--font-space-mono-family)",
-          fontSize: "12px",
-          letterSpacing: "0.2em",
-          textTransform: "uppercase",
-          textAlign: "center"
-        }}
-      >
-        In progress
-      </div>
     </>
   );
 }

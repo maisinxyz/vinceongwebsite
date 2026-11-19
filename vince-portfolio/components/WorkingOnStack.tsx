@@ -39,7 +39,7 @@ export default function WorkingOnStack() {
             <div
               className={`w-full h-full border border-steel/30 rounded-md overflow-hidden relative transition-all duration-200 ${
                 isActive
-                  ? "hover:border-steel/50 hover:-translate-y-[2px] shadow-[0_8px_30px_rgba(0,0,0,0.6)]"
+                  ? "hover:border-steel/50 hover:-translate-y-[2px] shadow-[0_8px_30px_rgba(0,0,0,0.6)] light:shadow-elev-2"
                   : "shadow-[0_4px_20px_rgba(0,0,0,0.4)]"
               }`}
               style={{

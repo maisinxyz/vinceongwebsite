@@ -484,7 +484,7 @@ export default function AboutPageClient() {
       <CustomCursor />
       <Navbar />
 
-      <main className="relative max-lg:pt-[clamp(120px,15vw,224px)] lg:pt-48 xl:pt-56 pb-[250px] lg:pb-[400px] min-h-screen">
+      <main className="relative max-lg:pt-[clamp(120px,15vw,224px)] lg:pt-48 xl:pt-56 pb-[250px] lg:pb-[400px] min-h-screen lg:pr-[80px]" style={{ paddingLeft: "var(--sidenav-gutter)", transition: "padding-left 0.4s cubic-bezier(0.25, 0, 0, 1)" }}>
         <div className="max-w-[1400px] mx-auto h-full flex flex-col max-lg:px-[clamp(20px,5vw,96px)] lg:px-24">
           
           {/* ABOUT Header */}
@@ -501,10 +501,10 @@ export default function AboutPageClient() {
             <div className="h-px bg-silver/15 w-24 mt-8" />
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 lg:gap-32 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 lg:gap-16 xl:gap-24 w-full">
             
             {/* ── LEFT COLUMN: Bio + Projects (Wider side) ── */}
-            <div className="lg:col-span-6 lg:col-start-2 flex flex-col pl-0" style={{ paddingLeft: "var(--sidenav-gutter)", transition: "padding-left 0.4s cubic-bezier(0.25, 0, 0, 1)" }}>
+            <div className="lg:col-span-7 flex flex-col">
 
               {/* Bio: Floating Textbox */}
               <motion.div
@@ -514,7 +514,7 @@ export default function AboutPageClient() {
                 style={{ marginTop: '80px', marginBottom: '100px' }}
               >
                 <div
-                  className="border border-steel/20 bg-iron/10 p-6 sm:p-10 lg:p-14 shadow-[0_4px_40px_rgba(0,0,0,0.3)]"
+                  className="border border-steel/20 bg-iron/10 p-6 sm:p-10 lg:p-14 shadow-[0_4px_40px_rgba(0,0,0,0.3)] light:shadow-elev-2"
                 >
                   <h2 className="font-[family-name:var(--font-syne-family)] font-extrabold text-chalk text-3xl sm:text-4xl tracking-tight mb-8">
                     Vince Ong

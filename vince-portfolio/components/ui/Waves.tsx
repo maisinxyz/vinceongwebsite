@@ -28,6 +28,9 @@ export function Waves({
     backgroundColor = "#000000",
     pointerSize = 0.5
 }: WavesProps) {
+    // Read through a ref: the animation loop is set up once, and the colour follows the theme
+    const strokeRef = useRef(strokeColor)
+    strokeRef.current = strokeColor
     const containerRef = useRef<HTMLDivElement>(null)
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const ctxRef = useRef<CanvasRenderingContext2D | null>(null)
@@ -236,7 +239,7 @@ export function Waves({
         if (!ctx || !canvasRef.current) return
 
         ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height)
-        ctx.strokeStyle = strokeColor
+        ctx.strokeStyle = strokeRef.current
         ctx.lineWidth = 1
         ctx.beginPath()
 

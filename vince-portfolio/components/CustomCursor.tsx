@@ -99,6 +99,8 @@ export default function CustomCursor() {
 
   return (
     <>
+      {/* White + mix-blend-difference inverts whatever is underneath, so the cursor
+          reads in both themes (a theme colour like chalk vanishes on white). */}
       {/* Small dot — follows exactly */}
       <div
         ref={dotRef}
@@ -109,7 +111,7 @@ export default function CustomCursor() {
         }}
       >
         <div
-          className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-chalk transition-all duration-150 ${
+          className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white transition-all duration-150 ${
             isViewer ? "w-0 h-0" : "w-1.5 h-1.5"
           }`}
         />
@@ -127,10 +129,10 @@ export default function CustomCursor() {
         <div
           className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border transition-all duration-200 ${
             isViewer
-              ? "w-10 h-10 border-chalk/40"
+              ? "w-10 h-10 border-white/40"
               : isHovering
-              ? "w-12 h-12 border-chalk/60 bg-silver/15"
-              : "w-8 h-8 border-chalk/30"
+              ? "w-12 h-12 border-white/60 bg-white/15"
+              : "w-8 h-8 border-white/50"
           }`}
           style={{
             ...(isViewer && {

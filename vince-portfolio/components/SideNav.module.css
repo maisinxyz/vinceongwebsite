@@ -15,8 +15,9 @@
 }
 
 :global(:root[data-theme="light"]) .rail {
-  --tab-inset: inset 0 1px 0 rgb(255 255 255 / 0.60);
-  --tab-inset-hover: inset 0 1px 0 rgb(255 255 255 / 0.70), 2px 0 12px rgb(17 17 17 / 0.06);
+  /* On white the glass alone has no edge, so light tabs also cast a soft shadow */
+  --tab-inset: inset 0 1px 0 rgb(255 255 255 / 0.60), 1px 0 8px rgb(17 17 17 / 0.07);
+  --tab-inset-hover: inset 0 1px 0 rgb(255 255 255 / 0.70), 2px 0 14px rgb(17 17 17 / 0.12);
 }
 
 .tab {
